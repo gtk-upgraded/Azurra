@@ -172,7 +172,7 @@ style "paned" = "default"
 {
 	engine "murrine"
 	{
-		contrast = 1.0
+		contrast = 0.2
 	}
 }
 
@@ -361,6 +361,7 @@ style "treeview"
 	{
 		roundness = 0
 		gradient_shades     = {1.0,1.0,1.0,1.0}
+		contrast = 0.2
 	}
 }
 
@@ -813,7 +814,7 @@ style "toolbar-separator" {
 
 
 	engine "murrine" {
-		contrast = 1.0
+		contrast = 0.2
 		separatorstyle = 0
 	}
 }
@@ -864,7 +865,7 @@ style "xfwm-tabwin"
 
 	engine "murrine" {
 		roundness	    = 6
-		contrast            = 0.8
+		contrast            = 0.2
 		highlight_shade     = 1.00
 		lightborder_shade   = 1.0
 		gradient_shades     = {0.9,1.2,1.2,1.4}
