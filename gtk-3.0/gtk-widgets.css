@@ -224,7 +224,7 @@ row:selected, row:selected:hover, row:selected:focus {
 
 /* check and radio */
 checkbutton.text-button, radiobutton.text-button {
-    padding: 2px 4px;
+    padding: 4px;
     outline-offset: 0; }
 
 check, radio, check:disabled, radio:disabled, checkbutton:hover, checkbutton:active:hover, checkbutton:selected, checkbutton:selected:focus {
@@ -919,12 +919,12 @@ notebook {
     padding: 0; }
 
 notebook.frame {
+    margin: -1px;
     border-width: 1px;
     border-style: solid;
     border-color: @borders }
 
 notebook > header {
-    margin: -1px;
     background-color: @theme_bg_color; }
 
 notebook > stack:not(:only-child) {
@@ -2674,7 +2674,7 @@ messagedialog.csd .dialog-action-area button:only-child {
     color: @theme_unfocused_fg_color; }
 
 /* titlebutton */
-.titlebar .titlebutton:not(separator), .titlebar .titlebutton:not(separator):active, .titlebar .titlebutton:not(separator):backdrop {
+.titlebar .titlebutton:not(separator), .titlebar .titlebutton:not(separator):active, .titlebar .titlebutton:not(separator):backdrop, .titlebar:not(headerbar) .titlebutton:not(separator), headerbar.default-decoration .titlebutton:not(separator), .csd headerbar.default-decoration .titlebutton:not(separator), .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .titlebar:not(headerbar) .titlebutton:not(separator):backdrop, headerbar.default-decoration .titlebutton:not(separator):backdrop, .csd headerbar.default-decoration .titlebutton:not(separator):backdrop, .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop, .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop {
     padding: 2px 2px;
     border: none;
     color: transparent;
