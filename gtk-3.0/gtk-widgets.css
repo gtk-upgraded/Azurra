@@ -1219,7 +1219,7 @@ levelbar block.empty {
 /* scale */
 scale fill, scale trough {
     border: none;
-    border-radius: 0;
+    border-radius: 4px;
     background-color: alpha(@dark_shadow, 0.2); }
 
 scale fill:disabled, scale trough:disabled {
@@ -1233,11 +1233,14 @@ scale fill:backdrop:disabled, scale trough:backdrop:disabled {
 
 scale highlight {
     border: none;
-    border-radius: 0;
+    border-radius: 4px;
     background-color: @theme_selected_bg_color; }
 
-scale highlight:disabled, scale highlight:backdrop:disabled {
-    background-color: transparent; }
+scale highlight:disabled {
+    background-color: @theme_disabled_bg_color; }
+
+scale highlight:backdrop:disabled {
+    background-color: @theme_unfocused_disabled_bg_color; } 
 
 scale {
     min-height: 10px;
@@ -1245,9 +1248,9 @@ scale {
     padding: 12px; }
 
 scale slider {
-    min-height: 18px;
-    min-width: 18px;
-    margin: -8px; }
+    min-height: 16px;
+    min-width: 16px;
+    margin: -6px; }
 
 scale.fine-tune.horizontal {
     padding-top: 10px;
