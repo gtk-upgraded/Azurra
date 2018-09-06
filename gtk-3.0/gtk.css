@@ -5,8 +5,10 @@
 @define-color text_color #000000;
 @define-color selected_bg_color #1D8ECE;
 @define-color selected_fg_color #FFFFFF;
-@define-color disabled_bg_color shade(@bg_color, 0.95);
-@define-color disabled_fg_color shade(@bg_color, 0.35);
+@define-color disabled_bg_color mix(@fg_color, @bg_color, 0.95);
+@define-color disabled_fg_color mix(@fg_color, @bg_color, 0.5);
+@define-color disabled_base_color @disabled_bg_color;
+@define-color disabled_text_color @disabled_fg_color;
 
 /* Backdrop state colors */
 @define-color unfocused_bg_color @bg_color;
@@ -15,8 +17,10 @@
 @define-color unfocused_text_color @text_color;
 @define-color unfocused_selected_bg_color @selected_bg_color;
 @define-color unfocused_selected_fg_color @selected_fg_color;
-@define-color unfocused_disabled_bg_color shade(@bg_color, 0.98);
-@define-color unfocused_disabled_fg_color shade(@bg_color, 0.75);
+@define-color unfocused_disabled_bg_color mix(@fg_color, @bg_color, 0.98);
+@define-color unfocused_disabled_fg_color mix(@fg_color, @bg_color, 0.35);
+@define-color unfocused_disabled_base_color @disabled_bg_color;
+@define-color unfocused_disabled_text_color @unfocused_fg_color;
 
 /* Darker color scheme */
 @define-color dark_bg_color #ffffff;
@@ -31,6 +35,8 @@
 @define-color theme_selected_fg_color @selected_fg_color;
 @define-color theme_disabled_bg_color @disabled_bg_color;
 @define-color theme_disabled_fg_color @disabled_fg_color;
+@define-color theme_disabled_text_color @disabled_text_color;
+@define-color theme_disabled_base_color @disabled_base_color;
 
 /* Unfocused color scheme */
 @define-color theme_unfocused_bg_color @unfocused_bg_color;
@@ -41,6 +47,8 @@
 @define-color theme_unfocused_selected_fg_color @unfocused_selected_fg_color;
 @define-color theme_unfocused_disabled_bg_color @unfocused_disabled_bg_color;
 @define-color theme_unfocused_disabled_fg_color @unfocused_disabled_fg_color;
+@define-color theme_unfocused_disabled_text_color @unfocused_disabled_text_color;
+@define-color theme_unfocused_disabled_base_color @unfocused_disabled_base_color;
 
 /* Shadows */
 @define-color dark_shadow rgb(0, 0, 0);

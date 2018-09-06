@@ -1042,6 +1042,9 @@ paned > separator {
     color: transparent;
     background-color: @borders; }
 
+paned > separator:backdrop {
+    background-color: @unfocused_borders; }
+
 paned > separator:selected {
     background-color: @borders; }
 
@@ -1141,11 +1144,9 @@ progressbar {
 progressbar progress {
     border: none;
     border-radius: 0;
-    background-color: @theme_selected_bg_color;
-    background-image: linear-gradient(to right, #7dc6e2, @theme_selected_bg_color); }
-
+    background-color: @theme_selected_bg_color; }
 progressbar.vertical progress {
-    background-image: linear-gradient(to bottom, #7dc6e2, @theme_selected_bg_color); }
+    background-color: @theme_selected_bg_color; }
 
 progressbar progress:backdrop {
     background-color: @theme_unfocused_selected_bg_color; }
@@ -1159,11 +1160,11 @@ progressbar trough:backdrop {
 
 progressbar.horizontal trough,
 progressbar.horizontal progress {
-    min-height: 4px; }
+    min-height: 7px; }
 
 progressbar.vertical trough,
 progressbar.vertical progress {
-    min-width: 4px; }
+    min-width: 7px; }
 
 treeview.view.progressbar, treeview.view.progressbar:focus, treeview.view.progressbar:disabled {
     color: @theme_selected_fg_color;
@@ -1248,9 +1249,9 @@ scale {
     padding: 12px; }
 
 scale slider {
-    min-height: 16px;
-    min-width: 16px;
-    margin: -6px; }
+    min-height: 15px;
+    min-width: 15px;
+    margin: -5px; }
 
 scale.fine-tune.horizontal {
     padding-top: 10px;
