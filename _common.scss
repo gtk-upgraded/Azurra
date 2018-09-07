@@ -1,9 +1,21 @@
+@import 'colors';
+
+// Register functions
+@function gtkalpha($c,$a) {
+  @return unquote("alpha(#{$c}, #{$a})");
+}
+
+@function gtkmix($c1,$c2,$t) {
+  @return unquote("mix(#{$c1}, #{$c2}, #{$t})");
+}
+
+// wildcard settings
 * {
     -GtkScrollbar-has-backward-stepper: false;
     -GtkScrollbar-has-forward-stepper: false;
     -GtkScrolledwindow-scrollbar-spacing: 0;
     -GtkScrolledwindow-scrollbars-within-bevel: 1;
-    -GtkTextView-error-underline-color: @error_color;
+    -GtkTextView-error-underline-color: $error_color;
     -GtkToolbutton-icon-spacing: 6;
     -GtkToolItemGroup-expander-size: 11;
     -GtkWidget-text-handle-width: 20;
@@ -17,19 +29,19 @@
     outline-width: 1px;
     outline-offset: -3px;
     outline-style: dashed;
-    outline-color: @outline_color;
+    outline-color: $outline_color;
     -gtk-outline-radius: 0; }
 
-/* base states */
+// base states 
 .background {
-    color: @theme_fg_color;
-    background-color: alpha(@theme_bg_color, 0.999); }
+    color: $theme_fg_color;
+    background-color: gtkalpha($theme_bg_color, 0.999); }
 
 .background:backdrop {
-    color: @theme_unfocused_fg_color; 
-    background-color: @theme_unfocused_bg_color; }
+    color: $theme_unfocused_fg_color; 
+    background-color: $theme_unfocused_bg_color; }
 
-/* Image effects */
+// Image effects 
 *:disabled {
     -gtk-icon-effect: dim; }
 
@@ -37,43 +49,43 @@
     -gtk-icon-effect: highlight; }
 
 .gtkstyle-fallback {
-    color: @theme_fg_color;
-    background-color: @theme_bg_color; }
+    color: $theme_fg_color;
+    background-color: $theme_bg_color; }
 
 .gtkstyle-fallback:hover {
-    color: @theme_fg_color;
-    background-color: shade(@theme_bg_color, 1.1); }
+    color: $theme_fg_color;
+    background-color: shade($theme_bg_color, 1.1); }
 
 .gtkstyle-fallback:active {
-    color: @theme_fg_color;
-    background-color: shade(@theme_bg_color, 0.9); }
+    color: $theme_fg_color;
+    background-color: shade($theme_bg_color, 0.9); }
 
 .gtkstyle-fallback:disabled {
-    color: @theme_disabled_fg_color;
-    background-color: @theme_disabled_bg_color; }
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color; }
 
 .gtkstyle-fallback:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 image, image:disabled, label, label:disabled, box, box:disabled {
     background-color: transparent; }
 
-/* labels */
+// labels 
 label selection {
-    background-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color; }
+    background-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color; }
 
 label.separator {
-    color: @borders; }
+    color: $borders; }
 
 label.separator:backdrop {
-    color: @unfocused_borders; }
+    color: $unfocused_borders; }
 
 .dim-label, label.separator, popover label.separator, popover.background label.separator {
     opacity: 0.55; }
 
-/* transitions */
+// transitions 
 button {
     transition: border 100ms ease-in-out; }
 
@@ -114,94 +126,94 @@ scrollbar slider {
 decoration, decoration:backdrop {
     transition: 200ms ease-out; }
 
-/* assistant */
+// assistant 
 assistant .sidebar label.highlight {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 assistant .sidebar {
     padding: 4px;
     border-width: 0 1px 0 0;
     border-style: solid;
     border-radius: 0;
-    border-right-color: @borders;
-    color: @theme_fg_color;
-    background-color: @theme_bg_color; }
+    border-right-color: $borders;
+    color: $theme_fg_color;
+    background-color: $theme_bg_color; }
 
-/* link buttons */
+// link buttons 
 *:link, button:link, button:visited {
-    color: @link_color; }
+    color: $link_color; }
 
 *:link:visited, button:visited {
-    color: mix(@link_color, @theme_fg_color, 0.2); }
+    color: gtkmix($link_color, $theme_fg_color, 0.2); }
 
 *:selected *:link:visited, *:selected button:visited:link, *:selected button:visited {
-    color: mix(@link_color, @theme_selected_fg_color, 0.65); }
+    color: gtkmix($link_color, $theme_selected_fg_color, 0.65); }
 
 *:link:hover, button:hover:link, button:hover:visited {
-    color: shade(mix(@link_color, @theme_fg_color, 0.2), 1.15); }
+    color: shade(gtkmix($link_color, $theme_fg_color, 0.2), 1.15); }
 
 *:selected *:link:hover, *:selected button:hover:link, *:selected button:hover:visited {
-    color: mix(@link_color, @theme_selected_fg_color, 0.75); }
+    color: gtkmix($link_color, $theme_selected_fg_color, 0.75); }
 
 *:link:active, button:active:link, button:active:visited {
-    color: shade(@link_color, 0.85); }
+    color: shade($link_color, 0.85); }
 
 *:selected *:link:active, *:selected button:active:link, *:selected button:active:visited {
-    color: mix(@link_color, @theme_selected_fg_color, 0.5); }
+    color: gtkmix($link_color, $theme_selected_fg_color, 0.5); }
 
 infobar.info *:link, infobar.info button:link, infobar.info button:visited, infobar.question *:link, infobar.question button:link, infobar.question button:visited, infobar.warning *:link, infobar.warning button:link, infobar.warning button:visited, infobar.error *:link, infobar.error button:link, infobar.error button:visited, *:link:selected, button:selected:link, button:selected:visited, headerbar.selection-mode .subtitle:link, .selection-mode.titlebar:not(headerbar) .subtitle:link, *:selected *:link, *:selected button:link, *:selected button:visited {
-    color: mix(@link_color, @theme_selected_fg_color, 0.5); }
+    color: gtkmix($link_color, $theme_selected_fg_color, 0.5); }
 
 button:link > label, button:visited > label {
     text-decoration-line: underline; }
 
-/* button */
+// button 
 button {
     padding: 4px 8px;
     border-width: 1px;
     border-radius: 0;
     border-style: solid;
-    border-color: @borders;
-    color: @theme_fg_color;
-    background-color: shade(@theme_bg_color, 1.05); }
+    border-color: $borders;
+    color: $theme_fg_color;
+    background-color: shade($theme_bg_color, 1.05); }
 
 button:hover {
-    color: @theme_fg_color;
-    background-color: shade(@theme_bg_color, 1.1); }
+    color: $theme_fg_color;
+    background-color: shade($theme_bg_color, 1.1); }
 
 button:active, button:focus:active, button:checked:active {
-    color: @theme_fg_color;
-    border-color: shade(@theme_bg_color, 0.85);
-    background-color: shade(@theme_bg_color, 0.85); }
+    color: $theme_fg_color;
+    border-color: shade($theme_bg_color, 0.85);
+    background-color: shade($theme_bg_color, 0.85); }
 
 button:checked {
-    color: @theme_selected_fg_color;
-    border-color: @theme_selected_bg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    border-color: $theme_selected_bg_color;
+    background-color: $theme_selected_bg_color; }
 
 button:checked:backdrop {
-    color: @theme_unfocused_selected_fg_color;
-    border-color: @theme_unfocused_selected_bg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    color: $theme_unfocused_selected_fg_color;
+    border-color: $theme_unfocused_selected_bg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 button:backdrop {
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 button:disabled {
-    color: @theme_disabled_fg_color;
-    background-color: @theme_disabled_bg_color; }
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color; }
 
 button:checked:disabled {
-    border-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.5);
-    color: mix(@theme_selected_fg_color, @theme_disabled_fg_color, 0.5);
-    background-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.5); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.5);
+    color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.5);
+    background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.5); }
 
 button:checked:disabled:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_disabled_bg_color, 0.5);
-    color: mix(@theme_unfocused_selected_fg_color, @theme_unfocused_disabled_fg_color, 0.5);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_disabled_bg_color, 0.5); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_disabled_bg_color, 0.5);
+    color: gtkmix($theme_unfocused_selected_fg_color, $theme_unfocused_disabled_fg_color, 0.5);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_disabled_bg_color, 0.5); }
 
 button.flat, button.flat:backdrop, button.sidebar-button, button.sidebar-button:backdrop {
     padding: 3px 8px;
@@ -212,22 +224,22 @@ button.flat, button.flat:backdrop, button.sidebar-button, button.sidebar-button:
     background-color: transparent; }
 
 button.flat:hover, button.sidebar-button:hover {
-    border-color: @borders;
-    color: @theme_fg_color;
-    background-color: shade(@theme_bg_color, 1.05); }
+    border-color: $borders;
+    color: $theme_fg_color;
+    background-color: shade($theme_bg_color, 1.05); }
 
 button.flat:active, button.flat:checked, button.sidebar-button:active, button.sidebar-button:checked {
-    color: @theme_selected_fg_color;
-    border-color: @theme_selected_bg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    border-color: $theme_selected_bg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* row */
+// row 
 row:selected, row:selected:hover, row:selected:focus {
     border: none;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* check and radio */
+// check and radio 
 checkbutton.text-button, radiobutton.text-button {
     padding: 4px;
     outline-offset: 0; }
@@ -237,117 +249,117 @@ check, radio, check:disabled, radio:disabled, checkbutton:hover, checkbutton:act
     border-style: none;
     background-color: transparent; }
 
-/* check and radio */
+// check and radio 
 check, check row:selected, check row:selected:focus {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked.png"), url("assets/checkbox-unchecked@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked.png"), url("assets/checkbox-unchecked$2.png")); }
 
 check:backdrop, check row:selected:backdrop, check row:selected:focus:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-unfocused.png"), url("assets/checkbox-unchecked-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-unfocused.png"), url("assets/checkbox-unchecked-unfocused$2.png")); }
 
 check:disabled, check row:selected:disabled, check row:selected:focus:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-insensitive.png"), url("assets/checkbox-unchecked-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-insensitive.png"), url("assets/checkbox-unchecked-insensitive$2.png")); }
 
 check:disabled:backdrop, check row:selected:disabled:backdrop, check row:selected:focus:disabled:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-insensitive-unfocused.png"), url("assets/checkbox-unchecked-insensitive-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked-insensitive-unfocused.png"), url("assets/checkbox-unchecked-insensitive-unfocused$2.png")); }
 
 check:active,  check:checked, check row:selected:active,  check row:selected:checked, check row:selected:focus:active,  check row:selected:focus:checked {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked.png"), url("assets/checkbox-checked@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked.png"), url("assets/checkbox-checked$2.png")); }
 
 check:active:backdrop, check:checked:backdrop, check row:selected:active:backdrop, check row:selected:checked:backdrop, check row:selected:focus:active:backdrop, check row:selected:focus:checked:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked-unfocused.png"), url("assets/checkbox-checked-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked-unfocused.png"), url("assets/checkbox-checked-unfocused$2.png")); }
 
 check:active:disabled,  check:checked:disabled, check row:selected:active:disabled,  check row:selected:checked:disabled, check row:selected:focus:active:disabled,  check row:selected:focus:checked:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked-insensitive.png"), url("assets/checkbox-checked-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked-insensitive.png"), url("assets/checkbox-checked-insensitive$2.png")); }
 
 check:active:disabled:backdrop,  check:checked:disabled:backdrop, check row:selected:active:disabled:backdrop,  check row:selected:checked:disabled:backdrop, check row:selected:focus:active:disabled:backdrop,  check row:selected:focus:checked:disabled:backdrop {
     -gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked-insensitive-unfocused.png")); }
 
 check:indeterminate, check row:selected:indeterminate, check row:selected:focus:indeterminate {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed.png"), url("assets/checkbox-mixed@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed.png"), url("assets/checkbox-mixed$2.png")); }
 
 check:indeterminate:backdrop, check row:selected:indeterminate:backdrop, check row:selected:focus:indeterminate:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-unfocused.png"), url("assets/checkbox-mixed-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-unfocused.png"), url("assets/checkbox-mixed-unfocused$2.png")); }
 
 check:indeterminate:disabled, check row:selected:indeterminate:disabled, check row:selected:focus:indeterminate:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-insensitive.png"), url("assets/checkbox-mixed-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-insensitive.png"), url("assets/checkbox-mixed-insensitive$2.png")); }
 
 check:indeterminate:disabled:backdrop, check row:selected:indeterminate:disabled:backdrop, check row:selected:focus:indeterminate:disabled:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-insensitive-unfocused.png"), url("assets/checkbox-mixed-insensitive-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed-insensitive-unfocused.png"), url("assets/checkbox-mixed-insensitive-unfocused$2.png")); }
 
 radio, radio row:selected, radio row:selected:focus {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked.png"), url("assets/radio-unchecked@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked.png"), url("assets/radio-unchecked$2.png")); }
 
 radio:backdrop, radio row:selected:backdrop, radio row:selected:focus:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-unfocused.png"), url("assets/radio-unchecked-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-unfocused.png"), url("assets/radio-unchecked-unfocused$2.png")); }
 
 radio:disabled, radio row:selected:disabled, radio row:selected:focus:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-insensitive.png"), url("assets/radio-unchecked-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-insensitive.png"), url("assets/radio-unchecked-insensitive$2.png")); }
 
 radio:disabled:backdrop, radio row:selected:disabled:backdrop, radio row:selected:focus:disabled:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-insensitive-unfocused.png"), url("assets/radio-unchecked-insensitive-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked-insensitive-unfocused.png"), url("assets/radio-unchecked-insensitive-unfocused$2.png")); }
 
 radio:active,  radio:checked, radio row:selected:active,  radio row:selected:checked, radio row:selected:focus:active,  radio row:selected:focus:checked {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked.png"), url("assets/radio-checked@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked.png"), url("assets/radio-checked$2.png")); }
 
 radio:active:backdrop, radio:checked:backdrop, radio row:selected:active:backdrop, radio row:selected:checked:backdrop, radio row:selected:focus:active:backdrop, radio row:selected:focus:checked:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-unfocused.png"), url("assets/radio-checked-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-unfocused.png"), url("assets/radio-checked-unfocused$2.png")); }
 
 radio:active:disabled,  radio:checked:disabled, radio row:selected:active:disabled,  radio row:selected:checked:disabled, radio row:selected:focus:active:disabled,  radio row:selected:focus:checked:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-insensitive.png"), url("assets/radio-checked-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-insensitive.png"), url("assets/radio-checked-insensitive$2.png")); }
 
 radio:active:disabled:backdrop,  radio:checked:disabled:backdrop, radio row:selected:active:disabled:backdrop,  radio row:selected:checked:disabled:backdrop, radio row:selected:focus:active:disabled:backdrop,  radio row:selected:focus:checked:disabled:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-insensitive-unfocused.png"), url("assets/radio-checked-insensitive-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-checked-insensitive-unfocused.png"), url("assets/radio-checked-insensitive-unfocused$2.png")); }
 
 radio:indeterminate, radio row:selected:indeterminate, radio row:selected:focus:indeterminate {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed.png"), url("assets/radio-mixed@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed.png"), url("assets/radio-mixed$2.png")); }
 
 radio:indeterminate:backdrop, radio row:selected:indeterminate:backdrop, radio row:selected:focus:indeterminate:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-unfocused.png"), url("assets/radio-mixed-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-unfocused.png"), url("assets/radio-mixed-unfocused$2.png")); }
 
 radio:indeterminate:disabled, radio row:selected:indeterminate:disabled, radio row:selected:focus:indeterminate:disabled {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-insensitive.png"), url("assets/radio-mixed-insensitive@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-insensitive.png"), url("assets/radio-mixed-insensitive$2.png")); }
 
 radio:indeterminate:disabled:backdrop, radio row:selected:indeterminate:disabled:backdrop, radio row:selected:focus:indeterminate:disabled:backdrop {
-    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-insensitive-unfocused.png"), url("assets/radio-mixed-insensitive-unfocused@2.png")); }
+    -gtk-icon-source: -gtk-scaled(url("assets/radio-mixed-insensitive-unfocused.png"), url("assets/radio-mixed-insensitive-unfocused$2.png")); }
 
-/* menuitem check and radio */
+// menuitem check and radio 
 menuitem check {
-	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked.png"), url("assets/checkbox-unchecked@2.png"));
-	color: @theme_fg_color;
+	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-unchecked.png"), url("assets/checkbox-unchecked$2.png"));
+	color: $theme_fg_color;
 	-gtk-icon-shadow: none;  }
 menuitem check:active, menuitem check:checked {
-	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked.png"), url("assets/checkbox-checked@2.png")); }
+	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-checked.png"), url("assets/checkbox-checked$2.png")); }
 menuitem check:indeterminate {
-	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed.png"), url("assets/checkbox-mixed@2.png")); }
+	-gtk-icon-source: -gtk-scaled(url("assets/checkbox-mixed.png"), url("assets/checkbox-mixed$2.png")); }
 menuitem check:active:hover {
-	color: @theme_selected_fg_color; }
+	color: $theme_selected_fg_color; }
 menuitem check:disabled {
-	color: @theme_disabled_fg_color;  }
+	color: $theme_disabled_fg_color;  }
 menuitem radio {
-	-gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked.png"), url("assets/radio-unchecked@2.png"));
-	color: @theme_fg_color;
+	-gtk-icon-source: -gtk-scaled(url("assets/radio-unchecked.png"), url("assets/radio-unchecked$2.png"));
+	color: $theme_fg_color;
 	-gtk-icon-shadow: none;  }
 menuitem radio:active, menuitem radio:checked {
-	-gtk-icon-source: -gtk-scaled(url("assets/radio-checked.png"), url("assets/radio-checked@2.png")); }
+	-gtk-icon-source: -gtk-scaled(url("assets/radio-checked.png"), url("assets/radio-checked$2.png")); }
 menuitem radio:indeterminate {
-	-gtk-icon-source: -gtk-scaled(url("assets/radio-mixed.png"), url("assets/radio-mixed@2.png")); }
+	-gtk-icon-source: -gtk-scaled(url("assets/radio-mixed.png"), url("assets/radio-mixed$2.png")); }
 menuitem radio:hover {
-	color: @theme_selected_fg_color; }
+	color: $theme_selected_fg_color; }
 menuitem radio:disabled {
-	color: @theme_disabled_fg_color; }
+	color: $theme_disabled_fg_color; }
 
-/* content view */
+// content view 
 .content-view.view {
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 .content-view.view:hover {
-    background-color: alpha(@theme_selected_bg_color, 0.6); }
+    background-color: gtkalpha($theme_selected_bg_color, 0.6); }
 
 .content-view.view:selected, .content-view.view:active {
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 
 .content-view.view:disabled {
-    background-color: shade(@theme_base_color, 0.9); }
+    background-color: shade($theme_base_color, 0.9); }
 
 view.content-view check, view.content-view check:active, .content-view.view check, .content-view.view check:active {
     background-color: transparent; }
@@ -355,64 +367,62 @@ view.content-view check, view.content-view check:active, .content-view.view chec
 view.content-view check:hover, view.content-view check:disabled, view.content-view check:selected {
     background-color: transparent; }
 
-/***********
-* calendar *
-************/
+// calendar
 calendar {
     padding: 2px;
     border-width: 1px;
     border-radius: 2px;
     border-style: solid;
-    border-color: @borders;
-    color: @theme_fg_color; }
+    border-color: $borders;
+    color: $theme_fg_color; }
 
 calendar.header {
     border: none;
-    color: @theme_selected_bg_color; }
+    color: $theme_selected_bg_color; }
 
 calendar.button {
-    color: @theme_selected_bg_color; }
+    color: $theme_selected_bg_color; }
 
 calendar:selected {
     border-radius: 0;
-    color: @theme_selected_fg_color; 
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color; 
+    background-color: $theme_selected_bg_color; }
 
 calendar:indeterminate {
-    color: alpha(currentColor, 0.55); }
+    color: gtkalpha(currentColor, 0.55); }
 
 calendar.highlight {
-    color: @theme_selected_bg_color; }
+    color: $theme_selected_bg_color; }
 
-/* entry */
+// entry 
 entry {
     padding: 5px;
     border-width: 1px;
     border-style: solid;
-    border-color: @borders;
+    border-color: $borders;
     border-radius: 0;
-    color: @theme_text_color;
+    color: $theme_text_color;
     caret-color: currentColor;
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 entry:active, entry:focus {
-    border-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color; }
 
 entry:selected, entry:selected:focus, entry selection, entry selection:focus {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 entry:disabled {
-    color: @theme_disabled_text_color;
-    background-color: @theme_disabled_base_color; }
+    color: $theme_disabled_text_color;
+    background-color: $theme_disabled_base_color; }
 
 entry:disabled:backdrop {
-    color: @theme_unfocused_disabled_text_color;
-    background-color: shade(@theme_unfocused_disabled_base_color, 0.95); }
+    color: $theme_unfocused_disabled_text_color;
+    background-color: shade($theme_unfocused_disabled_base_color, 0.95); }
 
 entry:backdrop {
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_base_color; }
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_base_color; }
 
 entry image left {
     padding-right: 4px; }
@@ -422,7 +432,7 @@ entry progress {
     border-width: 0 0 2px;
     border-radius: 0;
     border-style: solid;
-    border-color: @theme_selected_bg_color;
+    border-color: $theme_selected_bg_color;
     background-color: transparent; }
 
 entry.flat, entry.flat:focus {
@@ -434,7 +444,7 @@ entry.flat, entry.flat:focus {
 entry.search {
     border-radius: 40px; }
 
-/* expander */
+// expander 
 expander arrow {
     min-width: 16px;
     min-height: 16px;
@@ -444,35 +454,35 @@ expander arrow:dir(rtl) {
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl"); }
 
 expander arrow:hover {
-    color: @theme_selected_bg_color; }
+    color: $theme_selected_bg_color; }
 
 expander arrow:checked {
     -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
 
-/* list boxes */
+// list boxes 
 list {
-    color: @theme_fg_color;
-    background-color: @theme_base_color; }
+    color: $theme_fg_color;
+    background-color: $theme_base_color; }
 
 list row {
     padding: 2px; }
 
 list row:hover {
-    background-color: mix(@theme_bg_color, @theme_fg_color, 0.1); }
+    background-color: gtkmix($theme_bg_color, $theme_fg_color, 0.1); }
 
 list row:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 list row:selected:disabled {
-    color: alpha(@theme_selected_fg_color, 0.7);
-    background-color: @theme_selected_bg_color; }
+    color: gtkalpha($theme_selected_fg_color, 0.7);
+    background-color: $theme_selected_bg_color; }
 
-/* frame */
+// frame 
 frame > border {
     border-width: 1px;
     border-style: solid;
-    border-color: @borders;
+    border-color: $borders;
     border-radius: 0;
     box-shadow: none; }
 
@@ -482,195 +492,195 @@ frame.flat > border, frame > border.flat, statusbar frame > border {
 .frame {
 	background: none; }
 
-/* iconview */
+// iconview 
 iconview:selected, iconview:selected:focus, iconview text:selected, iconview text selection, iconview text:selected:focus, iconview text selection:focus {
     border-width: 1px;
     border-style: solid;
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 iconview:selected:backdrop, iconview selection:backdrop, iconview text:selected:backdrop, iconview text selection:backdrop {
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 rubberband, flowbox rubberband, treeview.view rubberband, .content-view rubberband, .rubberband, view rubberband, .view.rubberband, .rubberband {
     border-width: 1px;
     border-style: solid;
-    border-color: @theme_selected_bg_color;
+    border-color: $theme_selected_bg_color;
     background: none;
-    background-color: alpha(@theme_selected_bg_color, 0.3); }
+    background-color: gtkalpha($theme_selected_bg_color, 0.3); }
 
-/* flowbox */
+// flowbox 
 flowbox flowboxchild {
     padding: 3px;
     border-radius: 2px; }
 
 flowbox flowboxchild:selected {
     outline-offset: -2px;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* infobar */
+// infobar 
 infobar {
     border: none; }
 
 .info {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@info_bg_color, 0.8);
-    color: @info_fg_color;
-    background-color: @info_bg_color; }
+    border-color: shade($info_bg_color, 0.8);
+    color: $info_fg_color;
+    background-color: $info_bg_color; }
 
 .info button {
-    border-color: shade(@info_bg_color, 0.8);
-    color: @info_fg_color;
-    background-color: shade(@info_bg_color, 1.08); }
+    border-color: shade($info_bg_color, 0.8);
+    color: $info_fg_color;
+    background-color: shade($info_bg_color, 1.08); }
 
 .info button:hover {
-    border-color: shade(@info_bg_color, 0.85);
-    background-color: shade(@info_bg_color, 1.10); }
+    border-color: shade($info_bg_color, 0.85);
+    background-color: shade($info_bg_color, 1.10); }
 
 .info button:active {
-    border-color: shade(@info_bg_color, 0.6);
-    background-color: shade(@info_bg_color, 0.95); }
+    border-color: shade($info_bg_color, 0.6);
+    background-color: shade($info_bg_color, 0.95); }
 
 .info button:active:hover {
-    border-color: shade(@info_bg_color, 0.85); }
+    border-color: shade($info_bg_color, 0.85); }
 
 .info button.close {
-    color: @info_fg_color; }
+    color: $info_fg_color; }
 
 .info button.close:hover {
-    background-color: alpha(@light_shadow, 0.2); }
+    background-color: gtkalpha($light_shadow, 0.2); }
 
 .info button.close:active {
-    color: @info_fg_color;
-    background-color: alpha(@dark_shadow, 0.1); }
+    color: $info_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
 .warning {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@warning_bg_color, 0.8);
-    color: @warning_fg_color;
-    background-color: @warning_bg_color; }
+    border-color: shade($warning_bg_color, 0.8);
+    color: $warning_fg_color;
+    background-color: $warning_bg_color; }
 
 .warning button {
-    border-color: shade(@warning_bg_color, 0.8);
-    color: @warning_fg_color;
-    background-color: shade(@warning_bg_color, 1.08); }
+    border-color: shade($warning_bg_color, 0.8);
+    color: $warning_fg_color;
+    background-color: shade($warning_bg_color, 1.08); }
 
 .warning button:hover {
-    border-color: shade(@warning_bg_color, 0.85);
-    background-color: shade(@warning_bg_color, 1.10); }
+    border-color: shade($warning_bg_color, 0.85);
+    background-color: shade($warning_bg_color, 1.10); }
 
 .warning button:active {
-    border-color: shade(@warning_bg_color, 0.6);
-    background-color: shade(@warning_bg_color, 0.95); }
+    border-color: shade($warning_bg_color, 0.6);
+    background-color: shade($warning_bg_color, 0.95); }
 
 .warning button:active:hover {
-    border-color: shade(@warning_bg_color, 0.85); }
+    border-color: shade($warning_bg_color, 0.85); }
 
 .warning button.close {
-    color: @warning_fg_color; }
+    color: $warning_fg_color; }
 
 .warning button.close:hover {
-    background-color: alpha(@light_shadow, 0.2); }
+    background-color: gtkalpha($light_shadow, 0.2); }
 
 .warning button.close:active {
-    color: @warning_fg_color;
-    background-color: alpha(@dark_shadow, 0.1); }
+    color: $warning_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
 .question {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@question_bg_color, 0.8);
-    color: @question_fg_color;
-    background-color: @question_bg_color; }
+    border-color: shade($question_bg_color, 0.8);
+    color: $question_fg_color;
+    background-color: $question_bg_color; }
 
 .question button {
-    border-color: shade(@question_bg_color, 0.8);
-    color: @question_fg_color;
-    background-color: shade(@question_bg_color, 1.08); }
+    border-color: shade($question_bg_color, 0.8);
+    color: $question_fg_color;
+    background-color: shade($question_bg_color, 1.08); }
 
 .question button:hover {
-    border-color: shade(@question_bg_color, 0.85);
-    background-color: shade(@question_bg_color, 1.10); }
+    border-color: shade($question_bg_color, 0.85);
+    background-color: shade($question_bg_color, 1.10); }
 
 .question button:active {
-    border-color: shade(@question_bg_color, 0.6);
-    background-color: shade(@question_bg_color, 0.95); }
+    border-color: shade($question_bg_color, 0.6);
+    background-color: shade($question_bg_color, 0.95); }
 
 .question button:active:hover {
-    border-color: shade(@question_bg_color, 0.85); }
+    border-color: shade($question_bg_color, 0.85); }
 
 .question button.close {
-    color: @question_fg_color; }
+    color: $question_fg_color; }
 
 .question button.close:hover {
-    background-color: alpha(@light_shadow, 0.2); }
+    background-color: gtkalpha($light_shadow, 0.2); }
 
 .question button.close:active {
-    color: @question_fg_color;
-    background-color: alpha(@dark_shadow, 0.1); }
+    color: $question_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
 .error {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@error_bg_color, 0.8);
-    background-color: @error_bg_color;
-    color: @error_fg_color; }
+    border-color: shade($error_bg_color, 0.8);
+    background-color: $error_bg_color;
+    color: $error_fg_color; }
 
 .error button {
-    border-color: shade(@error_bg_color, 0.8);
-    color: @error_fg_color;
-    background-color: shade(@error_bg_color, 1.08); }
+    border-color: shade($error_bg_color, 0.8);
+    color: $error_fg_color;
+    background-color: shade($error_bg_color, 1.08); }
 
 .error button:hover {
-    border-color: shade(@error_bg_color, 0.85);
-    background-color: shade(@error_bg_color, 1.10); }
+    border-color: shade($error_bg_color, 0.85);
+    background-color: shade($error_bg_color, 1.10); }
 
 .error button:active {
-    border-color: shade(@error_bg_color, 0.6);
-    background-color: shade(@error_bg_color, 0.95); }
+    border-color: shade($error_bg_color, 0.6);
+    background-color: shade($error_bg_color, 0.95); }
 
 .error button:active:hover {
-    border-color: shade(@error_bg_color, 0.85); }
+    border-color: shade($error_bg_color, 0.85); }
 
 .error button.close {
-    color: @error_fg_color; }
+    color: $error_fg_color; }
 
 .error button.close:hover {
-    background-color: alpha(@light_shadow, 0.2); }
+    background-color: gtkalpha($light_shadow, 0.2); }
 
 .error button.close:active {
-    color: @error_fg_color;
-    background-color: alpha(@dark_shadow, 0.1); }
+    color: $error_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
-/* symbolic images (icons) */
+// symbolic images (icons) 
 image {
-    color: alpha(currentColor, 0.75); }
+    color: gtkalpha(currentColor, 0.75); }
 
 image:hover {
-    color: alpha(currentColor, 0.9); }
+    color: gtkalpha(currentColor, 0.9); }
 
 image:selected, image:selected:hover {
-    color: @theme_selected_fg_color; }
+    color: $theme_selected_fg_color; }
 
 view image, view image:hover {
-    color: alpha(currentColor, 0.9); }
+    color: gtkalpha(currentColor, 0.9); }
 
 view image:selected, view image:selected:hover {
-    color: @theme_selected_fg_color; }
+    color: $theme_selected_fg_color; }
 
-/* floating bar */
+// floating bar 
 .floating-bar {
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@theme_base_color, 0.85);
+    border-color: shade($theme_base_color, 0.85);
     border-radius: 0;
-    background-color: @theme_base_color;
-    color: @theme_fg_color; }
+    background-color: $theme_base_color;
+    color: $theme_fg_color; }
 
 .floating-bar.top {
     border-top-width: 0px;
@@ -696,20 +706,20 @@ view image:selected, view image:selected:hover {
     border-style: none;
     background-color: transparent; }
 
-/* miscellaneous */
+// miscellaneous 
 .dnd {
     border-width: 1px;
     border-style: solid;
-    border-color: @borders; }
+    border-color: $borders; }
 
 .nautilus-window notebook, .nautilus-window notebook > stack:not(:only-child) searchbar {
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 scrolledwindow viewport.frame {
     border: none; }
 
 arrow, combobox arrow {
-    color: alpha(currentColor, 0.75);
+    color: gtkalpha(currentColor, 0.75);
     -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
     min-height: 16px;
     min-width: 16px; }
@@ -718,27 +728,27 @@ arrow, combobox arrow {
     font-family: Monospace; }
 
 .gedit-search-entry-occurrences-tag {
-    color: alpha(currentColor, 0.7);
+    color: gtkalpha(currentColor, 0.7);
     border: none;
     margin: 2px;
     padding: 2px; }
 
 .gedit-search-slider {
-    border-color: @borders;
+    border-color: $borders;
     padding: 6px;
     border-radius: 0 0 2px 2px;
     border-width: 0 1px 1px 1px;
     border-style: solid;
-    background-color: @theme_bg_color; }
+    background-color: $theme_bg_color; }
 
-/* menu */
+// menu 
 menu, .menu {
     margin: 4px;
     padding: 0;
     border-radius: 0;
     border-style: none;
-    color: @menu_fg_color;
-    background-color: @menu_bg_color; }
+    color: $menu_fg_color;
+    background-color: $menu_bg_color; }
 
 .csd menu, .csd.menu {
     padding: 4px 0px;
@@ -751,52 +761,52 @@ menu, .menu {
 menu > arrow, .menu > arrow {
     padding: 4px;
     border-color: transparent;
-    background-color: @menu_bg_color;
+    background-color: $menu_bg_color;
     min-width: 16px;
     min-height: 16px; }
 
 menu > arrow.top, .menu > arrow.top {
     margin-top: -6px;
-    border-bottom: 1px solid shade(@menu_bg_color, 0.9);
+    border-bottom: 1px solid shade($menu_bg_color, 0.9);
     -gtk-icon-source: -gtk-icontheme("pan-up-symbolic"); }
 
 menu > arrow.bottom, .menu > arrow.bottom {
     margin-bottom: -6px;
-    border-top: 1px solid shade(@menu_bg_color, 0.9);
+    border-top: 1px solid shade($menu_bg_color, 0.9);
     -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
 
-/* menubar */
+// menubar 
 menubar, .menubar {
     -GtkWidget-window-dragging: true;
     padding: 0;
     border-style: none;
-    background-color: @menubar_bg_color;
-    color: @menubar_fg_color; }
+    background-color: $menubar_bg_color;
+    color: $menubar_fg_color; }
 
 menubar:backdrop, .menubar:backdrop {
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
-/* menubaritem */
+// menubaritem 
 menubar > menuitem, .menubar > menuitem {
     padding: 3px 5px;
     border: none;
-    color: @menubar_fg_color;
+    color: $menubar_fg_color;
     background-color: transparent; }
 
 menubar > menuitem:hover, .menubar > menuitem:hover {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 menubar > menuitem:disabled, .menubar > menuitem:disabled {
-    color: @theme_disabled_fg_color;
+    color: $theme_disabled_fg_color;
     background-color: transparent; }
 
 menubar > menuitem:backdrop, .menubar > menuitem:backdrop {
-    color: @theme_unfocused_fg_color;
+    color: $theme_unfocused_fg_color;
     background-color: transparent; }
 
-/* menuitem */
+// menuitem 
 menu menuitem, .menu menuitem {
     min-height: 16px;
     min-width: 40px;
@@ -807,17 +817,17 @@ menu menuitem, .menu menuitem {
     padding: 3px;
     border: none;
     border-radius: 0;
-    color: @menu_fg_color;
-    background-color: @menu_bg_color; }
+    color: $menu_fg_color;
+    background-color: $menu_bg_color; }
 
 menu menuitem:hover, .menu menuitem:hover {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 menu menuitem:disabled, .menu menuitem:disabled {
-    color: mix(@menu_fg_color, @menu_bg_color, 0.5); }
+    color: gtkmix($menu_fg_color, $menu_bg_color, 0.5); }
 
-/* menu arrow */
+// menu arrow 
 menu menuitem arrow, .menu menuitem arrow {
     min-width: 16px;
     min-height: 16px; }
@@ -835,36 +845,36 @@ menuitem check, menuitem radio {
     min-width: 16px; }
 
 menuitem accelerator {
-    color: alpha(currentColor, 0.55); }
+    color: gtkalpha(currentColor, 0.55); }
 
 menuitem accelerator:hover {
-    color: alpha(@theme_selected_fg_color, 0.8); }
+    color: gtkalpha($theme_selected_fg_color, 0.8); }
 
 menuitem accelerator:disabled {
-    color: @theme_disabled_fg_color; }
+    color: $theme_disabled_fg_color; }
 
-/* popovers */
+// popovers 
 popover, popover.background {
     padding: 2px;
-    border-color: @borders;
+    border-color: $borders;
     border-width: 1px;
     border-style: solid;
     border-radius: 0;
-    color: @theme_fg_color;
+    color: $theme_fg_color;
     background-clip: border-box;
-    background-color: @theme_bg_color;
-    box-shadow: 0 2px 3px 1px alpha(@dark_shadow, 0.25); }
+    background-color: $theme_bg_color;
+    box-shadow: 0 2px 3px 1px gtkalpha($dark_shadow, 0.25); }
 
 .csd popover, popover, .csd
 popover.background,
 popover.background {
-    border: 1px solid @borders; }
+    border: 1px solid $borders; }
 
 popover.touch-selection, .csd popover.touch-selection, popover.background.touch-selection, .csd popover.background.touch-selection {
     font: initial; }
 
 popover.osd {
-    box-shadow: 0 2px 7px 3px alpha(@dark_shadow, 0.5); }
+    box-shadow: 0 2px 7px 3px gtkalpha($dark_shadow, 0.5); }
 
 popover.osd > toolbar button {
     border-width: 0;
@@ -877,28 +887,28 @@ popover > list, popover > .view, popover > iconview, popover > toolbar, popover 
 
 popover separator {
     border: 0;
-    color: alpha(currentColor, 0.5);
+    color: gtkalpha(currentColor, 0.5);
     background-color: transparent;
     font-size: 80%;
     font-weight: bold; }
 
 popover.background checkbutton:selected, popover.background radiobutton:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* check out arc gtk.css line 717 */
+// check out arc gtk.css line 717 
 modelbutton > image {
     padding-right: 4px; }
 
 modelbutton.flat, menuitem.button.flat, .menuitem.button.flat {
     padding: 2px 8px;
     border: none;
-    color: @theme_fg_color;
+    color: $theme_fg_color;
     background-color: transparent; }
 
 menuitem.button.flat:hover, menuitem.button.flat:selected, menuitem.button.flat:active:hover, modelbutton.flat:hover, modelbutton.flat:selected, modelbutton:active:hover, .menuitem.button.flat:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 modelbutton.flat arrow.left {
     -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
@@ -907,11 +917,11 @@ modelbutton.flat arrow.right {
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
 
 popover.background:backdrop {
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
     box-shadow: none; }
 
-/* notebook */
+// notebook 
 notebook {
     padding: 0; }
 
@@ -919,7 +929,7 @@ notebook.frame {
     margin: -1px;
     border-width: 1px;
     border-style: solid;
-    border-color: @borders }
+    border-color: $borders }
 
 notebook.frame > header {
     margin: -1px; }
@@ -945,42 +955,42 @@ notebook.frame > header.left, notebook.frame > header.right {
     padding-bottom: 0; }
 
 notebook > header {
-    background-color: @theme_bg_color; }
+    background-color: $theme_bg_color; }
 
 notebook > stack:not(:only-child) {
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 notebook tab {
     padding: 6px 20px;
     border-width: 1px;
     border-style: solid;
     border-color: transparent;
-    color: @theme_fg_color;
-    background-color: @theme_bg_color; }
+    color: $theme_fg_color;
+    background-color: $theme_bg_color; }
 
 notebook tab:checked {
-    border-color: @borders;
-    background-color: @theme_base_color; }
+    border-color: $borders;
+    background-color: $theme_base_color; }
 
 notebook tab:backdrop {
-    background-color: @theme_unfocused_bg_color; }
+    background-color: $theme_unfocused_bg_color; }
 
 notebook tab:checked:backdrop {
-    border-color: @unfocused_borders;
-    background-color: @theme_unfocused_base_color; }
+    border-color: $unfocused_borders;
+    background-color: $theme_unfocused_base_color; }
 
 notebook > header.top {
     padding-top: 2px;
-    box-shadow: 0 1px @borders; }
+    box-shadow: 0 1px $borders; }
 
 notebook > header.bottom {
-    box-shadow: 0 -1px @borders; }
+    box-shadow: 0 -1px $borders; }
 
 notebook > header.right {
-    box-shadow: -1px 0 @borders; }
+    box-shadow: -1px 0 $borders; }
 
 notebook > header.left {
-    box-shadow: 1px 0 @borders; }
+    box-shadow: 1px 0 $borders; }
 
 notebook > header.top > tabs > tab {
     border-bottom: none; }
@@ -1014,11 +1024,11 @@ notebook > header.right > tabs > tab:checked {
     border-bottom-right-radius: 0;
     margin-left: -1px; }
 
-/* close button styling */
+// close button styling 
 notebook tab button, notebook tab button:hover, notebook tab button:focus, notebook tab button:active, notebook tab button:checked, notebook tab button:active:hover, notebook tab button:checked:hover, notebook tab button:backdrop, notebook tab:checked button, notebook tab:checked button:hover, notebook tab:checked button:focus, notebook tab:checked button:active, notebook tab:checked button:checked, notebook tab:checked button:active:hover, notebook tab:checked button:checked:hover, notebook tab:checked button:backdrop {
     border-color: transparent;
     background-color: transparent;
-    color: @theme_fg_color; }
+    color: $theme_fg_color; }
 
 notebook > header.top > tabs > arrow.up, notebook > header.bottom > tabs > arrow.up {
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
@@ -1045,35 +1055,35 @@ notebook > header.left > tabs > arrow.down:first-child, notebook > header.right 
     margin-bottom: 2px; }
 
 notebook > header > tabs > arrow {
-    color: @theme_fg_color; }
+    color: $theme_fg_color; }
 
 notebook > header > tabs > arrow:hover {
-    color: shade(@theme_fg_color, 1.2); }
+    color: shade($theme_fg_color, 1.2); }
 
 notebook > header > tabs > arrow:active {
-    color: shade(@theme_fg_color, 0.8); }
+    color: shade($theme_fg_color, 0.8); }
 
 notebook > header > tabs > arrow:disabled {
-    color: shade(@theme_bg_color, 0.6); }
+    color: shade($theme_bg_color, 0.6); }
 
-/* pane separator */
+// pane separator 
 paned > separator {
     border: none;
     color: transparent;
-    background-color: @borders; }
+    background-color: $borders; }
 
 paned > separator:backdrop {
-    background-color: @unfocused_borders; }
+    background-color: $unfocused_borders; }
 
 paned > separator:selected {
-    background-color: @borders; }
+    background-color: $borders; }
 
 paned .sidebar.left, paned .sidebar.right, paned .sidebar.left:dir(rtl), paned .sidebar:dir(rtl), paned .sidebar:dir(ltr), paned .sidebar {
     border-style: none; }
 
-/* over under */
+// over under 
 overshoot.top {
-    background-image: -gtk-gradient(radial, center top, 0.55, center top, 0.6, from(alpha(@color_shadow, 0.2)), to(transparent));
+    background-image: -gtk-gradient(radial, center top, 0.55, center top, 0.6, from(gtkalpha($color_shadow, 0.2)), to(transparent));
     background-size: 100% 60%;
     background-repeat: no-repeat;
     background-position: center top;
@@ -1082,7 +1092,7 @@ overshoot.top {
     box-shadow: none; }
 
 overshoot.bottom {
-    background-image: -gtk-gradient(radial, center bottom, 0.55, center bottom, 0.6, from(alpha(@color_shadow, 0.2)), to(transparent));
+    background-image: -gtk-gradient(radial, center bottom, 0.55, center bottom, 0.6, from(gtkalpha($color_shadow, 0.2)), to(transparent));
     background-size: 100% 60%;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -1091,7 +1101,7 @@ overshoot.bottom {
     box-shadow: none; }
 
 overshoot.left {
-    background-image: -gtk-gradient(radial, left center, 0.55, left center, 0.6, from(alpha(@color_shadow, 0.2)), to(transparent));
+    background-image: -gtk-gradient(radial, left center, 0.55, left center, 0.6, from(gtkalpha($color_shadow, 0.2)), to(transparent));
     background-size: 60% 100%;
     background-repeat: no-repeat;
     background-position: left center;
@@ -1100,7 +1110,7 @@ overshoot.left {
     box-shadow: none; }
 
 overshoot.right {
-    background-image: -gtk-gradient(radial, right center, 0.55, right center, 0.6, from(alpha(@color_shadow, 0.2)), to(transparent));
+    background-image: -gtk-gradient(radial, right center, 0.55, right center, 0.6, from(gtkalpha($color_shadow, 0.2)), to(transparent));
     background-size: 60% 100%;
     background-repeat: no-repeat;
     background-position: right center;
@@ -1110,7 +1120,7 @@ overshoot.right {
 
 undershoot.top {
     background-color: transparent;
-    background-image: linear-gradient(to left, alpha(@light_shadow, 0.2) 50%, alpha(@dark_shadow, 0.2) 50%);
+    background-image: linear-gradient(to left, gtkalpha($light_shadow, 0.2) 50%, gtkalpha($dark_shadow, 0.2) 50%);
     padding-top: 1px;
     background-size: 10px 1px;
     background-repeat: repeat-x;
@@ -1119,7 +1129,7 @@ undershoot.top {
 
 undershoot.bottom {
     background-color: transparent;
-    background-image: linear-gradient(to left, alpha(@light_shadow, 0.2) 50%, alpha(@dark_shadow, 0.2) 50%);
+    background-image: linear-gradient(to left, gtkalpha($light_shadow, 0.2) 50%, gtkalpha($dark_shadow, 0.2) 50%);
     padding-bottom: 1px;
     background-size: 10px 1px;
     background-repeat: repeat-x;
@@ -1128,7 +1138,7 @@ undershoot.bottom {
 
 undershoot.left {
     background-color: transparent;
-    background-image: linear-gradient(to top, alpha(@light_shadow, 0.2) 50%, alpha(@dark_shadow, 0.2) 50%);
+    background-image: linear-gradient(to top, gtkalpha($light_shadow, 0.2) 50%, gtkalpha($dark_shadow, 0.2) 50%);
     padding-left: 1px;
     background-size: 1px 10px;
     background-repeat: repeat-y;
@@ -1137,7 +1147,7 @@ undershoot.left {
 
 undershoot.right {
     background-color: transparent;
-    background-image: linear-gradient(to top, alpha(@light_shadow, 0.2) 50%, alpha(@dark_shadow, 0.2) 50%);
+    background-image: linear-gradient(to top, gtkalpha($light_shadow, 0.2) 50%, gtkalpha($dark_shadow, 0.2) 50%);
     padding-right: 1px;
     background-size: 1px 10px;
     background-repeat: repeat-y;
@@ -1145,37 +1155,37 @@ undershoot.right {
     background-position: right center; }
 
 .overlay-bar {
-    background-color: alpha(@dark_shadow, 0.8);
+    background-color: gtkalpha($dark_shadow, 0.8);
     border-radius: 0;
     padding: 3px 6px;
     margin: 3px; }
 
 .overlay-bar label {
-    color: @tooltip_fg_color; }
+    color: $tooltip_fg_color; }
 
-/* progressbar */
+// progressbar 
 progressbar {
     padding: 0;
     border: none;
-    color: mix(@theme_fg_color, @theme_selected_fg_color, 0.5);
+    color: gtkmix($theme_fg_color, $theme_selected_fg_color, 0.5);
     background-color: transparent; }
 
 progressbar progress {
     border: none;
     border-radius: 0;
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 progressbar.vertical progress {
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 
 progressbar progress:backdrop {
-    background-color: @theme_unfocused_selected_bg_color; }
+    background-color: $theme_unfocused_selected_bg_color; }
 
 progressbar trough {
     border-radius: 0;
-    background-color: alpha(@dark_shadow, 0.1); }
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
 progressbar trough:backdrop {
-    background-color: shade(@theme_unfocused_bg_color, 0.95); }
+    background-color: shade($theme_unfocused_bg_color, 0.95); }
 
 progressbar.horizontal trough,
 progressbar.horizontal progress {
@@ -1186,31 +1196,31 @@ progressbar.vertical progress {
     min-width: 7px; }
 
 treeview.view.progressbar, treeview.view.progressbar:focus, treeview.view.progressbar:disabled {
-    color: @theme_selected_fg_color;
+    color: $theme_selected_fg_color;
     border-radius: 0;
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 
 treeview.view.progressbar, treeview.view.progressbar:focus treeview.view.progressbar:selected:focus, treeview.view.progressbar:focus:selected, treeview.view.progressbar:focus:selected:focus, treeview.view.progressbar:disabled:selected {
     border-radius: 0;
-    color: @theme_selected_bg_color;
-    background-color: @theme_selected_fg_color; }
+    color: $theme_selected_bg_color;
+    background-color: $theme_selected_fg_color; }
 
 treeview.view.trough {
-    color: @theme_fg_color;
-    background-color: alpha(@dark_shadow, 0.1);
+    color: $theme_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1);
     border-radius: 0;
     border: none; }
 
 treeview.view.trough:selected, treeview.view.trough:selected:focus {
-    color: @theme_selected_fg_color;
-    background-color: alpha(@dark_shadow, 0.1);
+    color: $theme_selected_fg_color;
+    background-color: gtkalpha($dark_shadow, 0.1);
     border-radius: 0;
     border: none; }
 
 infobar progressbar trough, row:selected progressbar trough {
-    background-color: alpha(@dark_shadow, 0.1); }
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
-/* levelbar */
+// levelbar 
 levelbar trough {
     padding: 1px;
     border-radius: 0; }
@@ -1219,7 +1229,7 @@ levelbar block {
     border: none;
     padding: 2px;
     border-radius: 0;
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 
 levelbar.horizontal.discrete block {
     margin: 0 1px; }
@@ -1228,39 +1238,39 @@ levelbar.vertical.discrete block {
     margin: 1px 0; }
 
 levelbar block.high {
-    background-color: shade(@success_color, 0.9); }
+    background-color: shade($success_color, 0.9); }
 
 levelbar block.low {
-    background-color: shade(@warning_color, 0.9); }
+    background-color: shade($warning_color, 0.9); }
 
 levelbar block.empty {
-    background-color: alpha(@dark_shadow, 0.1); }
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
-/* scale */
+// scale 
 scale fill, scale trough {
     border: none;
     border-radius: 4px;
-    background-color: alpha(@dark_shadow, 0.2); }
+    background-color: gtkalpha($dark_shadow, 0.2); }
 
 scale fill:disabled, scale trough:disabled {
-    background-color: alpha(@dark_shadow, 0.15); }
+    background-color: gtkalpha($dark_shadow, 0.15); }
 
 scale fill:backdrop, scale trough:backdrop {
-    background-color: alpha(@dark_shadow, 0.1); }
+    background-color: gtkalpha($dark_shadow, 0.1); }
 
 scale fill:backdrop:disabled, scale trough:backdrop:disabled {
-    background-color: alpha(@dark_shadow, 0.08); }
+    background-color: gtkalpha($dark_shadow, 0.08); }
 
 scale highlight {
     border: none;
     border-radius: 4px;
-    background-color: @theme_selected_bg_color; }
+    background-color: $theme_selected_bg_color; }
 
 scale highlight:disabled {
-    background-color: @theme_disabled_bg_color; }
+    background-color: $theme_disabled_bg_color; }
 
 scale highlight:backdrop:disabled {
-    background-color: @theme_unfocused_disabled_bg_color; } 
+    background-color: $theme_unfocused_disabled_bg_color; } 
 
 scale {
     min-height: 10px;
@@ -1294,44 +1304,44 @@ scale trough {
     -gtk-outline-radius: 0; }
 
 scale fill, scale fill:backdrop {
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 scale fill:disabled, scale fill:disabled:backdrop {
-    background-color: @theme_base_color; }
+    background-color: $theme_base_color; }
 
 scale slider {
     border: none;
     border-radius: 100%;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 scale slider:hover {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 scale slider:disabled {
-    background-color: @theme_disabled_bg_color;
+    background-color: $theme_disabled_bg_color;
     -gtk-icon-shadow: none; }
 
 scale slider:backdrop {
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 scale slider:backdrop label, scale slider:backdrop {
-    color: @theme_unfocused_disabled_fg_color; }
+    color: $theme_unfocused_disabled_fg_color; }
 
 scale slider:disabled:backdrop {
-    background-color: @theme_unfocused_disabled_bg_color;
+    background-color: $theme_unfocused_disabled_bg_color;
     -gtk-icon-shadow: none; }
 
 scale slider:backdrop:disabled label, scale slider:backdrop:disabled {
-    color: @theme_unfocused_disabled_fg_color; }
+    color: $theme_unfocused_disabled_fg_color; }
 
 scale value {
-    color: alpha(currentColor,0.55); }
+    color: gtkalpha(currentColor,0.55); }
 
 scale marks {
-    color: alpha(currentColor,0.55); }
+    color: gtkalpha(currentColor,0.55); }
 
 scale marks.top {
     margin-bottom: 6px;
@@ -1379,17 +1389,17 @@ scale.vertical indicator {
 scale.vertical.fine-tune indicator {
     min-width: 3px; }
 
-/* scrollbar */ 
+// scrollbar  
 scrollbar {
     border: none;
-    background-color: shade(@theme_bg_color, 0.9); }
+    background-color: shade($theme_bg_color, 0.9); }
 
 scrollbar trough {
     border: none;
     border-radius: 0; }
 
 scrollbar:backdrop {
-    background-color: shade(@theme_unfocused_bg_color, 0.9); }
+    background-color: shade($theme_unfocused_bg_color, 0.9); }
 
 scrollbar slider {
     min-width: 8px;
@@ -1398,16 +1408,16 @@ scrollbar slider {
     border: none;
     border-radius: 0;
     background-clip: padding-box;
-    background-color: shade(@theme_bg_color, 0.6); }
+    background-color: shade($theme_bg_color, 0.6); }
 
 scrollbar slider:hover {
-    background-color: shade(@theme_bg_color, 0.6); }
+    background-color: shade($theme_bg_color, 0.6); }
 
 scrollbar slider:hover:active {
-    background-color: shade(@theme_bg_color, 0.55); }
+    background-color: shade($theme_bg_color, 0.55); }
 
 scrollbar slider:backdrop {
-    background-color: shade(@theme_bg_color, 0.55); }
+    background-color: shade($theme_bg_color, 0.55); }
 
 scrollbar slider:disabled {
     background-color: transparent; }
@@ -1432,7 +1442,7 @@ scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
     margin: 0;
     min-width: 1px;
     min-height: 1px;
-    background-color: shade(@theme_bg_color, 0.6);
+    background-color: shade($theme_bg_color, 0.6);
     border: none; }
 
 scrollbar.overlay-indicator:not(.dragging):not(.hovering).horizontal slider {
@@ -1465,18 +1475,18 @@ scrollbar.horizontal button.up {
     -gtk-icon-source: -gtk-icontheme("pan-left-symbolic"); }
 
 treeview ~ scrollbar.vertical {
-    border-top: 1px solid @borders;
+    border-top: 1px solid $borders;
     margin-top: -1px; }
 
-/* separator */
+// separator 
 separator {
     -gtk-icon-source: none;
-    background-color: @borders;
+    background-color: $borders;
     min-width: 1px;
     min-height: 1px; }
 
 separator:backdrop {
-    background-color: @unfocused_borders; }
+    background-color: $unfocused_borders; }
 
 button separator {
     margin: 4px 1px; }
@@ -1490,68 +1500,68 @@ button separator {
     background-color: transparent; }
 
 .primary-toolbar separator, toolbar separator {
-    background-color: mix(@borders, @toolbar_bg_color, 0.5); }
+    background-color: gtkmix($borders, $toolbar_bg_color, 0.5); }
 
 .primary-toolbar separator:backdrop, toolbar separator:backdrop {
-    background-color: @unfocused_borders; }
+    background-color: $unfocused_borders; }
 
 headerbar separator {
     -GtkWidget-window-dragging: true;
     margin-top: 4px;
     margin-bottom: 4px;
-    background-color: mix(@borders, @headerbar_bg_color, 0.5); }
+    background-color: gtkmix($borders, $headerbar_bg_color, 0.5); }
 
 headerbar separator:backdrop {
-    background-color: @unfocused_borders; }
+    background-color: $unfocused_borders; }
 
 .titlebar separator {
     -GtkWidget-window-dragging: true;
-    background-color: mix(@borders, @titlebar_bg_color, 0.5); }
+    background-color: gtkmix($borders, $titlebar_bg_color, 0.5); }
 
 .titlebar separator:backdrop {
-    background-color: @unfocused_borders; }
+    background-color: $unfocused_borders; }
 
 .primary-toolbar button separator, toolbar button separator {
-    border-color: @borders; }
+    border-color: $borders; }
 
 .primary-toolbar button separator:backdrop, toolbar button separator:backdrop {
-    border-color: @unfocused_borders; }
+    border-color: $unfocused_borders; }
 
 headerbar button separator {
-    border-color: mix(@borders, @headerbar_bg_color, 0.5); }
+    border-color: gtkmix($borders, $headerbar_bg_color, 0.5); }
 
 headerbar button separator {
-    border-color: @unfocused_borders; }
+    border-color: $unfocused_borders; }
 
 .titlebutton button separator, .titlebutton separator.titlebutton {
-    border-color: mix(@borders, @headerbar_bg_color, 0.5); }
+    border-color: gtkmix($borders, $headerbar_bg_color, 0.5); }
 
 .titlebutton button separator:backdrop, .titlebutton separator.titlebutton:backdrop {
-    border-color: @unfocused_borders; }
+    border-color: $unfocused_borders; }
 
 menuitem separator {
     border-width: 1px;
     border-style: none;
-    color: mix(@borders, @menu_bg_color, 0.5); }
+    color: gtkmix($borders, $menu_bg_color, 0.5); }
 
 combobox separator {
     border: none; }
 
-/* sidebar */
+// sidebar 
 filechooser.csd.background, filechooser placessidebar list, .nautilus-window.csd.background, .nautilus-window placessidebar list {
-    background-color: @sidebar_bg_color; }
+    background-color: $sidebar_bg_color; }
 
 filechooser placessidebar.sidebar row.sidebar-row, .nautilus-window placessidebar.sidebar row.sidebar-row {
     border: none;
-    color: @sidebar_fg_color; }
+    color: $sidebar_fg_color; }
 
 placessidebar.sidebar row:hover, placessidebar.sidebar view row:hover, placessidebar.sidebar row:selected:hover, placessidebar.sidebar view row:selected:hover {
-    color: @sidebar_fg_color;
-    background-color: mix(@sidebar_bg_color, @sidebar_fg_color, 0.15); }
+    color: $sidebar_fg_color;
+    background-color: gtkmix($sidebar_bg_color, $sidebar_fg_color, 0.15); }
 
 placessidebar.sidebar row:selected, placessidebar.sidebar row:selected:hover, placessidebar.sidebar row:selected:focus, placessidebar.sidebar view row:selected, placessidebar.sidebar view row:selected:hover, placessidebar.sidebar view row:selected:focus {
-    color: @sidebar_fg_color;
-    background-color: mix(@sidebar_bg_color, @dark_shadow, 0.15); }
+    color: $sidebar_fg_color;
+    background-color: gtkmix($sidebar_bg_color, $dark_shadow, 0.15); }
 
 .sidebar frame, .sidebar.frame {
     border: none; }
@@ -1560,7 +1570,7 @@ placessidebar.sidebar row:selected, placessidebar.sidebar row:selected:hover, pl
     background-color: transparent; }
     
 placessidebar.sidebar scrollbar slider, placessidebar.sidebar scrollbar slider:hover, placessidebar.sidebar scrollbar slider:active, placessidebar.sidebar scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
-    background-color: alpha(@sidebar_fg_color, 0.3); }
+    background-color: gtkalpha($sidebar_fg_color, 0.3); }
 
 paned .sidebar.left, paned .sidebar.right, paned .sidebar.left:dir(rtl), paned .sidebar:dir(rtl), paned .sidebar:dir(ltr), paned .sidebar {
     border: none; }
@@ -1569,8 +1579,8 @@ stacksidebar row {
     padding: 10px 4px; }
 
 stacksidebar row:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 stacksidebar row > label {
     padding-left: 6px;
@@ -1612,19 +1622,19 @@ button.sidebar-button:backdrop {
     margin-bottom: 2px;
     padding: 0;
     border-radius: 100%;
-    color: @sidebar_fg_color;
+    color: $sidebar_fg_color;
     -gtk-outline-radius: 100%; }
 
 button.sidebar-button:hover, button.sidebar-button:active {
-    color: @theme_fg_color; }
+    color: $theme_fg_color; }
 
 button.sidebar-button:not(:hover):not(:active) > image {
     opacity: 0.5; }
 
-/* spinbutton */
+// spinbutton 
 spinbutton:not(.vertical) selection:focus,  spinbutton:not(.vertical) selection {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 spinbutton.horizontal entry {
     border-top-right-radius: 0;
@@ -1653,7 +1663,7 @@ spinbutton.vertical button.down {
     border-top-left-radius: 0;
     border-top-right-radius: 0; }
 
-/* spinner */
+// spinner 
 @keyframes spin {
     to {
         -gtk-icon-transform: rotate(1turn); } }
@@ -1670,38 +1680,38 @@ spinner:checked {
 spinner:checked:disabled {
     opacity: 0.5; }
 
-/* statusbar */
+// statusbar 
 statusbar {
     padding: 4px;
-    color: @theme_fg_color; }
+    color: $theme_fg_color; }
 
 statusbar frame > border {
     border: none; }
 
-/* switch */
+// switch 
 switch {
     font-size: 0;
     outline-offset: -4px;
     margin: 4px;
-    border: 1px solid @borders;
+    border: 1px solid $borders;
     border-radius: 16px;
-    background-color: @borders; }
+    background-color: $borders; }
 
 switch:checked {
-    border-color: @theme_selected_bg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    background-color: $theme_selected_bg_color; }
 
 switch:disabled {
-    border-color: @theme_disabled_bg_color;
-    background-color: @theme_disabled_bg_color; }
+    border-color: $theme_disabled_bg_color;
+    background-color: $theme_disabled_bg_color; }
 
 switch:backdrop {
-    border-color: @unfocused_borders;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $unfocused_borders;
+    background-color: $theme_unfocused_bg_color; }
 
 switch:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 switch slider {
     min-width: 14px;
@@ -1709,28 +1719,28 @@ switch slider {
     margin: 3px;
     border: none;
     border-radius: 100%;
-    color: @theme_fg_color;
-    background-color: @theme_base_color; }
+    color: $theme_fg_color;
+    background-color: $theme_base_color; }
 
 switch:disabled slider {
-    background-color: mix(@theme_base_color, @theme_disabled_bg_color, 0.5); }
+    background-color: gtkmix($theme_base_color, $theme_disabled_bg_color, 0.5); }
 
 switch:backdrop slider {
-    background-color: @theme_unfocused_base_color; }
+    background-color: $theme_unfocused_base_color; }
 
 switch:disabled:backdrop slider {
-    background-color: mix(@theme_unfocused_disabled_bg_color, @theme_unfocused_base_color, 0.5); }
+    background-color: gtkmix($theme_unfocused_disabled_bg_color, $theme_unfocused_base_color, 0.5); }
 
-/* textview */
+// textview 
 textview {
-    color: @theme_text_color;
-    background-color: @theme_base_color; }
+    color: $theme_text_color;
+    background-color: $theme_base_color; }
 
 textview text:selected, textview text selection, textview text:selected:focus, textview text selection:focus {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* color chooser */
+// color chooser 
 colorswatch.top {
     border-top-left-radius: 2.5px;
     border-top-right-radius: 2.5px; }
@@ -1764,40 +1774,40 @@ colorswatch.right overlay, colorswatch:last-child:not(.bottom) overlay {
     border-bottom-right-radius: 2px; }
 
 colorswatch.dark overlay {
-    color: alpha(@light_shadow, 0.7); }
+    color: gtkalpha($light_shadow, 0.7); }
 
 colorswatch.dark overlay:hover {
-    border-color: alpha(@dark_shadow, 0.5); }
+    border-color: gtkalpha($dark_shadow, 0.5); }
 
 colorswatch.light overlay {
-    color: alpha(@light_shadow, 0.7); }
+    color: gtkalpha($light_shadow, 0.7); }
 
 colorswatch.light overlay:hover {
-    border-color: alpha(@dark_shadow, 0.3); }
+    border-color: gtkalpha($dark_shadow, 0.3); }
 
 colorswatch overlay {
-    border: 1px solid alpha(@dark_shadow, 0.15); }
+    border: 1px solid gtkalpha($dark_shadow, 0.15); }
 
 colorswatch overlay:hover {
-    background-color: alpha(@light_shadow, 0.2); }
+    background-color: gtkalpha($light_shadow, 0.2); }
 
 colorswatch:disabled {
     opacity: 0.5; }
 
 colorswatch:disabled overlay {
-    border-color: alpha(@dark_shadow, 0.6);
+    border-color: gtkalpha($dark_shadow, 0.6);
     box-shadow: none; }
 
 colorchooser #add-color-button {
     background-clip: padding-box;
-    border-color: alpha(@dark_shadow, 0.1);
-    background-color: shade(@theme_bg_color, 0.95);
-    color: @theme_fg_color; }
+    border-color: gtkalpha($dark_shadow, 0.1);
+    background-color: shade($theme_bg_color, 0.95);
+    color: $theme_fg_color; }
 
 colorchooser #add-color-button:hover {
-    border-color: alpha(@dark_shadow, 0.3);
-    background-color: shade(@theme_bg_color, 0.90);
-    color: @theme_fg_color; }
+    border-color: gtkalpha($dark_shadow, 0.3);
+    background-color: shade($theme_bg_color, 0.90);
+    color: $theme_fg_color; }
 
 button.color {
     padding: 0; }
@@ -1809,7 +1819,7 @@ button.color colorswatch:first-child:last-child, button.color colorswatch:first-
 colorchooser .popover.osd {
     border-radius: 0; }
 
-/* pathbars */
+// pathbars 
 .path-bar button.text-button, .path-bar button.image-button, .path-bar button {
     padding-left: 4px;
     padding-right: 4px; }
@@ -1832,20 +1842,20 @@ colorchooser .popover.osd {
     padding-left: 0;
     padding-right: 0; }
   
-/* headerbar */
+// headerbar 
 headerbar, headerbar:not(.titlebar) {
     padding: 4px 8px;
     border-width: 0;
     border-style: solid;
-    border-color: mix(@borders, @headerbar_bg_color, 0.5);
+    border-color: gtkmix($borders, $headerbar_bg_color, 0.5);
     border-bottom-width: 1px;
-    color: @headerbar_fg_color;
-    background-color: @headerbar_bg_color; }
+    color: $headerbar_fg_color;
+    background-color: $headerbar_bg_color; }
 
 headerbar:backdrop, headerbar:not(.titlebar):backdrop {
-    border-color: @unfocused_borders;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 .titlebar headerbar, .titlebar headerbar:backdrop {
     background-color: transparent; }
@@ -1859,174 +1869,174 @@ headerbar .subtitle {
     font-size: smaller;
     padding-left: 12px;
     padding-right: 12px;
-    color: alpha(currentColor, 0.7); }
+    color: gtkalpha(currentColor, 0.7); }
 
 headerbar button {
     padding: 4px 8px;
-    border-color: mix(@headerbar_bg_color, @headerbar_fg_color, 0.1);
-    color: @headerbar_fg_color;
-    background-color: mix(@headerbar_bg_color, @headerbar_fg_color, 0.1); }
+    border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
+    color: $headerbar_fg_color;
+    background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1); }
 
 headerbar button:hover {
-    border-color: mix(@headerbar_bg_color, @headerbar_fg_color, 0.15);
-    color: @headerbar_fg_color;
-    background-color: mix(@headerbar_bg_color, @headerbar_fg_color, 0.15); }
+    border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
+    color: $headerbar_fg_color;
+    background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15); }
 
 headerbar button:active, headerbar button:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 headerbar button:disabled {
-    border-color: mix(@headerbar_bg_color, @theme_disabled_bg_color, 0.1);
-    color: @headerbar_fg_color;
-    background-color: mix(@headerbar_bg_color, @theme_disabled_bg_color, 0.1); }
+    border-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
+    color: $headerbar_fg_color;
+    background-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1); }
 
 headerbar button:active:backdrop, headerbar button:checked:backdrop {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 headerbar button:backdrop {
-    border-color: @unfocused_borders;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 headerbar button:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 headerbar button:backdrop:disabled {
-    border-color: @unfocused_borders;
-    color: @theme_unfocused_disabled_fg_color;
-    background-color: @theme_unfocused_disabled_bg_color; }
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_disabled_fg_color;
+    background-color: $theme_unfocused_disabled_bg_color; }
 
-/* toolbar */
+// toolbar 
 toolbar {
     padding: 4px;
     border: none;
-    color: @toolbar_fg_color;
-    background-color: @toolbar_bg_color; }
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color; }
 
 toolbar:backdrop {
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 toolbar:disabled {
-    color: @theme_disabled_fg_color;
-    background-color: @theme_disabled_bg_color; }
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color; }
 
 toolbar button.flat {
-    border-color: @toolbar_bg_color;
-    color: @toolbar_fg_color;
-    background-color: @toolbar_bg_color; }
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color; }
 
 toolbar button.flat:hover {
-    border-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1);
-    color: @toolbar_fg_color;
-    background-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1); }
+    border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    color: $toolbar_fg_color;
+    background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1); }
 
 toolbar button.flat:active, toolbar button.flat:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 toolbar button.flat:backdrop {
-    border-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 toolbar button.flat:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
-/* menubar toolbars */
+// menubar toolbars 
 toolbar menubar {
     -GtkToolbar-button-relief: normal; }
 
-/* primary-toolbar */
+// primary-toolbar 
 .primary-toolbar {
     -GtkWidget-window-dragging: true;
 
     padding: 4px;
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: mix(@borders, @toolbar_bg_color, 0.5);
-    color: @toolbar_fg_color;
-    background-color: @toolbar_bg_color; }
+    border-color: gtkmix($borders, $toolbar_bg_color, 0.5);
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color; }
 
 .primary-toolbar:backdrop {
-    border-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 .primary-toolbar combobox, .primary-toolbar button, .primary-toolbar .raised button {
-    border-color: @toolbar_bg_color;
-    color: @toolbar_fg_color;
-    background-color: @toolbar_bg_color; }
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color; }
 
 .primary-toolbar button:hover, .primary-toolbar .raised button:hover {
-    border-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1);
-    color: @toolbar_fg_color;
-    background-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1); }
+    border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    color: $toolbar_fg_color;
+    background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1); }
 
 .primary-toolbar button:active, .primary-toolbar button:checked, .primary-toolbar .raised button:active, .primary-toolbar .raised button:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 .primary-toolbar button:backdrop, .primary-toolbar .raised button:backdrop {
-    border-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 .primary-toolbar button:backdrop:checked, .primary-toolbar .raised button:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
-/* inline-toolbar */
+// inline-toolbar 
 .inline-toolbar toolbar {
     -GtkToolbar-button-relief: normal;
 
     padding: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: mix(@borders, @toolbar_bg_color, 0.5);
+    border-color: gtkmix($borders, $toolbar_bg_color, 0.5);
     border-radius: 0;
-    background-color: @toolbar_bg_color; }
+    background-color: $toolbar_bg_color; }
 
 .inline-toolbar toolbar:last-child {
     border-width: 0 1px 1px 1px;
     border-radius: 0; }
 
 .inline-toolbar toolbar button {
-    border-color: @toolbar_bg_color;
-    color: @toolbar_fg_color;
-    background-color: @toolbar_bg_color; }
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color; }
 
 .inline-toolbar toolbar button:hover {
-    border-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1);
-    background-color: mix(@toolbar_bg_color, @toolbar_fg_color, 0.1); }
+    border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1); }
 
 .inline-toolbar toolbar button:active, .inline-toolbar toolbar button:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 .inline-toolbar button:backdrop {
-    border-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 .inline-toolbar button:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
-/* linked widgets */
+// linked widgets 
 .linked entry, .linked button, .linked combobox box.linked button {
     border-radius: 0;
     border-left-width: 0; }
@@ -2046,7 +2056,7 @@ toolbar menubar {
     border-radius: 0; }
 
 .linked entry:focus, .linked entry:last-child:focus {
-    box-shadow: -1px 0 @theme_selected_bg_color; }
+    box-shadow: -1px 0 $theme_selected_bg_color; }
     
 .linked entry:first-child:focus {
     box-shadow: none; }
@@ -2074,7 +2084,7 @@ toolbar menubar {
     border-top-width: 1px; }
     
 .vertical.linked entry:focus, .vertical.linked entry:last-child:focus {
-    box-shadow: 0 -1px @theme_selected_bg_color; }
+    box-shadow: 0 -1px $theme_selected_bg_color; }
 
 .vertical.linked entry:first-child:focus {
     box-shadow: none; }
@@ -2094,11 +2104,11 @@ toolbar menubar {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0; }
 
-/* stack switcher */
+// stack switcher 
 stackswitcher button.text-button {
     min-width: 80px; }
 
-/* tooltip */
+// tooltip 
 tooltip {
     border-radius: 0;
     box-shadow: none; }
@@ -2106,78 +2116,77 @@ tooltip {
 tooltip.background {
     border-width: 1px;
     border-style: solid;
-    border-color: @borders;
-    background-color: @tooltip_bg_color; }
+    border-color: $borders;
+    background-color: $tooltip_bg_color; }
 
 tooltip.background label {
     padding: 1px; }
 
 tooltip * {
     background-color: transparent;
-    color: @tooltip_fg_color; }
+    color: $tooltip_fg_color; }
 
-/* treeview */
+// treeview 
 treeview {
     -treeview-vertical-separator: 0; }
 
 treeview.view:selected:focus, treeview.view:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* treeview header */
+// treeview header 
 treeview header button {
     border-width: 0 1px 1px 0;
     border-radius: 0; }
 
 treeview header button, treeview header button:active, treeview header button:focus, treeview header button:active:focus {
-    background-color: shade(@theme_bg_color, 0.97); }
+    background-color: shade($theme_bg_color, 0.97); }
 
 treeview header button:hover, treeview header button:active:hover, treeview header button:hover:focus, treeview header button:active:hover:focus {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 treeview header:last-child button {
     border-width: 0 0 1px 0; }
 
-/* view */
+// view 
 .view {
-    color: @theme_text_color;
-    background-color: @theme_base_color; }
+    color: $theme_text_color;
+    background-color: $theme_base_color; }
 
 .view:not(treeview) {
     border-radius: 0; }
 
 .view:disabled {
-    color: @theme_disabled_fg_color;
-    background-color: @theme_disabled_bg_color; }
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color; }
 
 .view:selected:disabled:focus, .view:selected:disabled, .view text:selected:focus:disabled, .view text:selected:disabled, .view text selection:disabled:focus {
-    color: mix(@theme_selected_fg_color, @theme_disabled_fg_color, 0.5);
-    background-color: @theme_selected_bg_color; }
+    color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.5);
+    background-color: $theme_selected_bg_color; }
 
 .view:selected:focus, .view:selected, .view text:selected:focus, .view text:selected, .view text selection:focus, .view text selection {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
-/* backdrop state */
+// backdrop state 
 .view:selected:backdrop, .view selection:backdrop {
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
-/* action-bar */
+// action-bar 
 actionbar {
     padding: 4px;
     border-width: 1px 0 0 0;
     border-style: solid;
-    border-color: @borders;
-    color: @theme_fg_color;
-    background-color: @theme_bg_color; }
+    border-color: $borders;
+    color: $theme_fg_color;
+    background-color: $theme_bg_color; }
 
 actionbar:backdrop {
-    border-color: @unfocused_borders;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color;
-}
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 actionbar button.text-button {
     padding: 4px; }
@@ -2193,32 +2202,32 @@ actionbar .subtitle {
     font-size: smaller;
     padding: 0 12px; }
 
-/* search bars */
+// search bars 
 searchbar {
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: @borders;
-    background-color: @theme_bg_color; }
+    border-color: $borders;
+    background-color: $theme_bg_color; }
 
-/* app notifications */
+// app notifications 
 .app-notification {
     border-style: solid;
-    border-color: @borders;
+    border-color: $borders;
     border-width: 1px;
     border-radius: 0;
     margin: 5px;
     padding: 8px;
-    background-color: @theme_base_color;
+    background-color: $theme_base_color;
     background-image: none;
-    color: @theme_text_color; }
+    color: $theme_text_color; }
 
 .app-notification border {
     border: none; }
 
-/* osd */
+// osd 
 .background.osd {
-    color: @osd_fg;
-    background-color: @osd_bg; }
+    color: $osd_fg;
+    background-color: $osd_bg; }
 
 .osd frame {
     background-clip: border-box;
@@ -2228,29 +2237,29 @@ searchbar {
     padding: 4px;
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@osd_bg, 0.8);
+    border-color: shade($osd_bg, 0.8);
     border-radius: 0;
-    background-color: shade(@osd_bg, 1.08);
+    background-color: shade($osd_bg, 1.08);
     background-image: none;
-    color: @osd_fg; }
+    color: $osd_fg; }
 
 .osd button:hover, button.osd:hover {
-    border-color: shade(@osd_bg, 0.7);
-    background-color: shade(@osd_bg, 1.10);
+    border-color: shade($osd_bg, 0.7);
+    background-color: shade($osd_bg, 1.10);
     background-image: none; }
 
 .osd button:active, button.osd:active, .osd menubutton button:active, .osd button:checked, button.osd:checked, .osd menubutton button:checked {
-    border-color: shade(@osd_bg, 0.8);
-    background-color: shade(@osd_bg, 0.95);
+    border-color: shade($osd_bg, 0.8);
+    background-color: shade($osd_bg, 0.95);
     background-image: none; }
 
 .osd button:disabled, button.osd:disabled {
-    border-color: shade(@osd_bg, 0.85);
-    background-color: shade(@osd_bg, 0.9);
+    border-color: shade($osd_bg, 0.85);
+    background-color: shade($osd_bg, 0.9);
     background-image: none; }
 
 .osd button:checked:disabled, button.osd:checked:disabled {
-    background-color: shade(@osd_bg, 0.8);
+    background-color: shade($osd_bg, 0.8);
     background-image: none; }
 
 .osd toolbar {
@@ -2260,45 +2269,45 @@ searchbar {
     border-width: 1px;
     border-style: solid;
     border-radius: 0;
-    border-color: shade(@osd_bg, 0.8);
-    background-color: @osd_bg;
+    border-color: shade($osd_bg, 0.8);
+    background-color: $osd_bg;
     background-image: none;
-    color: @osd_fg; }
+    color: $osd_fg; }
 
 .osd toolbar button {
     padding: 4px;
     border-width: 1px;
     border-style: solid;
-    border-color: shade(@osd_bg, 0.8);
+    border-color: shade($osd_bg, 0.8);
     border-radius: 0;
-    background-color: shade(@osd_bg, 1.08);
+    background-color: shade($osd_bg, 1.08);
     background-image: none;
-    color: @osd_fg; }
+    color: $osd_fg; }
 
 .osd toolbar button:hover {
-    border-color: shade(@osd_bg, 0.7);
-    background-color: shade(@osd_bg, 1.10);
+    border-color: shade($osd_bg, 0.7);
+    background-color: shade($osd_bg, 1.10);
     background-image: none; }
 
 .osd toolbar button:active, .osd toolbar button:checked {
-    border-color: shade(@osd_bg, 0.8);
-    background-color: shade(@osd_bg, 0.95);
+    border-color: shade($osd_bg, 0.8);
+    background-color: shade($osd_bg, 0.95);
     background-image: none; }
 
 .osd toolbar button:disabled {
-    border-color: shade(@osd_bg, 0.85);
-    background-color: shade(@osd_bg, 0.9);
+    border-color: shade($osd_bg, 0.85);
+    background-color: shade($osd_bg, 0.9);
     background-image: none; }
 
 .osd toolbar button:checked:disabled {
-    border-color: shade(@osd_bg, 0.75);
-    background-color: shade(@osd_bg, 0.80);
+    border-color: shade($osd_bg, 0.75);
+    background-color: shade($osd_bg, 0.80);
     background-image: none; }
 
 .osd toolbar button:first-child {
     border-radius: 4px 0 0 4px;
     border-width: 1px 0 1px 1px;
-    box-shadow: inset -1px 0 shade(@osd_bg, 0.9); }
+    box-shadow: inset -1px 0 shade($osd_bg, 0.9); }
 
 .osd toolbar button:last-child {
     box-shadow: none;
@@ -2311,39 +2320,39 @@ searchbar {
     border-style: solid; }
 
 .osd toolbar separator {
-    color: shade(@osd_bg, 0.9); }
+    color: shade($osd_bg, 0.9); }
 
 .osd trough, trough.osd {
-    background-color: shade(@osd_bg, 0.8); }
+    background-color: shade($osd_bg, 0.8); }
 
 .osd progress, progress.osd {
-    background-color: @osd_fg; }
+    background-color: $osd_fg; }
 
 .osd scale slider, scale.osd slider {
-    background-color: shade(@osd_bg, 1.08);
+    background-color: shade($osd_bg, 1.08);
     background-image: none;
-    border-color: shade(@osd_bg, 0.8); }
+    border-color: shade($osd_bg, 0.8); }
 
 .osd scale slider:hover {
-    border-color: shade(@osd_bg, 0.7); }
+    border-color: shade($osd_bg, 0.7); }
 
 .osd scale slider:disabled {
-    background-color: shade(@osd_bg, 0.9);
+    background-color: shade($osd_bg, 0.9);
     background-image: none;
-    border-color: shade(@osd_bg, 0.85); }
+    border-color: shade($osd_bg, 0.85); }
 
 .osd scale trough, scale.osd trough {
-    border-color: shade(@osd_bg, 0.8);
-    background-color: shade(@osd_bg, 1.08);
+    border-color: shade($osd_bg, 0.8);
+    background-color: shade($osd_bg, 1.08);
     background-image: none; }
 
 .osd scale highlight, scale.osd highlight {
-    border-color: @theme_selected_bg_color;
-    background-color: @theme_selected_bg_color;
+    border-color: $theme_selected_bg_color;
+    background-color: $theme_selected_bg_color;
     background-image: none; }
 
 .osd scale trough:disabled, .osd scale highlight:disabled {
-    border-color: shade(@osd_bg, 0.85);
+    border-color: shade($osd_bg, 0.85);
     background-color: transparent;
     background-image: none; }
 
@@ -2360,224 +2369,224 @@ searchbar {
 .osd progressbar progress, progressbar.osd progress {
     border-style: none;
     border-radius: 0;
-    background-color: @theme_selected_bg_color;
+    background-color: $theme_selected_bg_color;
     background-image: none; }
 
 .osd view, view.osd, .osd.view {
-    background-color: @osd_base; }
+    background-color: $osd_base; }
 
-/* TODO: Try to fix this */
+// TODO: Try to fix this 
 .osd scrollbar trough, scrollbar.osd trough {
-    background-color: @osd_bg; }
+    background-color: $osd_bg; }
 
 .osd scrollbar slider, scrollbar.osd slider {
     border-width: 0px;
     border-radius: 6px;
-    background-color: mix(@osd_base, @osd_fg, 0.21); }
+    background-color: gtkmix($osd_base, $osd_fg, 0.21); }
 
 .osd scrollbar slider:hover, scrollbar.osd slider:hover {
-    border-color: mix(shade(@osd_base, 0.87), @osd_fg, 0.31);
-    background-color: mix(@osd_base, @osd_fg, 0.31); }
+    border-color: gtkmix(shade($osd_base, 0.87), $osd_fg, 0.31);
+    background-color: gtkmix($osd_base, $osd_fg, 0.31); }
 
 .osd scrollbar slider:active, scrollbar.osd slider:active {
-    border-color: shade(@theme_selected_bg_color, 0.9);
-    background-color: @theme_selected_bg_color; }
+    border-color: shade($theme_selected_bg_color, 0.9);
+    background-color: $theme_selected_bg_color; }
 
 .osd .view:selected, .osd .view:selected:focus {
     background-color: transparent;
     border-style: solid;
     border-radius: 0;
     border-width: 3px;
-    border-color: @osd_fg;
+    border-color: $osd_fg;
     outline-color: transparent; }
 
-/* destructive action buttons */
+// destructive action buttons 
 button.destructive-action {
     border-width: 1px;
     border-style: solid;
-    border-color: mix(@error_color, @theme_fg_color, 0.2);
+    border-color: gtkmix($error_color, $theme_fg_color, 0.2);
     border-radius: 0;
-    color: mix(@theme_selected_fg_color, @error_color, 0.1);
-    background-color: @error_color; }
+    color: gtkmix($theme_selected_fg_color, $error_color, 0.1);
+    background-color: $error_color; }
 
 button.destructive-action:hover {
-    border-color: mix(@error_color, @theme_fg_color, 0.3);
-    background-color: mix(@error_color, @theme_selected_fg_color, 0.2); }
+    border-color: gtkmix($error_color, $theme_fg_color, 0.3);
+    background-color: gtkmix($error_color, $theme_selected_fg_color, 0.2); }
 
 button.destructive-action:active {
-    border-color: mix(@error_color, @theme_fg_color, 0.3);
-    background-color: mix(@error_color, @theme_fg_color, 0.1); }
+    border-color: gtkmix($error_color, $theme_fg_color, 0.3);
+    background-color: gtkmix($error_color, $theme_fg_color, 0.1); }
 
 button.destructive-action:backdrop {
-    border-color: mix(@error_color, @theme_unfocused_fg_color, 0.2);
-    color: mix(@theme_unfocused_selected_fg_color, @error_color, 0.1);
-    background-color: mix(@error_color, @theme_unfocused_bg_color, 0.3); }
+    border-color: gtkmix($error_color, $theme_unfocused_fg_color, 0.2);
+    color: gtkmix($theme_unfocused_selected_fg_color, $error_color, 0.1);
+    background-color: gtkmix($error_color, $theme_unfocused_bg_color, 0.3); }
 
-/* suggested action buttons */
+// suggested action buttons 
 button.suggested-action {
     border-width: 1px;
     border-style: solid;
     border-radius: 0;
-    border-color: @theme_selected_bg_color;
-    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
+    background-color: $theme_selected_bg_color; }
 
 button.suggested-action:hover {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2); }
 
 button.suggested-action:active, button.suggested-action:checked {
-    border-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1);
-    background-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+    background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1); }
 
 button.suggested-action:disabled {
-    border-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.2);
-    color: mix(@theme_selected_fg_color, @theme_disabled_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.2); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
+    color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2); }
 
 button.suggested-action:backdrop {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 button.suggested-action:active:backdrop, button.suggested-action:checked:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1); }
 
-/* headerbar suggested action */
+// headerbar suggested action 
 headerbar button.suggested-action {
     border-width: 1px;
     border-style: solid;
     border-radius: 0;
-    border-color: @theme_selected_bg_color;
-    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
+    background-color: $theme_selected_bg_color; }
 
 headerbar button.suggested-action:hover {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2); }
 
 headerbar button.suggested-action:active, headerbar button.suggested-action:checked {
-    border-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1);
-    background-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+    background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1); }
 
 headerbar button.suggested-action:disabled {
-    border-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.2);
-    color: mix(@theme_selected_fg_color, @theme_disabled_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_disabled_bg_color, 0.2); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
+    color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2); }
 
 headerbar button.suggested-action:backdrop {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 headerbar button.suggested-action:active:backdrop, headerbar button.suggested-action:checked:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1); }
 
-/* selection mode */
+// selection mode 
 headerbar.selection-mode, toolbar.selection-mode {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.6);;
-    color: @theme_selected_fg_color;
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.6); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6);;
+    color: $theme_selected_fg_color;
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6); }
 
 headerbar.selection-mode:backdrop, toolbar.selection-mode:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.6);
-    color: @theme_unfocused_selected_fg_color;
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.6); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6);
+    color: $theme_unfocused_selected_fg_color;
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6); }
 
 toolbar.selection-mode {
     padding: 4px; }
 
-/* selection mode button */
+// selection mode button 
 headerbar.selection-mode button, toolbar.selection-mode button, toolbar.selection-mode button {
     border-width: 1px;
     border-style: solid;
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.7);
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7);
     border-radius: 0;
-    color: mix(@theme_selected_bg_color, @theme_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.7); }
+    color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7); }
 
 headerbar.selection-mode button:hover, toolbar.selection-mode button:hover, toolbar.selection-mode button:hover {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.75);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.75); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75); }
 
 headerbar.selection-mode button:active, headerbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.45);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.45); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45); }
 
 headerbar.selection-mode button:backdrop, toolbar.selection-mode button:backdrop, toolbar.selection-mode button:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.75);
-    color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.3);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.75); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
+    color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.3);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75); }
 
 headerbar.selection-mode button:active, headerbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.45);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_selected_fg_color, 0.45); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45); }
 
-/* selection mode suggested button */
+// selection mode suggested button 
 headerbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action {
     border-width: 1px;
     border-style: solid;
-    border-color: @theme_selected_bg_color;
+    border-color: $theme_selected_bg_color;
     border-radius: 0;
-    color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
-    background-color: @theme_selected_bg_color; }
+    color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
+    background-color: $theme_selected_bg_color; }
 
 headerbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover {
-    border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2);
-    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2); }
 
 headerbar.selection-mode button.suggested-action:active, toolbar.selection-mode button.suggested-action:active, toolbar.selection-mode toolbutton.suggested-action:active, headerbar.selection-mode button.suggested-action:checked, toolbar.selection-mode button.suggested-action:checked, toolbar.selection-mode toolbutton.suggested-action:checked {
-    border-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1);
-    background-color: mix(@theme_selected_bg_color, @theme_fg_color, 0.1); }
+    border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+    background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1); }
 
 headerbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 headerbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode toolbutton.suggested-action:active:backdrop, headerbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode toolbutton.suggested-action:checked:backdrop {
-    border-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1);
-    background-color: mix(@theme_unfocused_selected_bg_color, @theme_unfocused_fg_color, 0.1); }
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1); }
 
-/* menu button */
+// menu button 
 headerbar.selection-mode .selection-menu button, toolbar.selection-mode .selection-menu button {
     border-style: none;
     background-color: transparent;
     background-image: none;
-    color: shade(@theme_selected_bg_color, 0.8); }
+    color: shade($theme_selected_bg_color, 0.8); }
 
 toolbar.selection-mode .dim-label, toolbar.selection-mode .selection-menu button .dim-label {
-    color: shade(@theme_selected_bg_color, 0.7); }
+    color: shade($theme_selected_bg_color, 0.7); }
 
 headerbar.selection-mode .selection-menu button:hover, toolbar.selection-mode .dim-label:hover, toolbar.selection-mode .selection-menu button:hover, toolbar.selection-mode .selection-menu button .dim-label:hover {
-    color: shade(@theme_selected_bg_color, 0.7); }
+    color: shade($theme_selected_bg_color, 0.7); }
 
 headerbar.selection-mode .selection-menu button:active, toolbar.selection-mode .selection-menu button:active {
-    color: shade(@theme_selected_bg_color, 0.8);
+    color: shade($theme_selected_bg_color, 0.8);
     box-shadow: none; }
 
-/* decoration */
+// decoration 
 decoration {
     border-radius: 0;
     border-width: 0px;
-    box-shadow: 0 8px 8px 0 alpha(@dark_shadow, 0.2), 0 0 0 1px @theme_selected_bg_color;
+    box-shadow: 0 8px 8px 0 gtkalpha($dark_shadow, 0.2), 0 0 0 1px $theme_selected_bg_color;
     margin: 10px; }
 
 decoration:backdrop {
-    box-shadow: 0 8px 8px 0 transparent, 0 5px 5px 0 alpha(@dark_shadow, 0.2), 0 0 0 1px @borders; }
+    box-shadow: 0 8px 8px 0 transparent, 0 5px 5px 0 gtkalpha($dark_shadow, 0.2), 0 0 0 1px $borders; }
 
 .fullscreen decoration, .tiled decoration {
     border-radius: 0; }
 
 .popup decoration {
-    box-shadow: 0 0 0 1px alpha(@dark_shadow, 0.1);
+    box-shadow: 0 0 0 1px gtkalpha($dark_shadow, 0.1);
     border-radius: 0; }
 
 .ssd decoration {
     border-radius: 0;
-    box-shadow: 0 0 0 1px alpha(@dark_shadow, 0.1); }
+    box-shadow: 0 0 0 1px gtkalpha($dark_shadow, 0.1); }
 
 .ssd decoration.maximized {
     border-radius: 0; }
@@ -2589,21 +2598,21 @@ tooltip.csd decoration {
 .solid-csd decoration {
     margin: 1px;
     border-radius: 0;
-    background-color: alpha(@light_shadow, 0.95);
+    background-color: gtkalpha($light_shadow, 0.95);
     box-shadow: none; }
 
-/* message dialog */
+// message dialog 
 messagedialog.background.csd {
 	border-radius: 0;
-	color: @theme_fg_color;
-    background-color: @theme_bg_color; }
+	color: $theme_fg_color;
+    background-color: $theme_bg_color; }
 
 messagedialog.csd decoration {
     border-radius: 0;
-    box-shadow: 0 1px 2px alpha(@dark_shadow, 0.2); }
+    box-shadow: 0 1px 2px gtkalpha($dark_shadow, 0.2); }
 
 messagedialog .titlebar.horizontal {
-    background-color: @theme_bg_color; }
+    background-color: $theme_bg_color; }
 
 messagedialog.csd .dialog-action-area button {
     border-bottom-style: none; }
@@ -2623,7 +2632,7 @@ messagedialog.csd .dialog-action-area button:first-child {
 messagedialog.csd .dialog-action-area button:only-child {
     border-radius: 0; }
 
-/* titlebar */
+// titlebar 
 .titlebar {
     border-bottom: none;
     border-radius: 0; }
@@ -2637,62 +2646,62 @@ messagedialog.csd .dialog-action-area button:only-child {
     font-size: smaller;
     padding-left: 12px;
     padding-right: 12px;
-    color: alpha(currentColor, 0.7); }
+    color: gtkalpha(currentColor, 0.7); }
 
 .titlebar button {
     padding: 4px 8px;
-    border-color: mix(@titlebar_bg_color, @titlebar_fg_color, 0.1);
-    color: @titlebar_fg_color;
-    background-color: mix(@titlebar_bg_color, @titlebar_fg_color, 0.1); }
+    border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
+    color: $titlebar_fg_color;
+    background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1); }
 
 .titlebar button:hover {
-    border-color: mix(@titlebar_bg_color, @titlebar_fg_color, 0.15);
-    color: @titlebar_fg_color;
-    background-color: mix(@titlebar_bg_color, @titlebar_fg_color, 0.15); }
+    border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
+    color: $titlebar_fg_color;
+    background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15); }
 
 .titlebar button:active, titlebar button:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
 
 .titlebar button:disabled {
-    border-color: mix(@titlebar_bg_color, @theme_disabled_bg_color, 0.1);
-    color: @titlebar_fg_color;
-    background-color: mix(@titlebar_bg_color, @theme_disabled_bg_color, 0.1); }
+    border-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
+    color: $titlebar_fg_color;
+    background-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1); }
 
 .titlebar button:active:backdrop, titlebar button:checked:backdrop {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 .titlebar button:backdrop {
-    border-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color;
-    background-color: @theme_unfocused_bg_color; }
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color; }
 
 .titlebar button:backdrop:checked {
-    border-color: @theme_unfocused_selected_bg_color;
-    color: @theme_unfocused_selected_fg_color;
-    background-color: @theme_unfocused_selected_bg_color; }
+    border-color: $theme_unfocused_selected_bg_color;
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color; }
 
 .titlebar button:backdrop:disabled {
-    border-color: @theme_unfocused_disabled_bg_color;
-    color: @theme_unfocused_disabled_fg_color;
-    background-color: @theme_unfocused_disabled_bg_color; }
+    border-color: $theme_unfocused_disabled_bg_color;
+    color: $theme_unfocused_disabled_fg_color;
+    background-color: $theme_unfocused_disabled_bg_color; }
 
 .maximized headerbar, .maximized headerbar:backdrop, .tiled .titlebar:not(headerbar), .tiled .titlebar:backdrop:not(headerbar), .maximized .titlebar:not(headerbar), .maximized .titlebar:backdrop:not(headerbar) {
     border-radius: 0; }
 
 .titlebar, .titlebar:not(headerbar), headerbar.default-decoration, .csd headerbar.default-decoration, .default-decoration.titlebar:not(headerbar), .csd .default-decoration.titlebar:not(headerbar) {
     min-height: 28px;
-    color: @titlebar_fg_color;
-    background-color: @titlebar_bg_color; }
+    color: $titlebar_fg_color;
+    background-color: $titlebar_bg_color; }
 
 .titlebar:backdrop, .titlebar:not(headerbar):backdrop, headerbar.default-decoration:backdrop, .csd headerbar.default-decoration:backdrop, .default-decoration.titlebar:backdrop:not(headerbar), .csd .default-decoration.titlebar:backdrop:not(headerbar) {
-    background-color: @theme_unfocused_bg_color;
-    color: @theme_unfocused_fg_color; }
+    background-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color; }
 
-/* titlebutton */
+// titlebutton 
 .titlebar .titlebutton:not(separator), .titlebar .titlebutton:not(separator):active, .titlebar .titlebutton:not(separator):backdrop, .titlebar:not(headerbar) .titlebutton:not(separator), headerbar.default-decoration .titlebutton:not(separator), .csd headerbar.default-decoration .titlebutton:not(separator), .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .titlebar:not(headerbar) .titlebutton:not(separator):backdrop, headerbar.default-decoration .titlebutton:not(separator):backdrop, .csd headerbar.default-decoration .titlebutton:not(separator):backdrop, .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop, .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop {
     padding: 2px 2px;
     border: none;
@@ -2735,3 +2744,171 @@ messagedialog.csd .dialog-action-area button:only-child {
 
 .titlebar .titlebutton.maximize:backdrop {
     background: url('buttons/maximize-backdrop.png') 100% 100%; }
+
+// desktop icons 
+.caja-desktop, .nemo-desktop.nemo-canvas-item, .nautilus-desktop.nautilus-canvas-item {
+    color: $desktop_item_fg;
+    text-shadow: 1px 1px $desktop_item_text_shadow; }
+
+.caja-desktop:active, .nemo-desktop.nemo-canvas-item:active, .nautilus-desktop.nautilus-canvas-item:active {
+    color: $desktop_item_fg; }
+
+.caja-desktop:selected, .nemo-desktop.nemo-canvas-item:selected, .nautilus-desktop.nautilus-canvas-item:selected {
+    color: $desktop_item_selected_fg;
+    text-shadow: none; }
+
+// gnome flashback 
+panel-toplevel.background, panel-toplevel.background menubar {
+    background-color: $taskbar_bg_color;
+    color: $taskbar_fg_color; }
+
+panel-toplevel.background menubar, panel-toplevel.background #PanelApplet label, panel-toplevel.background #PanelApplet image {
+    color: $taskbar_fg_color; }
+
+panel-toplevel.background menubar > menuitem, panel-toplevel.background menubar > menuitem label:backdrop {
+    color: $taskbar_fg_color; }
+
+panel-toplevel.background menubar > menuitem:hover, panel-toplevel.background menubar > menuitem:hover label:backdrop {
+    color: $theme_selected_fg_color; }
+
+panel-toplevel.background button {
+    background-image: none;
+    background-color: $taskbar_bg_color;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: $taskbar_fg_color; }
+
+panel-toplevel.background button:active, panel-toplevel.background button:checked {
+    background-image: none;
+    background-color: shade($taskbar_bg_color, 0.8);
+    border: none;
+    box-shadow: none;
+    color: $taskbar_fg_color; }
+
+#tasklist-button, #tasklist-button label {
+    color: gtkalpha($taskbar_fg_color, 0.7);
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent; }
+
+#tasklist-button:hover {
+    color: gtkalpha($taskbar_fg_color, 0.7);
+    background-color: transparent; }
+
+#tasklist-button:checked {
+    color: $taskbar_fg_color;
+    background-image: none; }
+
+#tasklist-button:checked label {
+    color: $taskbar_fg_color; }
+
+panel-toplevel.background na-tray-applet {
+    -NaTrayApplet-icon-padding: 0;
+    -NaTrayApplet-icon-size: 16px; }
+
+// nemo file manager 
+.nemo-window .nemo-window-pane widget.entry {
+    border: 1px solid;
+    border-radius: 3px;
+    border-color: $theme_selected_bg_color;
+    color: $theme_fg_color;
+    background-color: $theme_base_color; }
+  
+.nemo-window .nemo-window-pane widget.entry:selected:focus, .nemo-window .nemo-window-pane widget.entry:selected {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
+    
+.nemo-window .sidebar {
+    background-color: $theme_bg_color; }
+
+.nemo-window .sidebar .view, .nemo-window .sidebar iconview, .nemo-window .sidebar row {
+    background-color: transparent; }
+
+.nemo-window .sidebar .view.cell:selected, .nemo-window .sidebar iconview.cell:selected, .nemo-window .sidebar row.cell:selected {
+    border-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color; }
+
+.nemo-window .sidebar .view.expander, .nemo-window .sidebar iconview.expander, .nemo-window .sidebar row.expander {
+    color: $theme_fg_color; }
+
+.nemo-window .sidebar .view.expander:hover, .nemo-window .sidebar iconview.expander:hover, .nemo-window .sidebar row.expander:hover {
+    color: $theme_selected_bg_color; }
+
+.nemo-window .sidebar separator {
+    background-color: transparent; }
+
+// unity
+UnityDecoration {
+    -UnityDecoration-extents: 28px 0 0 0;
+    -UnityDecoration-input-extents: 10px;
+
+    -UnityDecoration-shadow-offset-x: 1px;
+    -UnityDecoration-shadow-offset-y: 1px;
+    -UnityDecoration-active-shadow-color: rgba(0,0,0,0.7);
+    -UnityDecoration-active-shadow-radius: 8px;
+    -UnityDecoration-inactive-shadow-color: rgba(0,0,0,0.5);
+    -UnityDecoration-inactive-shadow-radius: 5px;
+
+    -UnityDecoration-glow-size: 10px;
+    -UnityDecoration-glow-color: $theme_selected_bg_color;
+
+    -UnityDecoration-title-indent: 10px;
+    -UnityDecoration-title-fade: 35px;
+    -UnityDecoration-title-alignment: 0.0; }
+
+UnityDecoration .top {
+    border: none;
+    border-radius: 6px 6px 0 0;
+    padding: 1px 8px 0 8px;
+    background-color: $titlebar_bg_color;
+    background-image: linear-gradient(to bottom, shade($titlebar_bg_color, 1.02), shade($titlebar_bg_color, 1.0));
+    color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+    text-shadow: none; }
+
+UnityDecoration .top:backdrop {
+    background-color: $theme_unfocused_bg_color;
+    background-image: none;
+    color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.4); }
+
+UnityDecoration .left, UnityDecoration .right, UnityDecoration.bottom {
+    background-color: $titlebar_bg_color; }
+
+UnityDecoration .left:backdrop, UnityDecoration .right:backdrop, UnityDecoration.bottom:backdrop {
+    background-color: $titlebar_bg_color; }
+
+UnityDecoration .bottom {
+    background-image: none;
+    background-color: $borders; }
+
+UnityPanelWidget, .unity-panel {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: $taskbar_bg_color;
+    background-color: $taskbar_bg_color;
+    background-image: none;
+    color: $taskbar_fg_color; }
+
+.unity-panel.menuitem, .unity-panel .menuitem {
+    border-width: 0 1px;
+    color: $taskbar_fg_color; }
+
+// new menubar function in unity 7.5
+UnityDecoration.menuitem, UnityDecoration .menuitem {
+    border-radius: 0; }
+
+UnityDecoration .menuitem:hover, UnityDecoration .menuitem *:hover, .unity-panel.menubar.menuitem:hover, .unity-panel.menubar .menuitem *:hover {
+    background-image: none;
+    background-color: $theme_selected_bg_color;
+    color: $theme_selected_fg_color; }
+
+@keyframes playbackmenuitem_spinner {
+    to { -gtk-icon-transform: rotate(1turn); }
+}
+
+.menu IdoPlaybackMenuItem.menuitem:active {
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+    animation: playbackmenuitem_spinner 1s infinite linear;
+    color: $theme_selected_bg_color; }
