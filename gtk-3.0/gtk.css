@@ -56,9 +56,9 @@
 @define-color light_shadow rgb(255, 255, 255);
 
 /* Borders */
-@define-color borders shade(@bg_color, 0.95);
+@define-color borders shade(@bg_color, 0.9);
 @define-color outline_color shade(@bg_color, 0.75);
-@define-color unfocused_borders shade(@unfocused_bg_color, 0.95);
+@define-color unfocused_borders shade(@unfocused_bg_color, 0.9);
 
 /* Notification header backgrounds */
 @define-color info_fg_color #FFFFFF;
@@ -87,7 +87,7 @@
 @define-color sidebar_bg_color alpha(@dark_bg_color, 0.8);
 @define-color sidebar_fg_color @dark_fg_color;
 @define-color taskbar_bg_color @dark_bg_color;
-@define-color taskbar_bg_color @dark_fg_color;
+@define-color taskbar_fg_color @dark_fg_color;
 @define-color titlebar_bg_color @dark_bg_color;
 @define-color titlebar_fg_color @dark_fg_color;
 @define-color headerbar_bg_color @dark_bg_color;
