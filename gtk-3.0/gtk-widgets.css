@@ -801,10 +801,6 @@ menu menuitem, .menu menuitem {
     min-height: 16px;
     min-width: 40px;
     padding: 4px;
-    border: none; }
-
-menu menuitem, .menu menuitem {
-    padding: 3px;
     border: none;
     border-radius: 0;
     color: @menu_fg_color;
@@ -855,9 +851,7 @@ popover, popover.background {
     background-color: @theme_bg_color;
     box-shadow: 0 2px 3px 1px alpha(@dark_shadow, 0.25); }
 
-.csd popover, popover, .csd
-popover.background,
-popover.background {
+.csd popover, popover, .csd popover.background, popover.background {
     border: 1px solid @borders; }
 
 popover.touch-selection, .csd popover.touch-selection, popover.background.touch-selection, .csd popover.background.touch-selection {
