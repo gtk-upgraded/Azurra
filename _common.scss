@@ -62,12 +62,14 @@
 }
 
 // Image effects 
-*:disabled {
-  -gtk-icon-effect: dim;
-}
+* {
+  &:disabled {
+    -gtk-icon-effect: dim;
+  }
 
-*:hover {
-  -gtk-icon-effect: highlight;
+  &:hover {
+    -gtk-icon-effect: highlight;
+  }
 }
 
 .gtkstyle-fallback {
@@ -114,7 +116,7 @@ label {
     }
   }
 
-  .dim-label, &.separator, popover &.separator, &.background &.separator {
+  &.dim-label, &.separator, popover &.separator, popover.background &.separator, &:disabled {
     opacity: 0.55;
   }
 }
@@ -623,15 +625,20 @@ list {
       }
     }
   }
+  & separator {
+    background: none; // no lines on sidebar
+  }
 }
 
 // frame 
-frame > border {
-  border-width: 1px;
-  border-style: solid;
-  border-color: $borders;
-  border-radius: 0;
-  box-shadow: none;
+frame {
+  & > border {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $borders;
+    border-radius: 0;
+    box-shadow: none;
+  }
 
   &.flat > border, & > border.flat, statusbar & > border {
     border: none;
@@ -867,6 +874,18 @@ image {
   }
 }
 
+@mixin float_right() {
+  border-right-width: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+@mixin float_left() {
+  border-left-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
 // floating bar 
 .floating-bar {
   border-width: 1px;
@@ -882,15 +901,11 @@ image {
     border-top-left-radius: 0px;
 
     &.left {
-      border-left-width: 0px;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px;
+      @include float_left();
     }
 
     &.right {
-      border-right-width: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
+      @include float_right();
     }
   }
 
@@ -900,15 +915,11 @@ image {
   border-bottom-left-radius: 0px;
 
     &.right {
-      border-right-width: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
+      @include float_right();
     }
 
     &.left {
-      border-left-width: 0px;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px;
+      @include float_left();
     }
   }
 
@@ -945,6 +956,11 @@ arrow, combobox arrow {
   min-width: 16px;
 }
 
+.context-menu, popover.touch-selection, .csd popover.touch-selection,
+popover.background.touch-selection, .csd popover.background.touch-selection {
+  font: initial;
+}
+
 .monospace {
   font-family: Monospace;
 }
@@ -973,36 +989,32 @@ menu, .menu {
   border-style: none;
   color: $menu_fg_color;
   background-color: $menu_bg_color;
-}
 
-.csd menu, .csd.menu {
-  padding: 4px 0px;
-  border-radius: 0;
-  border: none;
-}
+  .csd & {
+    padding: 4px 0px;
+    border-radius: 0;
+    border: none;
+  }
+  
+  & > arrow {
+    padding: 4px;
+    border-color: transparent;
+    background-color: $menu_bg_color;
+    min-width: 16px;
+    min-height: 16px;
 
-.context-menu {
-  font: initial;
-}
+    &.top {
+      margin-top: -6px;
+      border-bottom: 1px solid gtkshade($menu_bg_color, 0.9);
+      -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+    }
 
-menu > arrow, .menu > arrow {
-  padding: 4px;
-  border-color: transparent;
-  background-color: $menu_bg_color;
-  min-width: 16px;
-  min-height: 16px;
-}
-
-menu > arrow.top, .menu > arrow.top {
-  margin-top: -6px;
-  border-bottom: 1px solid gtkshade($menu_bg_color, 0.9);
-  -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
-}
-
-menu > arrow.bottom, .menu > arrow.bottom {
-  margin-bottom: -6px;
-  border-top: 1px solid gtkshade($menu_bg_color, 0.9);
-  -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    &.bottom {
+      margin-bottom: -6px;
+      border-top: 1px solid gtkshade($menu_bg_color, 0.9);
+      -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    }
+  }
 }
 
 // menubar 
@@ -1060,119 +1072,120 @@ menu menuitem, .menu menuitem {
   &:disabled {
     color: gtkmix($menu_fg_color, $menu_bg_color, 0.5);
   }
+
+  // menu arrow 
+  & arrow {
+    min-width: 16px;
+    min-height: 16px;
+
+    &:dir(ltr) {
+      margin-left: 10px;
+      -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+    }
+
+    &:dir(rtl) {
+      margin-right: 10px;
+      -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
+    }
+  }
 }
 
-// menu arrow 
-menu menuitem arrow, .menu menuitem arrow {
-  min-width: 16px;
-  min-height: 16px;
 
-  &:dir(ltr) {
-    margin-left: 10px;
-    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+menuitem {
+  & check, & radio {
+    min-height: 16px;
+    min-width: 16px;
   }
 
-  &:dir(rtl) {
-    margin-right: 10px;
-    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
-  }
-}
+  & accelerator {
+    color: gtkalpha(currentColor, 0.55);
 
-menuitem check, menuitem radio {
-  min-height: 16px;
-  min-width: 16px;
-}
+    &:hover {
+      color: hex2rgba($theme_selected_fg_color, 0.8);
+    }
 
-menuitem accelerator {
-  color: gtkalpha(currentColor, 0.55);
-
-  &:hover {
-    color: hex2rgba($theme_selected_fg_color, 0.8);
-  }
-
-  &:disabled {
-    color: $theme_disabled_fg_color;
+    &:disabled {
+      color: $theme_disabled_fg_color;
+    }
   }
 }
 
 // popovers 
-popover, popover.background {
-  padding: 2px;
-  border-color: $borders;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 0;
-  color: $theme_fg_color;
-  background-clip: border-box;
-  background-color: $theme_bg_color;
-  box-shadow: 0 2px 3px 1px hex2rgba($dark_shadow, 0.25);
+popover {
+  &, &.background {
+    padding: 2px;
+    border-color: $borders;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+    color: $theme_fg_color;
+    background-clip: border-box;
+    background-color: $theme_bg_color;
+    box-shadow: none;
+
+  .csd &, & {
+    border: 1px solid $borders; }
+
+    & > list, & > .view, & > iconview, & > toolbar, & > .inline-toolbar {
+      border-style: none;
+      background-color: transparent;
+    }
+
+    & checkbutton:selected, & radiobutton:selected {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
+  }
+
+  &.osd {
+    box-shadow: none;
+
+    & > toolbar button {
+      border-width: 0;
+      border-radius: 0;
+      background-color: transparent;
+    }
+  }
+
+  & separator {
+    border: 0;
+    color: gtkalpha(currentColor, 0.5);
+    background-color: transparent;
+    font-size: 80%;
+    font-weight: bold;
+  }
+
+  &:backdrop {
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
+    box-shadow: none;
+  }
 }
 
-.csd popover, popover, .csd popover.background, popover.background {
-  border: 1px solid $borders;
-}
-
-popover.touch-selection, .csd popover.touch-selection, popover.background.touch-selection, .csd popover.background.touch-selection {
-  font: initial;
-}
-
-popover.osd {
-  box-shadow: 0 2px 7px 3px hex2rgba($dark_shadow, 0.5);
-}
-
-popover.osd > toolbar button {
-  border-width: 0;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-popover > list, popover > .view, popover > iconview, popover > toolbar, popover > .inline-toolbar, popover.background > list, popover.background > .view, popover.background > iconview, popover.background > toolbar, popover.background > .inline-toolbar {
-  border-style: none;
-  background-color: transparent;
-}
-
-popover separator {
-  border: 0;
-  color: gtkalpha(currentColor, 0.5);
-  background-color: transparent;
-  font-size: 80%;
-  font-weight: bold;
-}
-
-popover.background checkbutton:selected, popover.background radiobutton:selected {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-
-// check out arc gtk.css line 717 
-modelbutton > image {
-  padding-right: 4px;
-}
-
+// modelbutton
 modelbutton.flat, menuitem.button.flat, .menuitem.button.flat {
   padding: 2px 8px;
   border: none;
   color: $theme_fg_color;
   background-color: transparent;
-}
 
-menuitem.button.flat:hover, menuitem.button.flat:selected, menuitem.button.flat:active:hover, modelbutton.flat:hover, modelbutton.flat:selected, modelbutton:active:hover, .menuitem.button.flat:selected {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+  &:hover, &:selected, &:active:hover {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
+  }
 
-modelbutton.flat arrow.left {
-  -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
-}
+  & > image {
+    padding-right: 4px;
+  }
 
-modelbutton.flat arrow.right {
-  -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
-}
+  &.flat arrow.left {
+    -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+  }
 
-popover.background:backdrop {
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-  box-shadow: none;
+  &.flat arrow.right {
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+  }
 }
 
 // notebook 
@@ -1241,6 +1254,13 @@ notebook {
     &:backdrop {
       background-color: $theme_unfocused_bg_color;
     }
+
+    // close button styling 
+    & button, & button:hover, & button:focus, & button:active, & button:checked, & button:active:hover, & button:checked:hover, & button:backdrop, &:checked button, &:checked button:hover, &:checked button:focus, &:checked button:active, &:checked button:checked, &:checked button:active:hover, &:checked button:checked:hover, &:checked button:backdrop {
+      border-color: transparent;
+      background-color: transparent;
+      color: $theme_fg_color;
+    }
   }
 
   & > header {
@@ -1304,13 +1324,6 @@ notebook {
     }
   }
 
-  // close button styling 
-  & tab button, & tab button:hover, & tab button:focus, & tab button:active, & tab button:checked, & tab button:active:hover, & tab button:checked:hover, & tab button:backdrop, & tab:checked button, & tab:checked button:hover, & tab:checked button:focus, & tab:checked button:active, & tab:checked button:checked, & tab:checked button:active:hover, & tab:checked button:checked:hover, & tab:checked button:backdrop {
-    border-color: transparent;
-    background-color: transparent;
-    color: $theme_fg_color;
-  }
-
   & > header.top > tabs > arrow.up, & > header.bottom > tabs > arrow.up {
     -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
 
@@ -1361,19 +1374,20 @@ notebook {
 }
 
 // pane separator 
-paned > separator {
-  border: none;
-  color: transparent;
-  background-color: $borders;
-
-  &:backdrop {
-    background-color: $unfocused_borders;
-  }
-
-  &:selected {
+paned {
+  & > separator {
+    border: none;
+    color: transparent;
     background-color: $borders;
-  }
 
+    &:backdrop {
+      background-color: $unfocused_borders;
+    }
+
+    &:selected {
+      background-color: $borders;
+    }
+  }
 
   & .sidebar.left, & .sidebar.right, & .sidebar.left:dir(rtl), & .sidebar:dir(rtl), & .sidebar:dir(ltr), & .sidebar {
     border-style: none;
@@ -1381,84 +1395,88 @@ paned > separator {
 }
 
 // over under 
-overshoot.top {
-  background-image: -gtk-gradient(radial, center top, 0.55, center top, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
+overshoot {
+  &.top {
+    background-image: -gtk-gradient(radial, center top, 0.55, center top, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  &.bottom {
+    background-image: -gtk-gradient(radial, center bottom, 0.55, center bottom, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  &.left {
+    background-image: -gtk-gradient(radial, left center, 0.55, left center, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
+    background-size: 60% 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  &.right {
+    background-image: -gtk-gradient(radial, right center, 0.55, right center, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
+    background-size: 60% 100%;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
 }
 
-overshoot.bottom {
-  background-image: -gtk-gradient(radial, center bottom, 0.55, center bottom, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
+undershoot {
+  &.top {
+    background-color: transparent;
+    background-image: linear-gradient(to left, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
+    padding-top: 1px;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    background-origin: content-box;
+    background-position: center top;
+  }
 
-overshoot.left {
-  background-image: -gtk-gradient(radial, left center, 0.55, left center, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
-  background-size: 60% 100%;
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
+  &.bottom {
+    background-color: transparent;
+    background-image: linear-gradient(to left, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
+    padding-bottom: 1px;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    background-origin: content-box;
+    background-position: center bottom;
+  }
 
-overshoot.right {
-  background-image: -gtk-gradient(radial, right center, 0.55, right center, 0.6, from(hex2rgba($color_shadow, 0.2)), to(transparent));
-  background-size: 60% 100%;
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
+  &.left {
+    background-color: transparent;
+    background-image: linear-gradient(to top, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
+    padding-left: 1px;
+    background-size: 1px 10px;
+    background-repeat: repeat-y;
+    background-origin: content-box;
+    background-position: left center;
+  }
 
-undershoot.top {
-  background-color: transparent;
-  background-image: linear-gradient(to left, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
-  padding-top: 1px;
-  background-size: 10px 1px;
-  background-repeat: repeat-x;
-  background-origin: content-box;
-  background-position: center top;
-}
-
-undershoot.bottom {
-  background-color: transparent;
-  background-image: linear-gradient(to left, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
-  padding-bottom: 1px;
-  background-size: 10px 1px;
-  background-repeat: repeat-x;
-  background-origin: content-box;
-  background-position: center bottom;
-}
-
-undershoot.left {
-  background-color: transparent;
-  background-image: linear-gradient(to top, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
-  padding-left: 1px;
-  background-size: 1px 10px;
-  background-repeat: repeat-y;
-  background-origin: content-box;
-  background-position: left center;
-}
-
-undershoot.right {
-  background-color: transparent;
-  background-image: linear-gradient(to top, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
-  padding-right: 1px;
-  background-size: 1px 10px;
-  background-repeat: repeat-y;
-  background-origin: content-box;
-  background-position: right center;
+  &.right {
+    background-color: transparent;
+    background-image: linear-gradient(to top, hex2rgba($light_shadow, 0.2) 50%, hex2rgba($dark_shadow, 0.2) 50%);
+    padding-right: 1px;
+    background-size: 1px 10px;
+    background-repeat: repeat-y;
+    background-origin: content-box;
+    background-position: right center;
+  }
 }
 
 .overlay-bar {
@@ -1466,10 +1484,10 @@ undershoot.right {
   border-radius: 0;
   padding: 3px 6px;
   margin: 3px;
-}
 
-.overlay-bar label {
-  color: $tooltip_fg_color;
+  & label {
+    color: $tooltip_fg_color;
+  }
 }
 
 // progressbar 
@@ -1478,483 +1496,507 @@ progressbar {
   border: none;
   color: gtkmix($theme_fg_color, $theme_selected_fg_color, 0.5);
   background-color: transparent;
+
+  & progress {
+    border: none;
+    border-radius: 0;
+    background-color: $theme_selected_bg_color;
+
+    &:backdrop {
+      background-color: $theme_unfocused_selected_bg_color;
+    }
+  }
+
+  & trough {
+    border-radius: 0;
+    background-color: hex2rgba($dark_shadow, 0.1);
+
+    &:backdrop {
+      background-color: gtkshade($theme_unfocused_bg_color, 0.95);
+    }
+  }
+
+  &.horizontal trough,
+  &.horizontal progress {
+    min-height: 7px;
+  }
+
+  &.vertical trough,
+  &.vertical progress {
+    min-width: 7px;
+  }
 }
 
-progressbar progress {
-  border: none;
-  border-radius: 0;
-  background-color: $theme_selected_bg_color;
-}
-progressbar.vertical progress {
-  background-color: $theme_selected_bg_color;
+treeview.view {
+  &.progressbar {
+    &, &:disabled {
+      color: $theme_selected_fg_color;
+      border-radius: 0;
+      background-color: $theme_selected_bg_color;
+    }
+
+    &:focus, &:selected:focus, &:focus:selected, &:focus:selected:focus, &:disabled:selected {
+      border-radius: 0;
+      color: $theme_selected_bg_color;
+      background-color: $theme_selected_fg_color;
+    }
+  }
+
+  &.trough {
+    color: $theme_fg_color;
+    background-color: hex2rgba($dark_shadow, 0.1);
+    border-radius: 0;
+    border: none;
+
+    &:selected, &:selected:focus {
+      color: $theme_selected_fg_color;
+      background-color: hex2rgba($dark_shadow, 0.1);
+      border-radius: 0;
+      border: none;
+    }
+  }
+
+  infobar & trough, row:selected & trough {
+    background-color: hex2rgba($dark_shadow, 0.1);
+  }
 }
 
-progressbar progress:backdrop {
-  background-color: $theme_unfocused_selected_bg_color;
-}
-
-progressbar trough {
-  border-radius: 0;
-  background-color: hex2rgba($dark_shadow, 0.1);
-}
-
-progressbar trough:backdrop {
-  background-color: gtkshade($theme_unfocused_bg_color, 0.95);
-}
-
-progressbar.horizontal trough,
-progressbar.horizontal progress {
-  min-height: 7px;
-}
-
-progressbar.vertical trough,
-progressbar.vertical progress {
-  min-width: 7px;
-}
-
-treeview.view.progressbar, treeview.view.progressbar:focus, treeview.view.progressbar:disabled {
-  color: $theme_selected_fg_color;
-  border-radius: 0;
-  background-color: $theme_selected_bg_color;
-}
-
-treeview.view.progressbar, treeview.view.progressbar:focus treeview.view.progressbar:selected:focus, treeview.view.progressbar:focus:selected, treeview.view.progressbar:focus:selected:focus, treeview.view.progressbar:disabled:selected {
-  border-radius: 0;
-  color: $theme_selected_bg_color;
-  background-color: $theme_selected_fg_color;
-}
-
-treeview.view.trough {
-  color: $theme_fg_color;
-  background-color: hex2rgba($dark_shadow, 0.1);
-  border-radius: 0;
-  border: none;
-}
-
-treeview.view.trough:selected, treeview.view.trough:selected:focus {
-  color: $theme_selected_fg_color;
-  background-color: hex2rgba($dark_shadow, 0.1);
-  border-radius: 0;
-  border: none;
-}
-
-infobar progressbar trough, row:selected progressbar trough {
-  background-color: hex2rgba($dark_shadow, 0.1);
-}
 
 // levelbar 
-levelbar trough {
-  padding: 1px;
-  border-radius: 0;
+levelbar {
+  & trough {
+    padding: 1px;
+    border-radius: 0;
+  }
+
+  &.horizontal.discrete block {
+    margin: 0 1px;
+  }
+
+  &.vertical.discrete block {
+    margin: 1px 0;
+  }
+
+  & block {
+    border: none;
+    padding: 2px;
+    border-radius: 0;
+    background-color: $theme_selected_bg_color;
+
+    &.high {
+      background-color: gtkshade($success_color, 0.9);
+    }
+
+    &.low {
+      background-color: gtkshade($warning_color, 0.9);
+    }
+
+    &.empty {
+      background-color: hex2rgba($dark_shadow, 0.1);
+    }
+  }
 }
 
-levelbar block {
-  border: none;
-  padding: 2px;
-  border-radius: 0;
-  background-color: $theme_selected_bg_color;
-}
-
-levelbar.horizontal.discrete block {
-  margin: 0 1px;
-}
-
-levelbar.vertical.discrete block {
-  margin: 1px 0;
-}
-
-levelbar block.high {
-  background-color: gtkshade($success_color, 0.9);
-}
-
-levelbar block.low {
-  background-color: gtkshade($warning_color, 0.9);
-}
-
-levelbar block.empty {
-  background-color: hex2rgba($dark_shadow, 0.1);
-}
-
-// scale 
-scale fill, scale trough {
-  border: none;
-  border-radius: 4px;
-  background-color: hex2rgba($dark_shadow, 0.2);
-}
-
-scale fill:disabled, scale trough:disabled {
-  background-color: hex2rgba($dark_shadow, 0.15);
-}
-
-scale fill:backdrop, scale trough:backdrop {
-  background-color: hex2rgba($dark_shadow, 0.1);
-}
-
-scale fill:backdrop:disabled, scale trough:backdrop:disabled {
-  background-color: hex2rgba($dark_shadow, 0.08);
-}
-
-scale highlight {
-  border: none;
-  border-radius: 4px;
-  background-color: $theme_selected_bg_color;
-}
-
-scale highlight:disabled {
-  background-color: $theme_disabled_bg_color;
-}
-
-scale highlight:backdrop:disabled {
-  background-color: $theme_unfocused_disabled_bg_color; } 
-
+// scale
 scale {
   min-height: 10px;
   min-width: 10px;
   padding: 12px;
-}
 
-scale slider {
-  min-height: 15px;
-  min-width: 15px;
-  margin: -5px;
-}
+  & fill, & trough {
+    border: none;
+    border-radius: 4px;
+    background-color: hex2rgba($dark_shadow, 0.2);
+    outline-offset: 2px;
+    -gtk-outline-radius: 0;
 
-scale.fine-tune.horizontal {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  min-height: 16px;
-}
+    &:disabled {
+      background-color: hex2rgba($dark_shadow, 0.15);
 
-scale.fine-tune.vertical {
-  padding-left: 10px;
-  padding-right: 10px;
-  min-width: 16px;
-}
+      &:backdrop {
+        background-color: hex2rgba($dark_shadow, 0.08);
+      }
+    }
 
-scale.fine-tune slider {
-  margin: -6px;
-}
+    &:backdrop {
+      background-color: hex2rgba($dark_shadow, 0.1);
+    }
+  }
 
-scale.fine-tune fill, scale.fine-tune trough, scale.fine-tune highlight {
-  border-radius: 0;
-  -gtk-outline-radius: 0;
-}
+  & highlight {
+    border: none;
+    border-radius: 4px;
+    background-color: $theme_selected_bg_color;
 
-scale trough {
-  outline-offset: 2px;
-  -gtk-outline-radius: 0;
-}
+    &:disabled {
+      background-color: $theme_disabled_bg_color;
 
-scale fill, scale fill:backdrop {
-  background-color: $theme_base_color;
-}
+      &:backdrop {
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
 
-scale fill:disabled, scale fill:disabled:backdrop {
-  background-color: $theme_base_color;
-}
+    &:backdrop {
+      background-color: $theme_unfocused_selected_bg_color;
+    }
+  }
 
-scale slider {
-  border: none;
-  border-radius: 100%;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+  &.horizontal {
+    & indicator {
+      min-height: 6px;
+      min-width: 1px;
+    }
 
-scale slider:hover {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+    &.fine-tune indicator {
+      min-height: 3px;
+    }
+  }
 
-scale slider:disabled {
-  background-color: $theme_disabled_bg_color;
-  -gtk-icon-shadow: none;
-}
+  &.vertical {
+    & indicator {
+      min-height: 1px;
+      min-width: 6px;
+    }
 
-scale slider:backdrop {
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &.fine-tune indicator {
+      min-width: 3px;
+    }
+  }
 
-scale slider:backdrop label, scale slider:backdrop {
-  color: $theme_unfocused_disabled_fg_color;
-}
+  &.fine-tune {
+    &.horizontal {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      min-height: 14px;
+    }
 
-scale slider:disabled:backdrop {
-  background-color: $theme_unfocused_disabled_bg_color;
-  -gtk-icon-shadow: none;
-}
+    &.vertical {
+      padding-left: 10px;
+      padding-right: 10px;
+      min-width: 14px;
+    }
 
-scale slider:backdrop:disabled label, scale slider:backdrop:disabled {
-  color: $theme_unfocused_disabled_fg_color;
-}
+    & slider {
+      margin: -6px;
+    }
 
-scale value {
-  color: gtkalpha(currentColor,0.55);
-}
+    & fill, & trough, & highlight {
+      border-radius: 0;
+      -gtk-outline-radius: 0;
+    }
 
-scale marks {
-  color: gtkalpha(currentColor,0.55);
-}
+    & marks {
+      &.top {
+        margin-bottom: 8px;
+        margin-top: -13px;
+      }
 
-scale marks.top {
-  margin-bottom: 6px;
-  margin-top: -12px;
-}
+      &.bottom {
+        margin-top: 8px;
+        margin-bottom: -13px;
+      }
 
-scale marks.bottom {
-  margin-top: 6px;
-  margin-bottom: -12px;
-}
+      &.top {
+        margin-right: 8px;
+        margin-left: -13px;
+      }
 
-scale marks.top {
-  margin-right: 6px;
-  margin-left: -12px;
-}
+      &.bottom {
+        margin-left: 8px;
+        margin-right: -13px;
+      }
+    }
+  }
 
-scale marks.bottom {
-  margin-left: 6px;
-  margin-right: -12px;
-}
+  & slider {
+    min-height: 15px;
+    min-width: 15px;
+    margin: -5px;
+    border: none;
+    border-radius: 100%;
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
 
-scale.fine-tune marks.top {
-  margin-bottom: 6px;
-  margin-top: -9px;
-}
+    &:hover {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
 
-scale.fine-tune marks.bottom {
-  margin-top: 6px;
-  margin-bottom: -9px;
-}
+    &:disabled {
+      background-color: $theme_disabled_bg_color;
+      -gtk-icon-shadow: none;
 
-scale.fine-tune marks.top {
-  margin-right: 6px;
-  margin-left: -9px;
-}
+      &:backdrop {
+        background-color: $theme_unfocused_disabled_bg_color;
+        -gtk-icon-shadow: none;
+      }
+    }
 
-scale.fine-tune marks.bottom {
-  margin-left: 6px;
-  margin-right: -9px;
-}
+    &:backdrop {
+      color: $theme_unfocused_selected_fg_color;
+      background-color: $theme_unfocused_selected_bg_color;
+    }
+  }
 
-scale.horizontal indicator {
-  min-height: 6px;
-  min-width: 1px;
-}
+  & value {
+    color: gtkalpha(currentColor,0.55);
+  }
 
-scale.horizontal.fine-tune indicator {
-  min-height: 3px;
-}
+  & marks {
+    color: gtkalpha(currentColor,0.55);
 
-scale.vertical indicator {
-  min-height: 1px;
-  min-width: 6px;
-}
+    &.top {
+      margin-bottom: 6px;
+      margin-top: -12px;
+    }
 
-scale.vertical.fine-tune indicator {
-  min-width: 3px;
+    &.bottom {
+      margin-top: 6px;
+      margin-bottom: -12px;
+    }
+
+    &.top {
+      margin-right: 6px;
+      margin-left: -12px;
+    }
+
+    &.bottom {
+      margin-left: 6px;
+      margin-right: -12px;
+    }
+  }
 }
 
 // scrollbar  
 scrollbar {
   border: none;
   background-color: gtkshade($theme_bg_color, 0.9);
-}
 
-scrollbar trough {
-  border: none;
-  border-radius: 0;
-}
+  & trough {
+    border: none;
+    border-radius: 0;
+  }
 
-scrollbar:backdrop {
-  background-color: gtkshade($theme_unfocused_bg_color, 0.9);
-}
+  &:backdrop {
+    background-color: gtkshade($theme_unfocused_bg_color, 0.9);
+  }
 
-scrollbar slider {
-  min-width: 8px;
-  min-height: 8px;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  background-clip: padding-box;
-  background-color: gtkshade($theme_bg_color, 0.6);
-}
+  & slider {
+    min-width: 8px;
+    min-height: 8px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background-clip: padding-box;
+    background-color: gtkshade($theme_bg_color, 0.6);
 
-scrollbar slider:hover {
-  background-color: gtkshade($theme_bg_color, 0.6);
-}
+    &:hover {
+      background-color: gtkshade($theme_bg_color, 0.6);
 
-scrollbar slider:hover:active {
-  background-color: gtkshade($theme_bg_color, 0.55);
-}
+      &:active {
+        background-color: gtkshade($theme_bg_color, 0.55);
+      }
+    }
 
-scrollbar slider:backdrop {
-  background-color: gtkshade($theme_bg_color, 0.55);
-}
+    &:backdrop {
+      background-color: gtkshade($theme_bg_color, 0.55);
+    }
 
-scrollbar slider:disabled {
-  background-color: transparent;
-}
+    &:disabled {
+      background-color: transparent;
+    }
+  }
 
-scrollbar.fine-tune slider {
-  min-width: 6px;
-  min-height: 6px;
-}
+  &.fine-tune {
+    & slider {
+      min-width: 6px;
+      min-height: 6px;
+    }
 
-scrollbar.fine-tune.horizontal slider {
-  border-width: 3px;
-}
+    &.horizontal slider {
+      margin-top: 1px;
+      margin-bottom: 1px;
+    }
 
-scrollbar.fine-tune.vertical slider {
-  border-width: 3px;
-}
+    &.vertical slider {
+      margin-left: 1px;
+      margin-right: 1px;
+    }
+  }
 
-scrollbar.overlay-indicator:not(.dragging):not(.hovering) {
-  border: none;
-  opacity: 0.7;
-  margin: 0;
-  background-color: transparent;
-}
+  &.overlay-indicator:not(.dragging):not(.hovering) {
+    border: none;
+    opacity: 0.7;
+    margin: 0;
+    background-color: transparent;
 
-scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
-  margin: 0;
-  min-width: 1px;
-  min-height: 1px;
-  background-color: gtkshade($theme_bg_color, 0.6);
-  border: none;
-}
+    & slider {
+      margin: 0;
+      min-width: 1px;
+      min-height: 1px;
+      background-color: gtkshade($theme_bg_color, 0.6);
+      border: none;
+    }
 
-scrollbar.overlay-indicator:not(.dragging):not(.hovering).horizontal slider {
-  margin: 0;
-  min-width: 40px;
-}
+    &.horizontal {
+      slider {
+        margin: 0;
+        min-width: 40px;
+      }
+    }
 
-scrollbar.overlay-indicator:not(.dragging):not(.hovering).vertical slider {
-  margin: 0;
-  min-height: 40px;
-}
+    &.vertical {
+      slider {
+        margin: 0;
+        min-height: 40px;
+      }
+    }
+  }
 
-scrollbar.overlay-indicator.dragging, scrollbar.overlay-indicator.hovering {
-  opacity: 1;
-}
+  &.overlay-indicator {
+    &.dragging, &.hovering {
+      opacity: 1;
+    }
+  }
 
-scrollbar.horizontal slider {
-  min-width: 40px;
-}
+  &.horizontal {
+    & slider {
+      min-width: 40px;
+    }
 
-scrollbar.vertical slider {
-  min-height: 40px;
-}
+    & button {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-right-symbolic");
+      }
 
-scrollbar.vertical button.down {
-  -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
-}
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-left-symbolic");
+      }
+    }
+  }
 
-scrollbar.vertical button.up {
-  -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
-}
+  &.vertical {
+    & slider {
+      min-height: 40px;
+    }
 
-scrollbar.horizontal button.down {
-  -gtk-icon-source: -gtk-icontheme("pan-right-symbolic");
-}
+    & button {
+      &.down {
+        -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+      }
 
-scrollbar.horizontal button.up {
-  -gtk-icon-source: -gtk-icontheme("pan-left-symbolic");
-}
+      &.up {
+        -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+      }
+    }
+  }
 
-treeview ~ scrollbar.vertical {
-  border-top: 1px solid $borders;
-  margin-top: -1px;
+  treeview ~ &.vertical {
+    border-top: 1px solid $borders;
+    margin-top: -1px;
+  }
 }
 
 // separator 
 separator {
   -gtk-icon-source: none;
-  background-color: $borders;
   min-width: 1px;
   min-height: 1px;
+  background-color: $borders;
+
+  &:backdrop {
+    background-color: $unfocused_borders;
+  }
+
+  button & {
+    margin: 4px 1px;
+  }
+
+  .sidebar view &, view &, .separator, & {
+    border: none;
+    background-color: $borders;
+
+    &:backdrop {
+      border: none;
+      background-color: $unfocused_borders;
+    }
+  }
+
+  .primary-toolbar &, toolbar & {
+    background-color: gtkmix($borders, $toolbar_bg_color, 0.5);
+
+    &:backdrop {
+      background-color: $unfocused_borders;
+    }
+  }
+
+  & separator {
+    -GtkWidget-window-dragging: true;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    background-color: gtkmix($borders, $headerbar_bg_color, 0.5);
+
+    &:backdrop {
+      background-color: $unfocused_borders;
+    }
+  }
+
+  .titlebar &, .titlebar:not(headerbar) > &, .titlebar &.titlebutton, .titlebar:not(headerbar) > &.titlebutton {
+    -GtkWidget-window-dragging: true;
+    background-color: gtkmix($borders, $titlebar_bg_color, 0.5);
+
+    &:backdrop {
+      background-color: $unfocused_borders;
+    }
+  }
+
+  .primary-toolbar:not(.libreoffice-toolbar) &, headerbar &.titlebutton, .titlebar:not(headerbar) &.titlebutton {
+    min-width: 1px;
+    min-height: 1px;
+    background-color: gtkmix($borders, $titlebar_bg_color, 0.5);
+
+    &:backdrop {
+      background-color: $unfocused_borders;
+    }
+  }
+
+  .primary-toolbar button &, toolbar button & {
+    border-color: $borders;
+
+    &:backdrop {
+      border-color: $unfocused_borders;
+    }
+  }
+
+  headerbar button & {
+    border-color: gtkmix($borders, $headerbar_bg_color, 0.5);
+
+    &:backdrop {
+      border-color: $unfocused_borders;
+    }
+  }
+
+  .titlebutton button &, .titlebutton &.titlebutton {
+    border-color: gtkmix($borders, $headerbar_bg_color, 0.5);
+
+    &:backdrop {
+      border-color: $unfocused_borders;
+    }
+  }
+
+  menuitem & {
+    border-width: 1px;
+    border-style: none;
+    color: gtkmix($borders, $menu_bg_color, 0.5);
+  }
+
+  combobox & {
+    border: none;
+  }
 }
 
-separator:backdrop {
-  background-color: $unfocused_borders;
-}
-
-button separator {
-  margin: 4px 1px;
-}
-
-.sidebar view separator, view separator, .separator, separator {
-  border: none;
-  background-color: transparent;
-}
-
-.sidebar view separator:backdrop, view separator:backdrop, .separator, separator:backdrop {
-  border: none;
-  background-color: transparent;
-}
-
-.primary-toolbar separator, toolbar separator {
-  background-color: gtkmix($borders, $toolbar_bg_color, 0.5);
-}
-
-.primary-toolbar separator:backdrop, toolbar separator:backdrop {
-  background-color: $unfocused_borders;
-}
-
-headerbar separator {
-  -GtkWidget-window-dragging: true;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  background-color: gtkmix($borders, $headerbar_bg_color, 0.5);
-}
-
-headerbar separator:backdrop {
-  background-color: $unfocused_borders;
-}
-
-.titlebar separator {
-  -GtkWidget-window-dragging: true;
-  background-color: gtkmix($borders, $titlebar_bg_color, 0.5);
-}
-
-.titlebar separator:backdrop {
-  background-color: $unfocused_borders;
-}
-
-.primary-toolbar button separator, toolbar button separator {
-  border-color: $borders;
-}
-
-.primary-toolbar button separator:backdrop, toolbar button separator:backdrop {
-  border-color: $unfocused_borders;
-}
-
-headerbar button separator {
-  border-color: gtkmix($borders, $headerbar_bg_color, 0.5);
-}
-
-headerbar button separator {
-  border-color: $unfocused_borders;
-}
-
-.titlebutton button separator, .titlebutton separator.titlebutton {
-  border-color: gtkmix($borders, $headerbar_bg_color, 0.5);
-}
-
-.titlebutton button separator:backdrop, .titlebutton separator.titlebutton:backdrop {
-  border-color: $unfocused_borders;
-}
-
-menuitem separator {
-  border-width: 1px;
-  border-style: none;
-  color: gtkmix($borders, $menu_bg_color, 0.5);
-}
-
-combobox separator {
-  border: none;
-}
-
-// sidebar 
+// sidebar
+// TODO: find better syntax
 filechooser.csd.background, filechooser placessidebar list, .nautilus-window.csd.background, .nautilus-window placessidebar list {
   background-color: $sidebar_bg_color;
 }
@@ -1974,14 +2016,17 @@ placessidebar.sidebar row:selected, placessidebar.sidebar row:selected:hover, pl
   background-color: gtkmix($sidebar_bg_color, $dark_shadow, 0.15);
 }
 
-.sidebar frame, .sidebar.frame {
-  border: none;
+.sidebar {
+  & frame, &.frame {
+    border: none;
+  }
+
+  // allows light scrollbar on dark sidebar
+  & scrollbar {
+    background-color: transparent;
+  }
 }
 
-.sidebar scrollbar {
-  background-color: transparent;
-}
-  
 placessidebar.sidebar scrollbar slider, placessidebar.sidebar scrollbar slider:hover, placessidebar.sidebar scrollbar slider:active, placessidebar.sidebar scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
   background-color: hex2rgba($sidebar_fg_color, 0.3);
 }
@@ -1992,112 +2037,126 @@ paned .sidebar.left, paned .sidebar.right, paned .sidebar.left:dir(rtl), paned .
 
 stacksidebar row {
   padding: 10px 4px;
+
+  &:selected {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
+  }
+
+  & > label {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  &.needs-attention > label {
+    background-size: 6px 6px, 0 0;
+  }
 }
 
-stacksidebar row:selected {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
+placessidebar {
+  & > viewport.frame {
+    border-style: none;
+  }
+
+  & row {
+    min-height: 36px;
+    padding: 0px;
+
+    & > revealer {
+      padding: 0 14px;
+    }
+
+    & image.sidebar-icon {
+      opacity: 0.75;
+
+      &:dir(ltr) {
+        padding-right: 8px;
+      }
+
+      &:dir(rtl) {
+        padding-left: 8px;
+      }
+    }
+
+    & label.sidebar-label {
+      &:dir(ltr) {
+        padding-right: 2px;
+      }
+
+      &:dir(rtl) {
+        padding-left: 2px;
+      }
+    }
+  }
 }
 
-stacksidebar row > label {
-  padding-left: 6px;
-  padding-right: 6px;
+button.sidebar-button {
+  &:backdrop {
+    min-width: 22px;
+    min-height: 22px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding: 0;
+    border-radius: 100%;
+    color: $sidebar_fg_color;
+    -gtk-outline-radius: 100%;
+  }
+
+  &:hover, &:active {
+    color: $theme_fg_color;
+  }
+
+  &:not(:hover):not(:active) > image {
+    opacity: 0.5;
+  }
 }
 
-stacksidebar row.needs-attention > label {
-  background-size: 6px 6px, 0 0;
-}
+// spinbutton
+spinbutton {
+  &:not(.vertical) selection, &:not(.vertical) selection:focus {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
+  }
 
-placessidebar > viewport.frame {
-  border-style: none;
-}
+  &.horizontal {
+    & entry {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 7px 15px;
+    }
+    & button {
+      &.down {
+        border-radius: 0;
+        border-right-width: 0;
+        border-left-width: 0;
+      }
 
-placessidebar row {
-  min-height: 36px;
-  padding: 0px;
-}
+      &.up {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
 
-placessidebar row > revealer {
-  padding: 0 14px;
-}
+  &.vertical {
+    & entry {
+      border-radius: 0;
+    }
 
-placessidebar row image.sidebar-icon {
-  opacity: 0.75;
-}
+    & button {
+      &.up {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-width: 0;
+      }
 
-placessidebar row image.sidebar-icon:dir(ltr) {
-  padding-right: 8px;
-}
-
-placessidebar row image.sidebar-icon:dir(rtl) {
-  padding-left: 8px;
-}
-
-placessidebar row label.sidebar-label:dir(ltr) {
-  padding-right: 2px;
-}
-
-placessidebar row label.sidebar-label:dir(rtl) {
-  padding-left: 2px;
-}
-
-button.sidebar-button,
-button.sidebar-button:backdrop {
-  min-width: 22px;
-  min-height: 22px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  padding: 0;
-  border-radius: 100%;
-  color: $sidebar_fg_color;
-  -gtk-outline-radius: 100%;
-}
-
-button.sidebar-button:hover, button.sidebar-button:active {
-  color: $theme_fg_color;
-}
-
-button.sidebar-button:not(:hover):not(:active) > image {
-  opacity: 0.5;
-}
-
-// spinbutton 
-spinbutton:not(.vertical) selection:focus,  spinbutton:not(.vertical) selection {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-
-spinbutton.horizontal entry {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  padding: 7px 15px;
-}
-
-spinbutton.horizontal button.down {
-  border-radius: 0;
-  border-right-width: 0;
-  border-left-width: 0;
-}
-
-spinbutton.horizontal button.up {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-spinbutton.vertical entry {
-  border-radius: 0;
-}
-
-spinbutton.vertical button.up {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-width: 0;
-}
-
-spinbutton.vertical button.down {
-  border-top-width: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+      &.down {
+        border-top-width: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
 }
 
 // spinner 
@@ -2110,25 +2169,25 @@ spinner {
   background: none;
   opacity: 0;
   -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
-}
 
-spinner:checked {
-  opacity: 1;
-  animation: spin 1s linear infinite;
-}
+  &:checked {
+    opacity: 1;
+    animation: spin 1s linear infinite;
 
-spinner:checked:disabled {
-  opacity: 0.5;
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }
 
 // statusbar 
 statusbar {
   padding: 4px;
   color: $theme_fg_color;
-}
 
-statusbar frame > border {
-  border: none;
+  & frame > border {
+    border: none;
+  }
 }
 
 // switch 
@@ -2139,188 +2198,200 @@ switch {
   border: 1px solid $borders;
   border-radius: 16px;
   background-color: $borders;
-}
 
-switch:checked {
-  border-color: $theme_selected_bg_color;
-  background-color: $theme_selected_bg_color;
-}
+  &:checked {
+    border-color: $theme_selected_bg_color;
+    background-color: $theme_selected_bg_color;
 
-switch:disabled {
-  border-color: $theme_disabled_bg_color;
-  background-color: $theme_disabled_bg_color;
-}
+    &:backdrop {
+      border-color: $theme_unfocused_selected_bg_color;
+      background-color: $theme_unfocused_selected_bg_color;
+    }
+  }
 
-switch:backdrop {
-  border-color: $unfocused_borders;
-  background-color: $theme_unfocused_bg_color;
-}
+  &:disabled {
+    border-color: $theme_disabled_bg_color;
+    background-color: $theme_disabled_bg_color;
 
-switch:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &:backdrop {
+      border-color: $theme_unfocused_disabled_bg_color;
+      background-color: $theme_unfocused_disabled_bg_color;
+    }
+  }
 
-switch slider {
-  min-width: 14px;
-  min-height: 14px;
-  margin: 3px;
-  border: none;
-  border-radius: 100%;
-  color: $theme_fg_color;
-  background-color: $theme_base_color;
-}
+  &:backdrop {
+    border-color: $unfocused_borders;
+    background-color: $unfocused_borders;
+  }
 
-switch:disabled slider {
-  background-color: gtkmix($theme_base_color, $theme_disabled_bg_color, 0.5);
-}
+  & slider {
+    min-width: 14px;
+    min-height: 14px;
+    margin: 3px;
+    border: none;
+    border-radius: 100%;
+    color: $theme_fg_color;
+    background-color: $theme_base_color;
+  }
 
-switch:backdrop slider {
-  background-color: $theme_unfocused_base_color;
-}
+  &:disabled slider {
+    background-color: gtkmix($theme_base_color, $theme_disabled_bg_color, 0.5);
 
-switch:disabled:backdrop slider {
-  background-color: gtkmix($theme_unfocused_disabled_bg_color, $theme_unfocused_base_color, 0.5);
+    &:backdrop slider {
+      background-color: gtkmix($theme_unfocused_disabled_bg_color, $theme_unfocused_base_color, 0.5);
+    }
+  }
+
+  &:backdrop slider {
+    background-color: $theme_unfocused_base_color;
+  }
 }
 
 // textview 
 textview {
   color: $theme_text_color;
   background-color: $theme_base_color;
-}
 
-textview text:selected, textview text selection, textview text:selected:focus, textview text selection:focus {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
+  text {
+    &:selected, & selection, &:selected:focus, & selection:focus {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
+  }
 }
 
 // color chooser 
-colorswatch.top {
-  border-top-left-radius: 2.5px;
-  border-top-right-radius: 2.5px;
-}
+colorswatch {
+  &.top {
+    border-top-left-radius: 2.5px;
+    border-top-right-radius: 2.5px;
 
-colorswatch.top overlay {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-}
+    & overlay {
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+  }
+  &.bottom {
+    border-bottom-left-radius: 2.5px;
+    border-bottom-right-radius: 2.5px;
 
-colorswatch.bottom {
-  border-bottom-left-radius: 2.5px;
-  border-bottom-right-radius: 2.5px;
-}
+    & overlay {
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
 
-colorswatch.bottom overlay {
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
+  &.left, &:first-child:not(.top) {
+    border-top-left-radius: 2.5px;
+    border-bottom-left-radius: 2.5px;
 
-colorswatch.left, colorswatch:first-child:not(.top) {
-  border-top-left-radius: 2.5px;
-  border-bottom-left-radius: 2.5px;
-}
+    & overlay {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+  }
 
-colorswatch.left overlay, colorswatch:first-child:not(.top) overlay {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-}
+  &.right, &:last-child:not(.bottom) {
+    border-top-right-radius: 2.5px;
+    border-bottom-right-radius: 2.5px;
 
-colorswatch.right, colorswatch:last-child:not(.bottom) {
-  border-top-right-radius: 2.5px;
-  border-bottom-right-radius: 2.5px;
-}
+    & overlay {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
 
-colorswatch.right overlay, colorswatch:last-child:not(.bottom) overlay {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
+  &.dark overlay {
+    color: hex2rgba($light_shadow, 0.7);
 
-colorswatch.dark overlay {
-  color: hex2rgba($light_shadow, 0.7);
-}
+    &:hover {
+      border-color: hex2rgba($dark_shadow, 0.5);
+    }
+  }
 
-colorswatch.dark overlay:hover {
-  border-color: hex2rgba($dark_shadow, 0.5);
-}
+  &.light overlay {
+    color: hex2rgba($light_shadow, 0.7);
 
-colorswatch.light overlay {
-  color: hex2rgba($light_shadow, 0.7);
-}
+    &:hover {
+      border-color: hex2rgba($dark_shadow, 0.3);
+    }
+  }
 
-colorswatch.light overlay:hover {
-  border-color: hex2rgba($dark_shadow, 0.3);
-}
+  & overlay {
+    border: 1px solid hex2rgba($dark_shadow, 0.15);
 
-colorswatch overlay {
-  border: 1px solid hex2rgba($dark_shadow, 0.15);
-}
+    &:hover {
+      background-color: hex2rgba($light_shadow, 0.2);
+    }
+  }
 
-colorswatch overlay:hover {
-  background-color: hex2rgba($light_shadow, 0.2);
-}
+  &:disabled {
+    opacity: 0.5;
 
-colorswatch:disabled {
-  opacity: 0.5;
-}
-
-colorswatch:disabled overlay {
-  border-color: hex2rgba($dark_shadow, 0.6);
-  box-shadow: none;
-}
-
-colorchooser #add-color-button {
-  background-clip: padding-box;
-  border-color: hex2rgba($dark_shadow, 0.1);
-  background-color: gtkshade($theme_bg_color, 0.95);
-  color: $theme_fg_color;
-}
-
-colorchooser #add-color-button:hover {
-  border-color: hex2rgba($dark_shadow, 0.3);
-  background-color: gtkshade($theme_bg_color, 0.90);
-  color: $theme_fg_color;
+    & overlay {
+      border-color: hex2rgba($dark_shadow, 0.6);
+      box-shadow: none;
+    }
+  }
 }
 
 button.color {
   padding: 0;
+
+  & colorswatch:first-child:last-child, & colorswatch:first-child:last-child overlay {
+    margin: 4px;
+    border-radius: 0;
+  }
 }
 
-button.color colorswatch:first-child:last-child, button.color colorswatch:first-child:last-child overlay {
-  margin: 4px;
-  border-radius: 0;
-}
+colorchooser {
+  & .popover.osd {
+    border-radius: 0;
+  }
 
-colorchooser .popover.osd {
-  border-radius: 0;
+  & #add-color-button {
+    background-clip: padding-box;
+    border-color: hex2rgba($dark_shadow, 0.1);
+    background-color: gtkshade($theme_bg_color, 0.95);
+    color: $theme_fg_color;
+
+    &:hover {
+      border-color: hex2rgba($dark_shadow, 0.3);
+      background-color: gtkshade($theme_bg_color, 0.90);
+      color: $theme_fg_color;
+    }
+  }
 }
 
 // pathbars 
-.path-bar button.text-button, .path-bar button.image-button, .path-bar button {
-  padding-left: 4px;
-  padding-right: 4px;
-}
+.path-bar button {
+  &.text-button, &.image-button, & button {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 
-.path-bar button.text-button.image-button label {
-  padding-left: 0;
-  padding-right: 0;
-}
+  &.text-button.image-button label, & label {
+    padding-left: 0;
+    padding-right: 0;
 
-.path-bar button.text-button.image-button label:last-child, .path-bar button label:last-child {
-  padding-right: 8px;
-}
+    &:last-child {
+      padding-right: 8px;
+    }
 
-.path-bar button.text-button.image-button label:first-child, .path-bar button label:first-child {
-  padding-left: 8px;
-}
+    &:first-child {
+      padding-left: 8px;
+    }
+  }
 
-.path-bar button image {
-  padding-left: 4px;
-  padding-right: 4px;
-}
+  & image {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 
-.path-bar button.slider-button {
-  padding-left: 0;
-  padding-right: 0;
+  &.slider-button {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
   
 // headerbar 
@@ -2332,78 +2403,79 @@ headerbar, headerbar:not(.titlebar) {
   border-bottom-width: 1px;
   color: $headerbar_fg_color;
   background-color: $headerbar_bg_color;
-}
 
-headerbar:backdrop, headerbar:not(.titlebar):backdrop {
-  border-color: $unfocused_borders;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+  &:backdrop {
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
+  }
 
-.titlebar headerbar, .titlebar headerbar:backdrop {
-  background-color: transparent;
-}
+  .titlebar &, .titlebar &:backdrop {
+    background-color: transparent;
+  }
 
-headerbar .title {
-  padding-left: 12px;
-  padding-right: 12px;
-  font-weight: bold;
-}
+  .tiled &, .tiled &:backdrop, .maximized &, .maximized &:backdrop {
+    border-radius: 0;
+  }
 
-headerbar .subtitle {
-  font-size: smaller;
-  padding-left: 12px;
-  padding-right: 12px;
-  color: gtkalpha(currentColor, 0.7);
-}
+  & .title {
+    padding-left: 12px;
+    padding-right: 12px;
+    font-weight: bold;
+  }
 
-headerbar button {
-  padding: 4px 8px;
-  border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
-  color: $headerbar_fg_color;
-  background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
-}
+  & .subtitle {
+    font-size: smaller;
+    padding-left: 12px;
+    padding-right: 12px;
+    color: gtkalpha(currentColor, 0.7);
+  }
 
-headerbar button:hover {
-  border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
-  color: $headerbar_fg_color;
-  background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
-}
+  & button {
+    padding: 4px 8px;
+    border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
+    color: $headerbar_fg_color;
+    background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
 
-headerbar button:active, headerbar button:checked {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+    &:hover {
+      border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
+      color: $headerbar_fg_color;
+      background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
+    }
 
-headerbar button:disabled {
-  border-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
-  color: $headerbar_fg_color;
-  background-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
-}
+    &:active, &:checked {
+      border-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
 
-headerbar button:active:backdrop, headerbar button:checked:backdrop {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
 
-headerbar button:backdrop {
-  border-color: $unfocused_borders;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+    &:disabled {
+      border-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
+      color: $headerbar_fg_color;
+      background-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
+      &:backdrop {
+        border-color: $unfocused_borders;
+        color: $theme_unfocused_disabled_fg_color;
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
 
-headerbar button:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &:backdrop {
+      border-color: $unfocused_borders;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
+  }
 
-headerbar button:backdrop:disabled {
-  border-color: $unfocused_borders;
-  color: $theme_unfocused_disabled_fg_color;
-  background-color: $theme_unfocused_disabled_bg_color;
+  & entry {
+    padding: 4px 8px;
+  }
 }
 
 // toolbar 
@@ -2412,51 +2484,57 @@ toolbar {
   border: none;
   color: $toolbar_fg_color;
   background-color: $toolbar_bg_color;
-}
 
-toolbar:backdrop {
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+  &:backdrop {
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
+  }
 
-toolbar:disabled {
-  color: $theme_disabled_fg_color;
-  background-color: $theme_disabled_bg_color;
-}
+  &:disabled {
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color;
+  }
 
-toolbar button.flat {
-  border-color: $toolbar_bg_color;
-  color: $toolbar_fg_color;
-  background-color: $toolbar_bg_color;
-}
+  & button.flat {
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color;
 
-toolbar button.flat:hover {
-  border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-  color: $toolbar_fg_color;
-  background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-}
+    &:hover {
+      border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+      color: $toolbar_fg_color;
+      background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    }
 
-toolbar button.flat:active, toolbar button.flat:checked {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+    &:active, &:checked {
+      border-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
 
-toolbar button.flat:backdrop {
-  border-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+    &:backdrop {
+      border-color: $theme_unfocused_bg_color;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
 
-toolbar button.flat:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &:disabled {
+      color: $theme_disabled_fg_color;
+      &:backdrop {
+        color: $theme_unfocused_disabled_fg_color;
+      }
+    }
+  }
 
-// menubar toolbars 
-toolbar menubar {
-  -GtkToolbar-button-relief: normal;
+  // menubar toolbars 
+  & menubar {
+    -GtkToolbar-button-relief: normal;
+  }
 }
 
 // primary-toolbar 
@@ -2469,42 +2547,53 @@ toolbar menubar {
   border-color: gtkmix($borders, $toolbar_bg_color, 0.5);
   color: $toolbar_fg_color;
   background-color: $toolbar_bg_color;
-}
 
-.primary-toolbar:backdrop {
-  border-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+  &:backdrop {
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
+  }
 
-.primary-toolbar combobox, .primary-toolbar button, .primary-toolbar .raised button {
-  border-color: $toolbar_bg_color;
-  color: $toolbar_fg_color;
-  background-color: $toolbar_bg_color;
-}
+  & button, & .raised button {
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color;
 
-.primary-toolbar button:hover, .primary-toolbar .raised button:hover {
-  border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-  color: $toolbar_fg_color;
-  background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-}
+    &:hover {
+      border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+      color: $toolbar_fg_color;
+      background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    }
 
-.primary-toolbar button:active, .primary-toolbar button:checked, .primary-toolbar .raised button:active, .primary-toolbar .raised button:checked {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+    &:active, &:checked {
+      border-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
 
-.primary-toolbar button:backdrop, .primary-toolbar .raised button:backdrop {
-  border-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
 
-.primary-toolbar button:backdrop:checked, .primary-toolbar .raised button:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
+    &:backdrop {
+      border-color: $theme_unfocused_bg_color;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
+
+    &:disabled {
+      border-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
+      color: $toolbar_fg_color;
+      background-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
+      &:backdrop {
+        border-color: $unfocused_borders;
+        color: $theme_unfocused_disabled_fg_color;
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
+  }
 }
 
 // inline-toolbar 
@@ -2517,80 +2606,132 @@ toolbar menubar {
   border-color: gtkmix($borders, $toolbar_bg_color, 0.5);
   border-radius: 0;
   background-color: $toolbar_bg_color;
+
+  &:last-child {
+    border-width: 0 1px 1px 1px;
+    border-radius: 0;
+  }
+
+  & button {
+    border-color: $toolbar_bg_color;
+    color: $toolbar_fg_color;
+    background-color: $toolbar_bg_color;
+
+    &:hover {
+      border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+      background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
+    }
+
+    &:active, &:checked {
+      border-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
+
+    &:backdrop {
+      border-color: $theme_unfocused_bg_color;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
+
+    &:disabled {
+      border-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
+      color: $toolbar_fg_color;
+      background-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
+      &:backdrop {
+        border-color: $unfocused_borders;
+        color: $theme_unfocused_disabled_fg_color;
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
+  }
 }
 
-.inline-toolbar toolbar:last-child {
-  border-width: 0 1px 1px 1px;
-  border-radius: 0;
-}
+// linked widgets
 
-.inline-toolbar toolbar button {
-  border-color: $toolbar_bg_color;
-  color: $toolbar_fg_color;
-  background-color: $toolbar_bg_color;
-}
-
-.inline-toolbar toolbar button:hover {
-  border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-  background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-}
-
-.inline-toolbar toolbar button:active, .inline-toolbar toolbar button:checked {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-
-.inline-toolbar button:backdrop {
-  border-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
-
-.inline-toolbar button:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
-
-// linked widgets 
-.linked entry, .linked button, .linked combobox box.linked button {
+// define common mixins
+@mixin linked() {
   border-radius: 0;
   border-left-width: 0;
 }
 
-.linked entry:first-child, .linked button:first-child, .linked combobox:first-child box.linked button {
+@mixin linked_first_child() {
   border-left-width: 1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.linked entry:last-child, .linked button:last-child, .linked combobox:last-child box.linked button {
+@mixin linked_last_child() {
   border-left-width: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.linked entry:only-child, .linked button:only-child, combobox:only-child box.linked button {
+@mixin linked_only_child() {
   border-width: 1px;
   border-radius: 0;
 }
 
-.linked entry:focus, .linked entry:last-child:focus {
-  box-shadow: -1px 0 $theme_selected_bg_color;
-}
-  
-.linked entry:first-child:focus {
-  box-shadow: none;
+.linked {
+  & entry, & button {
+    @include linked();
+
+    &:first-child {
+      @include linked_first_child();
+    }
+
+    &:last-child {
+      @include linked_last_child();
+    }
+
+    &:only-child {
+      @include linked_only_child();
+    }
+  }
+
+  & combobox {
+    & box.linked button {
+      @include linked();
+    }
+
+    &:first-child box.linked button {
+      @include linked_first_child();
+    }
+
+    &:last-child box.linked button {
+      @include linked_last_child();
+    }
+
+    &:only-child box.linked button {
+      @include linked_only_child();
+    }
+  }
+
+  & entry {
+    &:focus, &:last-child:focus {
+      box-shadow: -1px 0 $theme_selected_bg_color;
+    }
+      
+    &:first-child:focus {
+      box-shadow: none;
+    }
+  }
 }
 
-.vertical.linked entry, .vertical.linked button, .vertical.linked combobox box.linked button {
+// vertical mixins
+@mixin vertical_linked() {
   border-left-width: 1px;
   border-top-width: 0;
   border-radius: 0;
 }
 
-.vertical.linked entry:first-child, .vertical.linked button:first-child, .vertical.linked combobox:first-child box.linked button {
+@mixin vertical_linked_first_child() {
   border-top-width: 1px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -2598,7 +2739,7 @@ toolbar menubar {
   border-bottom-right-radius: 0;
 }
 
-.vertical.linked entry:last-child, .vertical.linked button:last-child, .vertical.linked combobox:last-child box.linked button {
+@mixin vertical_linked_last_child() {
   border-top-width: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -2606,33 +2747,73 @@ toolbar menubar {
   border-bottom-right-radius: 0;
 }
 
-.vertical.linked entry:only-child, .vertical.linked button:only-child, .vertical.linked combobox .linked:only-child button {
+@mixin vertical_linked_only_child() {
   border-top-width: 1px;
 }
-  
-.vertical.linked entry:focus, .vertical.linked entry:last-child:focus {
-  box-shadow: 0 -1px $theme_selected_bg_color;
-}
 
-.vertical.linked entry:first-child:focus {
-  box-shadow: none;
-}
+.vertical.linked {
+  & entry, & button {
+    @include vertical_linked();
 
-.vertical.linked spinbutton button:first-child {
-  border-width: 1px;
-  border-top-width: 0;
-  border-left-width: 1px;
-}
+    &:first-child {
+      @include vertical_linked_first_child();
+    }
 
-.vertical.linked spinbutton button:last-child {
-  border-width: 0;
-  border-left-width: 1px;
-  border-right-width: 1px;
-  border-bottom-width: 1px;
-  border-top-width: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+    &:last-child {
+      @include vertical_linked_last_child();
+    }
+
+    &:only-child {
+      @include vertical_linked_only_child();
+    }
+  }
+
+  & combobox {
+    & box.linked button {
+      @include vertical_linked();
+    }
+
+    &:first-child box.linked button {
+      @include vertical_linked_first_child();
+    }
+
+    &:last-child box.linked button {
+      @include vertical_linked_last_child();
+    }
+
+    &:only-child box.linked button {
+      @include vertical_linked_only_child();
+    }
+  }
+
+  & entry {
+    &:focus, &:last-child:focus {
+      box-shadow: 0 -1px $theme_selected_bg_color;
+    }
+
+    &:first-child:focus {
+      box-shadow: none;
+    }
+  }
+
+  & spinbutton button {
+    &:first-child {
+      border-width: 1px;
+      border-top-width: 0;
+      border-left-width: 1px;
+    }
+
+    &:last-child {
+      border-width: 0;
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-bottom-width: 1px;
+      border-top-width: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
 }
 
 // stack switcher 
@@ -2644,82 +2825,83 @@ stackswitcher button.text-button {
 tooltip {
   border-radius: 0;
   box-shadow: none;
-}
 
-tooltip.background {
-  border-width: 1px;
-  border-style: solid;
-  border-color: $borders;
-  background-color: $tooltip_bg_color;
-}
+  &.background {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $borders;
+    background-color: $tooltip_bg_color;
 
-tooltip.background label {
-  padding: 1px;
-}
+    & label {
+      padding: 1px;
+    }
+  }
 
-tooltip * {
-  background-color: transparent;
-  color: $tooltip_fg_color;
+  & * {
+    background-color: transparent;
+    color: $tooltip_fg_color;
+  }
 }
 
 // treeview 
 treeview {
   -treeview-vertical-separator: 0;
+
+  &.view:selected, &.view:selected:focus {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
+  }
+
+  // treeview header 
+  & header {
+    & button {
+      border-width: 0 1px 1px 0;
+      border-radius: 0;
+
+      &, &:active, &:focus, &:active:focus {
+        background-color: gtkshade($theme_bg_color, 0.97);
+      }
+
+      &:hover, &:active:hover, &:hover:focus, &:active:hover:focus {
+        color: $theme_selected_fg_color;
+        background-color: $theme_selected_bg_color;
+      }
+    }
+    &:last-child button {
+      border-width: 0 0 1px 0;
+    }
+  }
 }
 
-treeview.view:selected:focus, treeview.view:selected {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-
-// treeview header 
-treeview header button {
-  border-width: 0 1px 1px 0;
-  border-radius: 0;
-}
-
-treeview header button, treeview header button:active, treeview header button:focus, treeview header button:active:focus {
-  background-color: gtkshade($theme_bg_color, 0.97);
-}
-
-treeview header button:hover, treeview header button:active:hover, treeview header button:hover:focus, treeview header button:active:hover:focus {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-
-treeview header:last-child button {
-  border-width: 0 0 1px 0;
-}
-
-// view 
+// view
+// TODO: Optimise this even more
 .view {
   color: $theme_text_color;
   background-color: $theme_base_color;
-}
 
-.view:not(treeview) {
-  border-radius: 0;
-}
+  &:not(treeview) {
+    border-radius: 0;
+  }
 
-.view:disabled {
-  color: $theme_disabled_fg_color;
-  background-color: $theme_disabled_bg_color;
-}
+  &:disabled {
+    color: $theme_disabled_fg_color;
+    background-color: $theme_disabled_bg_color;
+  }
 
-.view:selected:disabled:focus, .view:selected:disabled, .view text:selected:focus:disabled, .view text:selected:disabled, .view text selection:disabled:focus {
-  color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.5);
-  background-color: $theme_selected_bg_color;
-}
+  &:selected:disabled:focus, &:selected:disabled, & text:selected:focus:disabled, & text:selected:disabled, & text selection:disabled:focus {
+    color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.5);
+    background-color: $theme_selected_bg_color;
+  }
 
-.view:selected:focus, .view:selected, .view text:selected:focus, .view text:selected, .view text selection:focus, .view text selection {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+  &:selected:focus, &:selected, & text:selected:focus, & text:selected, & text selection:focus, & text selection {
+    color: $theme_selected_fg_color;
+    background-color: $theme_selected_bg_color;
+  }
 
-// backdrop state 
-.view:selected:backdrop, .view selection:backdrop {
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
+  &:selected:backdrop, & selection:backdrop {
+    color: $theme_unfocused_selected_fg_color;
+    background-color: $theme_unfocused_selected_bg_color;
+  }
 }
 
 // action-bar 
@@ -2730,30 +2912,32 @@ actionbar {
   border-color: $borders;
   color: $theme_fg_color;
   background-color: $theme_bg_color;
-}
 
-actionbar:backdrop {
-  border-color: $unfocused_borders;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+  &:backdrop {
+    border-color: $unfocused_borders;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
+  }
 
-actionbar button.text-button {
-  padding: 4px;
-}
+  & button {
+    &.text-button {
+      padding: 4px;
+    }
 
-actionbar button .image-button {
-  padding: 6px;
-}
+    & .image-button {
+      padding: 6px;
+    }
+  }
 
-actionbar .title {
-  font-weight: bold;
-  padding: 0 12px;
-}
+  & .title {
+    font-weight: bold;
+    padding: 0 12px;
+  }
 
-actionbar .subtitle {
-  font-size: smaller;
-  padding: 0 12px;
+  & .subtitle {
+    font-size: smaller;
+    padding: 0 12px;
+  }
 }
 
 // search bars 
@@ -2774,13 +2958,14 @@ searchbar {
   padding: 8px;
   background-color: $theme_base_color;
   color: $theme_text_color;
-}
-
-.app-notification border {
-  border: none;
+  
+  & border {
+    border: none;
+  }
 }
 
 // osd 
+// How do I organise this???
 .background.osd {
   color: $osd_fg;
   background-color: $osd_bg;
@@ -2977,195 +3162,166 @@ button.destructive-action {
   border-radius: 0;
   color: gtkmix($theme_selected_fg_color, $error_color, 0.1);
   background-color: $error_color;
+
+  &:hover {
+    border-color: gtkmix($error_color, $theme_fg_color, 0.3);
+    background-color: gtkmix($error_color, $theme_selected_fg_color, 0.2);
+  }
+
+  &:active {
+    border-color: gtkmix($error_color, $theme_fg_color, 0.3);
+    background-color: gtkmix($error_color, $theme_fg_color, 0.1);
+  }
+
+  &:backdrop {
+    border-color: gtkmix($error_color, $theme_unfocused_fg_color, 0.2);
+    color: gtkmix($theme_unfocused_selected_fg_color, $error_color, 0.1);
+    background-color: gtkmix($error_color, $theme_unfocused_bg_color, 0.3);
+  }
 }
 
-button.destructive-action:hover {
-  border-color: gtkmix($error_color, $theme_fg_color, 0.3);
-  background-color: gtkmix($error_color, $theme_selected_fg_color, 0.2);
+// suggested action buttons
+// mixin to reuse in headerbar code
+@mixin suggested_button() {
+  button.suggested-action {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+    border-color: $theme_selected_bg_color;
+    color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
+    background-color: $theme_selected_bg_color;
+
+    &:hover {
+      border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+      background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+    }
+
+    &:active, &:checked {
+      border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+      background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+
+      &:backdrop {
+        border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+        background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+      }
+    }
+
+    &:disabled {
+      border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
+      color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.2);
+      background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
+
+      &:backdrop {
+        border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_disabled_bg_color, 0.2);
+        color: gtkmix($theme_unfocused_selected_fg_color, $theme_unfocused_disabled_fg_color, 0.2);
+        background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_disabled_bg_color, 0.2);
+      }
+    }
+
+    &:backdrop {
+      border-color: $theme_unfocused_selected_bg_color;
+      color: $theme_unfocused_selected_fg_color;
+      background-color: $theme_unfocused_selected_bg_color;
+    }
+  }
 }
 
-button.destructive-action:active {
-  border-color: gtkmix($error_color, $theme_fg_color, 0.3);
-  background-color: gtkmix($error_color, $theme_fg_color, 0.1);
-}
-
-button.destructive-action:backdrop {
-  border-color: gtkmix($error_color, $theme_unfocused_fg_color, 0.2);
-  color: gtkmix($theme_unfocused_selected_fg_color, $error_color, 0.1);
-  background-color: gtkmix($error_color, $theme_unfocused_bg_color, 0.3);
-}
-
-// suggested action buttons 
-button.suggested-action {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 0;
-  border-color: $theme_selected_bg_color;
-  color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
-  background-color: $theme_selected_bg_color;
-}
-
-button.suggested-action:hover {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-}
-
-button.suggested-action:active, button.suggested-action:checked {
-  border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-  background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-}
-
-button.suggested-action:disabled {
-  border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
-  color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
-}
-
-button.suggested-action:backdrop {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
-
-button.suggested-action:active:backdrop, button.suggested-action:checked:backdrop {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-}
+@include suggested_button();
 
 // headerbar suggested action 
-headerbar button.suggested-action {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 0;
-  border-color: $theme_selected_bg_color;
-  color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
-  background-color: $theme_selected_bg_color;
+headerbar {
+  @include suggested_button();
 }
 
-headerbar button.suggested-action:hover {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-}
-
-headerbar button.suggested-action:active, headerbar button.suggested-action:checked {
-  border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-  background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-}
-
-headerbar button.suggested-action:disabled {
-  border-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
-  color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_disabled_bg_color, 0.2);
-}
-
-headerbar button.suggested-action:backdrop {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
-
-headerbar button.suggested-action:active:backdrop, headerbar button.suggested-action:checked:backdrop {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-}
-
-// selection mode 
-headerbar.selection-mode, toolbar.selection-mode {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6);;
-  color: $theme_selected_fg_color;
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6);
-}
-
-headerbar.selection-mode:backdrop, toolbar.selection-mode:backdrop {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6);
-  color: $theme_unfocused_selected_fg_color;
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6);
-}
-
+// selection mode
+// TODO: Integrate this better
 toolbar.selection-mode {
   padding: 4px;
 }
 
-// selection mode button 
-headerbar.selection-mode button, toolbar.selection-mode button, toolbar.selection-mode button {
-  border-width: 1px;
-  border-style: solid;
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7);
-  border-radius: 0;
-  color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7);
-}
+headerbar.selection-mode, toolbar.selection-mode {
+  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6);;
+  color: $theme_selected_fg_color;
+  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.6);
 
-headerbar.selection-mode button:hover, toolbar.selection-mode button:hover, toolbar.selection-mode button:hover {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75);
-}
+  &:backdrop {
+    border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6);
+    color: $theme_unfocused_selected_fg_color;
+    background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.6);
+  }
 
-headerbar.selection-mode button:active, headerbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45);
-}
+  // selection mode button 
+  button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7);
+    border-radius: 0;
+    color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.2);
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.7);
 
-headerbar.selection-mode button:backdrop, toolbar.selection-mode button:backdrop, toolbar.selection-mode button:backdrop {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
-  color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.3);
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
-}
+    &:hover {
+      border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75);
+      background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.75);
+    }
 
-headerbar.selection-mode button:active, headerbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked, toolbar.selection-mode button:active, toolbar.selection-mode button:checked {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45);
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45);
-}
+    &:active, &:checked {
+      border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45);
+      background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.45);
 
-// selection mode suggested button 
-headerbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action {
-  border-width: 1px;
-  border-style: solid;
-  border-color: $theme_selected_bg_color;
-  border-radius: 0;
-  color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
-  background-color: $theme_selected_bg_color;
-}
+      &:backdrop {
+        border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45);
+        background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.45);
+      }
+    }
 
-headerbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover {
-  border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-  background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-}
+    &:backdrop {
+      border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
+      color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.3);
+      background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
+    }
 
-headerbar.selection-mode button.suggested-action:active, toolbar.selection-mode button.suggested-action:active, toolbar.selection-mode toolbutton.suggested-action:active, headerbar.selection-mode button.suggested-action:checked, toolbar.selection-mode button.suggested-action:checked, toolbar.selection-mode toolbutton.suggested-action:checked {
-  border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-  background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-}
+    // selection mode suggested button 
+    &.suggested-action {
+      border-width: 1px;
+      border-style: solid;
+      border-color: $theme_selected_bg_color;
+      border-radius: 0;
+      color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
+      background-color: $theme_selected_bg_color;
 
-headerbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+      &:hover {
+        border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+        background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
+      }
 
-headerbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode toolbutton.suggested-action:active:backdrop, headerbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode toolbutton.suggested-action:checked:backdrop {
-  border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-  background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-}
+      &:active, &:checked {
+        border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
+        background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
 
-// menu button 
-headerbar.selection-mode .selection-menu button, toolbar.selection-mode .selection-menu button {
-  border-style: none;
-  background-color: transparent;
-  color: gtkshade($theme_selected_bg_color, 0.8);
-}
+        &:backdrop {
+          border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+          background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
+        }
+      }
 
-toolbar.selection-mode .dim-label, toolbar.selection-mode .selection-menu button .dim-label {
-  color: gtkshade($theme_selected_bg_color, 0.7);
-}
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
+  }
 
-headerbar.selection-mode .selection-menu button:hover, toolbar.selection-mode .dim-label:hover, toolbar.selection-mode .selection-menu button:hover, toolbar.selection-mode .selection-menu button .dim-label:hover {
-  color: gtkshade($theme_selected_bg_color, 0.7);
-}
-
-headerbar.selection-mode .selection-menu button:active, toolbar.selection-mode .selection-menu button:active {
-  color: gtkshade($theme_selected_bg_color, 0.8);
-  box-shadow: none;
+  // menu button 
+  & .selection-menu button {
+    border-style: none;
+    background-color: transparent;
+    color: gtkshade($theme_selected_bg_color, 0.8);
+    
+    & .dim-label {
+      color: gtkshade($theme_selected_bg_color, 0.7);
+    }
+  }
 }
 
 // decoration 
@@ -3174,268 +3330,265 @@ decoration {
   border-width: 0px;
   box-shadow: 0 8px 8px 0 hex2rgba($dark_shadow, 0.2), 0 0 0 1px $theme_selected_bg_color;
   margin: 10px;
-}
 
-decoration:backdrop {
-  box-shadow: 0 8px 8px 0 transparent, 0 5px 5px 0 hex2rgba($dark_shadow, 0.2), 0 0 0 1px $borders;
-}
+  &:backdrop {
+    box-shadow: 0 8px 8px 0 transparent, 0 5px 5px 0 hex2rgba($dark_shadow, 0.2), 0 0 0 1px $borders;
+  }
 
-.fullscreen decoration, .tiled decoration {
-  border-radius: 0;
-}
+  .fullscreen &, .tiled & {
+    border-radius: 0;
+  }
 
-.popup decoration {
-  box-shadow: 0 0 0 1px hex2rgba($dark_shadow, 0.1);
-  border-radius: 0;
-}
+  .popup & {
+    box-shadow: 0 0 0 1px hex2rgba($dark_shadow, 0.1);
+    border-radius: 0;
+  }
 
-.ssd decoration {
-  border-radius: 0;
-  box-shadow: 0 0 0 1px hex2rgba($dark_shadow, 0.1);
-}
+  .ssd & {
+    border-radius: 0;
+    box-shadow: 0 0 0 1px hex2rgba($dark_shadow, 0.1);
 
-.ssd decoration.maximized {
-  border-radius: 0;
-}
-  
-tooltip.csd decoration {
-  border-radius: 0;
-  box-shadow: none;
-}
+    &.maximized {
+      border-radius: 0;
+    }
+  }
 
-.solid-csd decoration {
-  margin: 1px;
-  border-radius: 0;
-  background-color: hex2rgba($light_shadow, 0.95);
-  box-shadow: none;
+  tooltip.csd & {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .solid-csd & {
+    margin: 1px;
+    border-radius: 0;
+    background-color: hex2rgba($light_shadow, 0.95);
+    box-shadow: none;
+  }
 }
 
 // message dialog 
-messagedialog.background.csd {
-	border-radius: 0;
-	color: $theme_fg_color;
-  background-color: $theme_bg_color;
-}
+messagedialog {
+  .background.csd {
+	  border-radius: 0;
+	  color: $theme_fg_color;
+    background-color: $theme_bg_color;
 
-messagedialog.csd decoration {
-  border-radius: 0;
-  box-shadow: 0 1px 2px hex2rgba($dark_shadow, 0.2);
-}
+    & decoration {
+      border-radius: 0;
+      box-shadow: 0 1px 2px hex2rgba($dark_shadow, 0.2);
+    }
+  }
 
-messagedialog .titlebar.horizontal {
-  background-color: $theme_bg_color;
-}
+  & .titlebar.horizontal {
+    background-color: $theme_bg_color;
+  }
 
-messagedialog.csd .dialog-action-area button {
-  border-bottom-style: none;
-}
+  &.csd .dialog-action-area button {
+    padding: 10px;
+    border-radius: 0;
+    border-bottom-style: none;
 
-messagedialog.csd .dialog-action-area button {
-  padding: 10px;
-  border-radius: 0;
-}
+    &:last-child {
+      border-right-width: 0;
+      border-radius: 0;
+    }
 
-messagedialog.csd .dialog-action-area button:last-child {
-  border-right-width: 0;
-  border-radius: 0;
-}
+    &:first-child {
+      border-left-width: 0;
+      border-radius: 0;
+    }
 
-messagedialog.csd .dialog-action-area button:first-child {
-  border-left-width: 0;
-  border-radius: 0;
-}
-
-messagedialog.csd .dialog-action-area button:only-child {
-  border-radius: 0;
+    &:only-child {
+      border-radius: 0;
+    }
+  }
 }
 
 // titlebar 
 .titlebar {
   border-bottom: none;
   border-radius: 0;
-}
 
-.titlebar .title {
-  padding-left: 12px;
-  padding-right: 12px;
-  font-weight: bold;
-}
+  & .title {
+    padding-left: 12px;
+    padding-right: 12px;
+    font-weight: bold;
+  }
 
-.titlebar .subtitle {
-  font-size: smaller;
-  padding-left: 12px;
-  padding-right: 12px;
-  color: gtkalpha(currentColor, 0.7);
-}
+  & .subtitle {
+    font-size: smaller;
+    padding-left: 12px;
+    padding-right: 12px;
+    color: gtkalpha(currentColor, 0.7);
+  }
 
-.titlebar button {
-  padding: 4px 8px;
-  border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
-  color: $titlebar_fg_color;
-  background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
-}
+  & button {
+    padding: 4px 8px;
+    border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
+    color: $titlebar_fg_color;
+    background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
 
-.titlebar button:hover {
-  border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
-  color: $titlebar_fg_color;
-  background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
-}
+    &:hover {
+      border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
+      color: $titlebar_fg_color;
+      background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
+    }
 
-.titlebar button:active, titlebar button:checked {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+    &:active, &:checked {
+      border-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
 
-.titlebar button:disabled {
-  border-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
-  color: $titlebar_fg_color;
-  background-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
-}
+      &:backdrop {
+        border-color: $theme_unfocused_selected_bg_color;
+        color: $theme_unfocused_selected_fg_color;
+        background-color: $theme_unfocused_selected_bg_color;
+      }
+    }
 
-.titlebar button:active:backdrop, titlebar button:checked:backdrop {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &:disabled {
+      border-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
+      color: $titlebar_fg_color;
+      background-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
 
-.titlebar button:backdrop {
-  border-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-  background-color: $theme_unfocused_bg_color;
-}
+      &:backdrop {
+        border-color: $theme_unfocused_disabled_bg_color;
+        color: $theme_unfocused_disabled_fg_color;
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
 
-.titlebar button:backdrop:checked {
-  border-color: $theme_unfocused_selected_bg_color;
-  color: $theme_unfocused_selected_fg_color;
-  background-color: $theme_unfocused_selected_bg_color;
-}
+    &:backdrop {
+      border-color: $theme_unfocused_bg_color;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
+  }
 
-.titlebar button:backdrop:disabled {
-  border-color: $theme_unfocused_disabled_bg_color;
-  color: $theme_unfocused_disabled_fg_color;
-  background-color: $theme_unfocused_disabled_bg_color;
-}
+  // titlebutton 
+  & .titlebutton {
+    &.close, &.maximize, &.minimize, &:not(separator) {
+      padding: 2px 2px;
+      border: none;
+      color: transparent;
+      background-color: transparent;
+      -gtk-icon-shadow: none;
+    }
+    &.close {
+      background: url('assets/close-normal.png') 100% 100%;
 
-.maximized headerbar, .maximized headerbar:backdrop, .tiled .titlebar:not(headerbar), .tiled .titlebar:backdrop:not(headerbar), .maximized .titlebar:not(headerbar), .maximized .titlebar:backdrop:not(headerbar) {
-  border-radius: 0;
+      &:hover {
+        background: url('assets/close-hover.png') 100% 100%;
+      }
+
+      &:active {
+        background: url('assets/close-active.png') 100% 100%;
+      }
+
+      &:backdrop {
+        background: url('assets/close-backdrop.png') 100% 100%;
+      }
+    }
+
+    &.minimize {
+      background: url('assets/minimize-normal.png') 100% 100%;
+
+      &:hover {
+        background: url('assets/minimize-hover.png') 100% 100%;
+      }
+
+      &:active {
+        background: url('assets/minimize-active.png') 100% 100%;
+      }
+
+      &:backdrop {
+        background: url('assets/minimize-backdrop.png') 100% 100%;
+      }
+    }
+
+    &.maximize {
+      background: url('assets/maximize-normal.png') 100% 100%;
+
+      &:hover {
+        background: url('assets/maximize-hover.png') 100% 100%;
+      }
+
+      &:active {
+        background: url('assets/maximize-active.png') 100% 100%;
+      }
+
+      &:backdrop {
+        background: url('assets/maximize-backdrop.png') 100% 100%;
+      }
+    }
+  }
+
+  .tiled &:not(headerbar), .tiled &:backdrop:not(headerbar), .maximized &:not(headerbar), .maximized &:backdrop:not(headerbar) {
+    border-radius: 0;
+  }
 }
 
 .titlebar, .titlebar:not(headerbar), headerbar.default-decoration, .csd headerbar.default-decoration, .default-decoration.titlebar:not(headerbar), .csd .default-decoration.titlebar:not(headerbar) {
   min-height: 28px;
   color: $titlebar_fg_color;
   background-color: $titlebar_bg_color;
-}
 
-.titlebar:backdrop, .titlebar:not(headerbar):backdrop, headerbar.default-decoration:backdrop, .csd headerbar.default-decoration:backdrop, .default-decoration.titlebar:backdrop:not(headerbar), .csd .default-decoration.titlebar:backdrop:not(headerbar) {
-  background-color: $theme_unfocused_bg_color;
-  color: $theme_unfocused_fg_color;
-}
-
-// titlebutton 
-.titlebar .titlebutton:not(separator), .titlebar .titlebutton:not(separator):active, .titlebar .titlebutton:not(separator):backdrop, .titlebar:not(headerbar) .titlebutton:not(separator), headerbar.default-decoration .titlebutton:not(separator), .csd headerbar.default-decoration .titlebutton:not(separator), .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator), .titlebar:not(headerbar) .titlebutton:not(separator):backdrop, headerbar.default-decoration .titlebutton:not(separator):backdrop, .csd headerbar.default-decoration .titlebutton:not(separator):backdrop, .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop, .csd .default-decoration.titlebar:not(headerbar) .titlebutton:not(separator):backdrop {
-  padding: 2px 2px;
-  border: none;
-  color: transparent;
-  background-color: transparent;
-  -gtk-icon-shadow: none;
-}
-
-.titlebar .titlebutton.close {
-  background: url('buttons/close-normal.png') 100% 100%;
-}
-
-.titlebar .titlebutton.close:hover {
-  background: url('buttons/close-hover.png') 100% 100%;
-}
-
-.titlebar .titlebutton.close:active {
-  background: url('buttons/close-active.png') 100% 100%;
-}
-
-.titlebar .titlebutton.close:backdrop {
-  background: url('buttons/close-backdrop.png') 100% 100%;
-}
-
-.titlebar .titlebutton.minimize {
-  background: url('buttons/minimize-normal.png') 100% 100%;
-}
-
-.titlebar .titlebutton.minimize:hover {
-  background: url('buttons/minimize-hover.png') 100% 100%;
-}
-
-.titlebar .titlebutton.minimize:active {
-  background: url('buttons/minimize-active.png') 100% 100%;
-}
-
-.titlebar .titlebutton.minimize:backdrop {
-  background: url('buttons/minimize-backdrop.png') 100% 100%;
-}
-
-.titlebar .titlebutton.maximize {
-  background: url('buttons/maximize-normal.png') 100% 100%;
-}
-
-.titlebar .titlebutton.maximize:hover {
-  background: url('buttons/maximize-hover.png') 100% 100%;
-}
-
-.titlebar .titlebutton.maximize:active {
-  background: url('buttons/maximize-active.png') 100% 100%;
-}
-
-.titlebar .titlebutton.maximize:backdrop {
-  background: url('buttons/maximize-backdrop.png') 100% 100%;
+  &:backdrop {
+    background-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+  }
 }
 
 // desktop icons 
 .caja-desktop, .nemo-desktop.nemo-canvas-item, .nautilus-desktop.nautilus-canvas-item {
   color: $desktop_item_fg;
   text-shadow: 1px 1px $desktop_item_text_shadow;
-}
 
-.caja-desktop:active, .nemo-desktop.nemo-canvas-item:active, .nautilus-desktop.nautilus-canvas-item:active {
-  color: $desktop_item_fg;
-}
+  &:active {
+    color: $desktop_item_fg;
+  }
 
-.caja-desktop:selected, .nemo-desktop.nemo-canvas-item:selected, .nautilus-desktop.nautilus-canvas-item:selected {
-  color: $desktop_item_selected_fg;
-  text-shadow: none;
+  &:selected {
+    color: $desktop_item_selected_fg;
+    text-shadow: none;
+  }
 }
 
 // gnome flashback 
-panel-toplevel.background, panel-toplevel.background menubar {
-  background-color: $taskbar_bg_color;
-  color: $taskbar_fg_color;
+panel-toplevel.background {
+  &, & menubar {
+    background-color: $taskbar_bg_color;
+    color: $taskbar_fg_color;
+  }
+
+  & menubar, & #PanelApplet label, & #PanelApplet image {
+    color: $taskbar_fg_color;
+  }
+
+  & menubar > menuitem, & menubar > menuitem label:backdrop {
+    color: $taskbar_fg_color;
+  }
+
+  & menubar > menuitem:hover, & menubar > menuitem:hover label:backdrop {
+    color: $theme_selected_fg_color;
+  }
+
+  & button {
+    background-color: $taskbar_bg_color;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: $taskbar_fg_color;
+
+    &:active, &:checked {
+      background-color: gtkshade($taskbar_bg_color, 0.8);
+      border: none;
+      box-shadow: none;
+      color: $taskbar_fg_color;
+    }
+  }
 }
 
-panel-toplevel.background menubar, panel-toplevel.background #PanelApplet label, panel-toplevel.background #PanelApplet image {
-  color: $taskbar_fg_color;
-}
-
-panel-toplevel.background menubar > menuitem, panel-toplevel.background menubar > menuitem label:backdrop {
-  color: $taskbar_fg_color;
-}
-
-panel-toplevel.background menubar > menuitem:hover, panel-toplevel.background menubar > menuitem:hover label:backdrop {
-  color: $theme_selected_fg_color;
-}
-
-panel-toplevel.background button {
-  background-color: $taskbar_bg_color;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  color: $taskbar_fg_color;
-}
-
-panel-toplevel.background button:active, panel-toplevel.background button:checked {
-  background-color: gtkshade($taskbar_bg_color, 0.8);
-  border: none;
-  box-shadow: none;
-  color: $taskbar_fg_color;
-}
 
 #tasklist-button, #tasklist-button label {
   color: hex2rgba($taskbar_fg_color, 0.7);
@@ -3443,19 +3596,15 @@ panel-toplevel.background button:active, panel-toplevel.background button:checke
   border: none;
   box-shadow: none;
   background-color: transparent;
-}
 
-#tasklist-button:hover {
-  color: hex2rgba($taskbar_fg_color, 0.7);
-  background-color: transparent;
-}
+  &:hover {
+    color: hex2rgba($taskbar_fg_color, 0.7);
+    background-color: transparent;
+  }
 
-#tasklist-button:checked {
-  color: $taskbar_fg_color;
-}
-
-#tasklist-button:checked label {
-  color: $taskbar_fg_color;
+  &:checked {
+    color: $taskbar_fg_color;
+  }
 }
 
 panel-toplevel.background na-tray-applet {
@@ -3464,43 +3613,45 @@ panel-toplevel.background na-tray-applet {
 }
 
 // nemo file manager 
-.nemo-window .nemo-window-pane widget.entry {
-  border: 1px solid;
-  border-radius: 3px;
-  border-color: $theme_selected_bg_color;
-  color: $theme_fg_color;
-  background-color: $theme_base_color;
-}
+.nemo-window {
+  & .nemo-window-pane widget.entry {
+    border: 1px solid;
+    border-radius: 3px;
+    border-color: $theme_selected_bg_color;
+    color: $theme_fg_color;
+    background-color: $theme_base_color;
+      
+    &:selected, &:selected:focus {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
+  }
   
-.nemo-window .nemo-window-pane widget.entry:selected:focus, .nemo-window .nemo-window-pane widget.entry:selected {
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
-  
-.nemo-window .sidebar {
-  background-color: $theme_bg_color;
-}
+  & .sidebar {
+    background-color: $theme_bg_color;
 
-.nemo-window .sidebar .view, .nemo-window .sidebar iconview, .nemo-window .sidebar row {
-  background-color: transparent;
-}
+    & .view, & iconview, & row {
+      background-color: transparent;
 
-.nemo-window .sidebar .view.cell:selected, .nemo-window .sidebar iconview.cell:selected, .nemo-window .sidebar row.cell:selected {
-  border-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
-  background-color: $theme_selected_bg_color;
-}
+      &.cell:selected {
+        border-color: $theme_selected_bg_color;
+        color: $theme_selected_fg_color;
+        background-color: $theme_selected_bg_color;
+      }
 
-.nemo-window .sidebar .view.expander, .nemo-window .sidebar iconview.expander, .nemo-window .sidebar row.expander {
-  color: $theme_fg_color;
-}
+      &.expander {
+        color: $theme_fg_color;
 
-.nemo-window .sidebar .view.expander:hover, .nemo-window .sidebar iconview.expander:hover, .nemo-window .sidebar row.expander:hover {
-  color: $theme_selected_bg_color;
-}
+        &:hover {
+          color: $theme_selected_bg_color;
+        }
+      }
+    }
 
-.nemo-window .sidebar separator {
-  background-color: transparent;
+    & separator {
+      background-color: transparent;
+    }
+  }
 }
 
 // unity
@@ -3521,32 +3672,38 @@ UnityDecoration {
   -UnityDecoration-title-indent: 10px;
   -UnityDecoration-title-fade: 35px;
   -UnityDecoration-title-alignment: 0.0;
-}
 
-UnityDecoration .top {
-  border: none;
-  border-radius: 6px 6px 0 0;
-  padding: 1px 8px 0 8px;
-  background-color: $titlebar_bg_color;
-  color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.1);
-  text-shadow: none;
-}
+  & .top {
+    border: none;
+    border-radius: 6px 6px 0 0;
+    padding: 1px 8px 0 8px;
+    background-color: $titlebar_bg_color;
+    color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.1);
+    text-shadow: none;
 
-UnityDecoration .top:backdrop {
-  background-color: $theme_unfocused_bg_color;
-  color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.4);
-}
+    &:backdrop {
+      background-color: $theme_unfocused_bg_color;
+      color: gtkmix($titlebar_fg_color, $titlebar_bg_color, 0.4);
+    }
+  }
 
-UnityDecoration .left, UnityDecoration .right, UnityDecoration.bottom {
-  background-color: $titlebar_bg_color;
-}
+  & .left, & .right, &.bottom {
+    background-color: $titlebar_bg_color;
 
-UnityDecoration .left:backdrop, UnityDecoration .right:backdrop, UnityDecoration.bottom:backdrop {
-  background-color: $titlebar_bg_color;
-}
+    &:backdrop {
+      background-color: $titlebar_bg_color;
+    }
+  }
 
-UnityDecoration .bottom {
-  background-color: $borders;
+  // new menubar function in unity 7.5
+  &.menuitem, & .menuitem {
+    border-radius: 0;
+
+    &:hover, & *:hover {
+      background-color: $theme_selected_bg_color;
+      color: $theme_selected_fg_color;
+    }
+  }
 }
 
 UnityPanelWidget, .unity-panel {
@@ -3555,29 +3712,21 @@ UnityPanelWidget, .unity-panel {
   border-color: $taskbar_bg_color;
   background-color: $taskbar_bg_color;
   color: $taskbar_fg_color;
-}
 
-.unity-panel.menuitem, .unity-panel .menuitem {
-  border-width: 0 1px;
-  color: $taskbar_fg_color;
-}
-
-// new menubar function in unity 7.5
-UnityDecoration.menuitem, UnityDecoration .menuitem {
-  border-radius: 0;
-}
-
-UnityDecoration .menuitem:hover, UnityDecoration .menuitem *:hover, .unity-panel.menubar.menuitem:hover, .unity-panel.menubar .menuitem *:hover {
-  background-color: $theme_selected_bg_color;
-  color: $theme_selected_fg_color;
+  &.menuitem, & .menuitem {
+    border-width: 0 1px;
+    color: $taskbar_fg_color;
+  }
 }
 
 @keyframes playbackmenuitem_spinner {
-  to { -gtk-icon-transform: rotate(1turn);
-}
+  to {
+    -gtk-icon-transform: rotate(1turn);
+  }
 }
 
 .menu IdoPlaybackMenuItem.menuitem:active {
   -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
   animation: playbackmenuitem_spinner 1s infinite linear;
-  color: $theme_selected_bg_color; }
+  color: $theme_selected_bg_color;
+}
