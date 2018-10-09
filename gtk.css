@@ -1214,18 +1214,18 @@ separator {
     -GtkWidget-window-dragging: true;
     margin-top: 4px;
     margin-bottom: 4px;
-    background-color: #f2f2f2; }
+    background-color: #81b9d9; }
     separator separator:backdrop {
       background-color: #e4e4e4; }
   .titlebar separator, .titlebar:not(headerbar) > separator, .titlebar separator.titlebutton, .titlebar:not(headerbar) > separator.titlebutton {
     -GtkWidget-window-dragging: true;
-    background-color: #f2f2f2; }
+    background-color: #81b9d9; }
     .titlebar separator:backdrop, .titlebar:not(headerbar) > separator:backdrop, .titlebar separator.titlebutton:backdrop, .titlebar:not(headerbar) > separator.titlebutton:backdrop {
       background-color: #e4e4e4; }
   .primary-toolbar:not(.libreoffice-toolbar) separator, headerbar separator.titlebutton, .titlebar:not(headerbar) separator.titlebutton {
     min-width: 1px;
     min-height: 1px;
-    background-color: #f2f2f2; }
+    background-color: #81b9d9; }
     .primary-toolbar:not(.libreoffice-toolbar) separator:backdrop, headerbar separator.titlebutton:backdrop, .titlebar:not(headerbar) separator.titlebutton:backdrop {
       background-color: #e4e4e4; }
   .primary-toolbar button separator, toolbar button separator {
@@ -1233,11 +1233,11 @@ separator {
     .primary-toolbar button separator:backdrop, toolbar button separator:backdrop {
       border-color: #e4e4e4; }
   headerbar button separator {
-    border-color: #f2f2f2; }
+    border-color: #81b9d9; }
     headerbar button separator:backdrop {
       border-color: #e4e4e4; }
   .titlebutton button separator, .titlebutton separator.titlebutton {
-    border-color: #f2f2f2; }
+    border-color: #81b9d9; }
     .titlebutton button separator:backdrop, .titlebutton separator.titlebutton:backdrop {
       border-color: #e4e4e4; }
   menuitem separator {
@@ -1485,10 +1485,10 @@ headerbar, headerbar:not(.titlebar) {
   padding: 4px 8px;
   border-width: 0;
   border-style: solid;
-  border-color: #f2f2f2;
+  border-color: #81b9d9;
   border-bottom-width: 1px;
-  color: #000000;
-  background-color: #ffffff; }
+  color: #FFFFFF;
+  background-color: #1D8ECE; }
   headerbar:backdrop, headerbar:not(.titlebar):backdrop {
     border-color: #e4e4e4;
     color: #000000;
@@ -1508,13 +1508,13 @@ headerbar, headerbar:not(.titlebar) {
     color: alpha(currentColor, 0.7); }
   headerbar button, headerbar:not(.titlebar) button {
     padding: 4px 8px;
-    border-color: #e6e6e6;
-    color: #000000;
-    background-color: #e6e6e6; }
+    border-color: #3499d3;
+    color: #FFFFFF;
+    background-color: #3499d3; }
     headerbar button:hover, headerbar:not(.titlebar) button:hover {
-      border-color: #d9d9d9;
-      color: #000000;
-      background-color: #d9d9d9; }
+      border-color: #3f9fd5;
+      color: #FFFFFF;
+      background-color: #3f9fd5; }
     headerbar button:active, headerbar button:checked, headerbar:not(.titlebar) button:active, headerbar:not(.titlebar) button:checked {
       border-color: #1D8ECE;
       color: #FFFFFF;
@@ -1524,9 +1524,9 @@ headerbar, headerbar:not(.titlebar) {
         color: #FFFFFF;
         background-color: #1D8ECE; }
     headerbar button:disabled, headerbar:not(.titlebar) button:disabled {
-      border-color: #fefefe;
-      color: #000000;
-      background-color: #fefefe; }
+      border-color: #3298d1;
+      color: #FFFFFF;
+      background-color: #3298d1; }
       headerbar button:disabled:backdrop, headerbar:not(.titlebar) button:disabled:backdrop {
         border-color: #e4e4e4;
         color: #bebebe;
@@ -2182,13 +2182,13 @@ messagedialog.csd .dialog-action-area button {
     color: alpha(currentColor, 0.7); }
   .titlebar button {
     padding: 4px 8px;
-    border-color: #e6e6e6;
-    color: #000000;
-    background-color: #e6e6e6; }
+    border-color: #3499d3;
+    color: #FFFFFF;
+    background-color: #3499d3; }
     .titlebar button:hover {
-      border-color: #d9d9d9;
-      color: #000000;
-      background-color: #d9d9d9; }
+      border-color: #3f9fd5;
+      color: #FFFFFF;
+      background-color: #3f9fd5; }
     .titlebar button:active, .titlebar button:checked {
       border-color: #1D8ECE;
       color: #FFFFFF;
@@ -2198,9 +2198,9 @@ messagedialog.csd .dialog-action-area button {
         color: #FFFFFF;
         background-color: #1D8ECE; }
     .titlebar button:disabled {
-      border-color: #fefefe;
-      color: #000000;
-      background-color: #fefefe; }
+      border-color: #3298d1;
+      color: #FFFFFF;
+      background-color: #3298d1; }
       .titlebar button:disabled:backdrop {
         border-color: #f8f8f8;
         color: #bebebe;
@@ -2244,8 +2244,8 @@ messagedialog.csd .dialog-action-area button {
 
 .titlebar, .titlebar:not(headerbar), headerbar.default-decoration, .csd headerbar.default-decoration, .default-decoration.titlebar:not(headerbar), .csd .default-decoration.titlebar:not(headerbar) {
   min-height: 28px;
-  color: #000000;
-  background-color: #ffffff; }
+  color: #FFFFFF;
+  background-color: #1D8ECE; }
   .titlebar:backdrop, .titlebar:not(headerbar):backdrop, headerbar.default-decoration:backdrop, .csd headerbar.default-decoration:backdrop, .default-decoration.titlebar:not(headerbar):backdrop, .csd .default-decoration.titlebar:not(headerbar):backdrop {
     background-color: #fdfdfd;
     color: #000000; }
@@ -2338,16 +2338,16 @@ UnityDecoration {
     border: none;
     border-radius: 6px 6px 0 0;
     padding: 1px 8px 0 8px;
-    background-color: #ffffff;
-    color: #1a1a1a;
+    background-color: #1D8ECE;
+    color: #e8f4fa;
     text-shadow: none; }
     UnityDecoration .top:backdrop {
       background-color: #fdfdfd;
-      color: #666666; }
+      color: #a5d2eb; }
   UnityDecoration .left, UnityDecoration .right, UnityDecoration.bottom {
-    background-color: #ffffff; }
+    background-color: #1D8ECE; }
     UnityDecoration .left:backdrop, UnityDecoration .right:backdrop, UnityDecoration.bottom:backdrop {
-      background-color: #ffffff; }
+      background-color: #1D8ECE; }
   UnityDecoration.menuitem, UnityDecoration .menuitem {
     border-radius: 0; }
     UnityDecoration.menuitem:hover, UnityDecoration.menuitem *:hover, UnityDecoration .menuitem:hover, UnityDecoration .menuitem *:hover {
