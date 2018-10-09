@@ -88,10 +88,10 @@
 @define-color sidebar_fg_color @dark_fg_color;
 @define-color taskbar_bg_color @dark_bg_color;
 @define-color taskbar_fg_color @dark_fg_color;
-@define-color titlebar_bg_color @dark_bg_color;
-@define-color titlebar_fg_color @dark_fg_color;
-@define-color headerbar_bg_color @dark_bg_color;
-@define-color headerbar_fg_color @dark_fg_color;
+@define-color titlebar_bg_color @selected_bg_color;
+@define-color titlebar_fg_color @selected_fg_color;
+@define-color headerbar_bg_color @selected_bg_color;
+@define-color headerbar_fg_color @selected_fg_color;
 
 /* OSD */
 @define-color osd_fg @dark_fg_color;
