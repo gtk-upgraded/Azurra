@@ -235,7 +235,7 @@ button:link > label, button:visited > label {
   text-decoration-line: underline;
 }
 
-// button 
+// button
 button {
   padding: 4px 8px;
   border-width: 1px;
@@ -280,14 +280,22 @@ button {
      }
   }
 
-  &:backdrop {
-    color: $theme_unfocused_fg_color;
-    background-color: $theme_unfocused_bg_color;
-  }
-
   &:disabled {
+    border-color: $theme_disabled_bg_color;
     color: $theme_disabled_fg_color;
     background-color: $theme_disabled_bg_color;
+    
+    &:backdrop {
+      border-color: $theme_unfocused_disabled_bg_color;
+      color: $theme_unfocused_disabled_fg_color;
+      background-color: $theme_unfocused_disabled_bg_color;
+    }
+  }
+
+  &:backdrop {
+    border-color: $theme_unfocused_bg_color;
+    color: $theme_unfocused_fg_color;
+    background-color: $theme_unfocused_bg_color;
   }
 
   &.flat, &.flat:backdrop, &.sidebar-button, &.sidebar-button:backdrop {
@@ -331,7 +339,6 @@ check, radio, check:disabled, radio:disabled, checkbutton:hover, checkbutton:act
   background-color: transparent;
 }
 
-// TODO: Maybe remove this?
 view.content-view check, view.content-view check:active, .content-view.view check, .content-view.view check:active {
   background-color: transparent;
 }
@@ -2393,7 +2400,52 @@ colorchooser {
     padding-right: 0;
   }
 }
-  
+
+// mixin for xbar buttons
+@mixin xbar_buttons($bg, $fg) {
+  & button {
+    padding: 4px 8px;
+    border-color: gtkmix($bg, $fg, 0.1);
+    color: $fg;
+    background-color: gtkmix($bg, $fg, 0.1);
+
+    &:hover {
+      border-color: gtkmix($bg, $fg, 0.15);
+      color: $fg;
+      background-color: gtkmix($bg, $fg, 0.15);
+    }
+
+    &:active, &:checked {
+      border-color: gtkshade($theme_selected_bg_color, 1.15);
+      color: $theme_selected_fg_color;
+      background-color: gtkshade($theme_selected_bg_color, 1.15);
+
+      &:backdrop {
+        border-color: gtkshade($theme_unfocused_selected_bg_color, 1.15);
+        color: $theme_unfocused_selected_fg_color;
+        background-color: gtkshade($theme_unfocused_selected_bg_color, 1.15);
+      }
+    }
+
+    &:disabled {
+      border-color: gtkmix($bg, $theme_disabled_bg_color, 0.1);
+      color: $fg;
+      background-color: gtkmix($bg, $theme_disabled_bg_color, 0.1);
+      &:backdrop {
+        border-color: $unfocused_borders;
+        color: $theme_unfocused_disabled_fg_color;
+        background-color: $theme_unfocused_disabled_bg_color;
+      }
+    }
+
+    &:backdrop {
+      border-color: $unfocused_borders;
+      color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
+    }
+  }
+}
+
 // headerbar 
 headerbar, headerbar:not(.titlebar) {
   padding: 4px 8px;
@@ -2431,47 +2483,7 @@ headerbar, headerbar:not(.titlebar) {
     color: gtkalpha(currentColor, 0.7);
   }
 
-  & button {
-    padding: 4px 8px;
-    border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
-    color: $headerbar_fg_color;
-    background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.1);
-
-    &:hover {
-      border-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
-      color: $headerbar_fg_color;
-      background-color: gtkmix($headerbar_bg_color, $headerbar_fg_color, 0.15);
-    }
-
-    &:active, &:checked {
-      border-color: $theme_selected_bg_color;
-      color: $theme_selected_fg_color;
-      background-color: $theme_selected_bg_color;
-
-      &:backdrop {
-        border-color: $theme_unfocused_selected_bg_color;
-        color: $theme_unfocused_selected_fg_color;
-        background-color: $theme_unfocused_selected_bg_color;
-      }
-    }
-
-    &:disabled {
-      border-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
-      color: $headerbar_fg_color;
-      background-color: gtkmix($headerbar_bg_color, $theme_disabled_bg_color, 0.1);
-      &:backdrop {
-        border-color: $unfocused_borders;
-        color: $theme_unfocused_disabled_fg_color;
-        background-color: $theme_unfocused_disabled_bg_color;
-      }
-    }
-
-    &:backdrop {
-      border-color: $unfocused_borders;
-      color: $theme_unfocused_fg_color;
-      background-color: $theme_unfocused_bg_color;
-    }
-  }
+  @include xbar_buttons($headerbar_bg_color, $headerbar_fg_color);
 
   & entry {
     padding: 4px 8px;
@@ -2612,45 +2624,7 @@ toolbar {
     border-radius: 0;
   }
 
-  & button {
-    border-color: $toolbar_bg_color;
-    color: $toolbar_fg_color;
-    background-color: $toolbar_bg_color;
-
-    &:hover {
-      border-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-      background-color: gtkmix($toolbar_bg_color, $toolbar_fg_color, 0.1);
-    }
-
-    &:active, &:checked {
-      border-color: $theme_selected_bg_color;
-      color: $theme_selected_fg_color;
-      background-color: $theme_selected_bg_color;
-
-      &:backdrop {
-        border-color: $theme_unfocused_selected_bg_color;
-        color: $theme_unfocused_selected_fg_color;
-        background-color: $theme_unfocused_selected_bg_color;
-      }
-    }
-
-    &:backdrop {
-      border-color: $theme_unfocused_bg_color;
-      color: $theme_unfocused_fg_color;
-      background-color: $theme_unfocused_bg_color;
-    }
-
-    &:disabled {
-      border-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
-      color: $toolbar_fg_color;
-      background-color: gtkmix($toolbar_bg_color, $theme_disabled_bg_color, 0.1);
-      &:backdrop {
-        border-color: $unfocused_borders;
-        color: $theme_unfocused_disabled_fg_color;
-        background-color: $theme_unfocused_disabled_bg_color;
-      }
-    }
-  }
+  @include xbar_buttons($toolbar_bg_color, $toolbar_fg_color);
 }
 
 // linked widgets
@@ -2887,7 +2861,7 @@ treeview {
     color: $theme_disabled_fg_color;
     background-color: $theme_disabled_bg_color;
   }
-
+  
   &:selected:disabled:focus, &:selected:disabled, & text:selected:focus:disabled, & text:selected:disabled, & text selection:disabled:focus {
     color: gtkmix($theme_selected_fg_color, $theme_disabled_fg_color, 0.5);
     background-color: $theme_selected_bg_color;
@@ -3189,7 +3163,7 @@ button.destructive-action {
     border-radius: 0;
     border-color: $theme_selected_bg_color;
     color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
-    background-color: $theme_selected_bg_color;
+    background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.25);
 
     &:hover {
       border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
@@ -3234,7 +3208,6 @@ headerbar {
 }
 
 // selection mode
-// TODO: Integrate this better
 toolbar.selection-mode {
   padding: 4px;
 }
@@ -3279,38 +3252,9 @@ headerbar.selection-mode, toolbar.selection-mode {
       color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.3);
       background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_selected_fg_color, 0.75);
     }
-
-    // selection mode suggested button 
-    &.suggested-action {
-      border-width: 1px;
-      border-style: solid;
-      border-color: $theme_selected_bg_color;
-      border-radius: 0;
-      color: gtkmix($theme_selected_fg_color, $theme_selected_bg_color, 0.1);
-      background-color: $theme_selected_bg_color;
-
-      &:hover {
-        border-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-        background-color: gtkmix($theme_selected_bg_color, $theme_selected_fg_color, 0.2);
-      }
-
-      &:active, &:checked {
-        border-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-        background-color: gtkmix($theme_selected_bg_color, $theme_fg_color, 0.1);
-
-        &:backdrop {
-          border-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-          background-color: gtkmix($theme_unfocused_selected_bg_color, $theme_unfocused_fg_color, 0.1);
-        }
-      }
-
-      &:backdrop {
-        border-color: $theme_unfocused_selected_bg_color;
-        color: $theme_unfocused_selected_fg_color;
-        background-color: $theme_unfocused_selected_bg_color;
-      }
-    }
   }
+
+  @include suggested_button();
 
   // menu button 
   & .selection-menu button {
@@ -3422,48 +3366,7 @@ messagedialog {
     color: gtkalpha(currentColor, 0.7);
   }
 
-  & button {
-    padding: 4px 8px;
-    border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
-    color: $titlebar_fg_color;
-    background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.1);
-
-    &:hover {
-      border-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
-      color: $titlebar_fg_color;
-      background-color: gtkmix($titlebar_bg_color, $titlebar_fg_color, 0.15);
-    }
-
-    &:active, &:checked {
-      border-color: $theme_selected_bg_color;
-      color: $theme_selected_fg_color;
-      background-color: $theme_selected_bg_color;
-
-      &:backdrop {
-        border-color: $theme_unfocused_selected_bg_color;
-        color: $theme_unfocused_selected_fg_color;
-        background-color: $theme_unfocused_selected_bg_color;
-      }
-    }
-
-    &:disabled {
-      border-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
-      color: $titlebar_fg_color;
-      background-color: gtkmix($titlebar_bg_color, $theme_disabled_bg_color, 0.1);
-
-      &:backdrop {
-        border-color: $theme_unfocused_disabled_bg_color;
-        color: $theme_unfocused_disabled_fg_color;
-        background-color: $theme_unfocused_disabled_bg_color;
-      }
-    }
-
-    &:backdrop {
-      border-color: $theme_unfocused_bg_color;
-      color: $theme_unfocused_fg_color;
-      background-color: $theme_unfocused_bg_color;
-    }
-  }
+  @include xbar_buttons($titlebar_bg_color, $titlebar_fg_color);
 
   // titlebutton 
   & .titlebutton {

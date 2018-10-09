@@ -163,12 +163,18 @@ button {
         border-color: #8bc3e3;
         color: #dfdfdf;
         background-color: #8bc3e3; }
-  button:backdrop {
-    color: #000000;
-    background-color: #fdfdfd; }
   button:disabled {
+    border-color: #f0f0f0;
     color: #7f7f7f;
     background-color: #f0f0f0; }
+    button:disabled:backdrop {
+      border-color: #f8f8f8;
+      color: #bebebe;
+      background-color: #f8f8f8; }
+  button:backdrop {
+    border-color: #fdfdfd;
+    color: #000000;
+    background-color: #fdfdfd; }
   button.flat, button.flat:backdrop, button.sidebar-button, button.sidebar-button:backdrop {
     padding: 3px 8px;
     border-width: 1px;
@@ -1516,13 +1522,13 @@ headerbar, headerbar:not(.titlebar) {
       color: #FFFFFF;
       background-color: #3f9fd5; }
     headerbar button:active, headerbar button:checked, headerbar:not(.titlebar) button:active, headerbar:not(.titlebar) button:checked {
-      border-color: #1D8ECE;
+      border-color: #51b0e7;
       color: #FFFFFF;
-      background-color: #1D8ECE; }
+      background-color: #51b0e7; }
       headerbar button:active:backdrop, headerbar button:checked:backdrop, headerbar:not(.titlebar) button:active:backdrop, headerbar:not(.titlebar) button:checked:backdrop {
-        border-color: #1D8ECE;
+        border-color: #51b0e7;
         color: #FFFFFF;
-        background-color: #1D8ECE; }
+        background-color: #51b0e7; }
     headerbar button:disabled, headerbar:not(.titlebar) button:disabled {
       border-color: #3298d1;
       color: #FFFFFF;
@@ -1629,24 +1635,22 @@ toolbar {
     border-width: 0 1px 1px 1px;
     border-radius: 0; }
   .inline-toolbar toolbar button {
-    border-color: #fdfdfd;
+    padding: 4px 8px;
+    border-color: #e4e4e4;
     color: #000000;
-    background-color: #fdfdfd; }
+    background-color: #e4e4e4; }
     .inline-toolbar toolbar button:hover {
-      border-color: #e4e4e4;
-      background-color: #e4e4e4; }
-    .inline-toolbar toolbar button:active, .inline-toolbar toolbar button:checked {
-      border-color: #1D8ECE;
-      color: #FFFFFF;
-      background-color: #1D8ECE; }
-      .inline-toolbar toolbar button:active:backdrop, .inline-toolbar toolbar button:checked:backdrop {
-        border-color: #1D8ECE;
-        color: #FFFFFF;
-        background-color: #1D8ECE; }
-    .inline-toolbar toolbar button:backdrop {
-      border-color: #fdfdfd;
+      border-color: #d7d7d7;
       color: #000000;
-      background-color: #fdfdfd; }
+      background-color: #d7d7d7; }
+    .inline-toolbar toolbar button:active, .inline-toolbar toolbar button:checked {
+      border-color: #51b0e7;
+      color: #FFFFFF;
+      background-color: #51b0e7; }
+      .inline-toolbar toolbar button:active:backdrop, .inline-toolbar toolbar button:checked:backdrop {
+        border-color: #51b0e7;
+        color: #FFFFFF;
+        background-color: #51b0e7; }
     .inline-toolbar toolbar button:disabled {
       border-color: #fcfcfc;
       color: #000000;
@@ -1655,6 +1659,10 @@ toolbar {
         border-color: #e4e4e4;
         color: #bebebe;
         background-color: #f8f8f8; }
+    .inline-toolbar toolbar button:backdrop {
+      border-color: #e4e4e4;
+      color: #000000;
+      background-color: #fdfdfd; }
 
 .linked entry, .linked button {
   border-radius: 0;
@@ -2010,7 +2018,7 @@ button.suggested-action {
   border-radius: 0;
   border-color: #1D8ECE;
   color: #e8f4fa;
-  background-color: #1D8ECE; }
+  background-color: #56aada; }
   button.suggested-action:hover {
     border-color: #4aa5d8;
     background-color: #4aa5d8; }
@@ -2039,7 +2047,7 @@ headerbar button.suggested-action {
   border-radius: 0;
   border-color: #1D8ECE;
   color: #e8f4fa;
-  background-color: #1D8ECE; }
+  background-color: #56aada; }
   headerbar button.suggested-action:hover {
     border-color: #4aa5d8;
     background-color: #4aa5d8; }
@@ -2093,26 +2101,34 @@ headerbar.selection-mode, toolbar.selection-mode {
       border-color: #c7e3f3;
       color: #146390;
       background-color: #c7e3f3; }
-    headerbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action {
-      border-width: 1px;
-      border-style: solid;
-      border-color: #1D8ECE;
-      border-radius: 0;
-      color: #e8f4fa;
-      background-color: #1D8ECE; }
-      headerbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover {
-        border-color: #4aa5d8;
-        background-color: #4aa5d8; }
-      headerbar.selection-mode button.suggested-action:active, headerbar.selection-mode button.suggested-action:checked, toolbar.selection-mode button.suggested-action:active, toolbar.selection-mode button.suggested-action:checked {
+  headerbar.selection-mode button.suggested-action, toolbar.selection-mode button.suggested-action {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+    border-color: #1D8ECE;
+    color: #e8f4fa;
+    background-color: #56aada; }
+    headerbar.selection-mode button.suggested-action:hover, toolbar.selection-mode button.suggested-action:hover {
+      border-color: #4aa5d8;
+      background-color: #4aa5d8; }
+    headerbar.selection-mode button.suggested-action:active, headerbar.selection-mode button.suggested-action:checked, toolbar.selection-mode button.suggested-action:active, toolbar.selection-mode button.suggested-action:checked {
+      border-color: #1a80b9;
+      background-color: #1a80b9; }
+      headerbar.selection-mode button.suggested-action:active:backdrop, headerbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode button.suggested-action:checked:backdrop {
         border-color: #1a80b9;
         background-color: #1a80b9; }
-        headerbar.selection-mode button.suggested-action:active:backdrop, headerbar.selection-mode button.suggested-action:checked:backdrop, toolbar.selection-mode button.suggested-action:active:backdrop, toolbar.selection-mode button.suggested-action:checked:backdrop {
-          border-color: #1a80b9;
-          background-color: #1a80b9; }
-      headerbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop {
-        border-color: #1D8ECE;
-        color: #FFFFFF;
-        background-color: #1D8ECE; }
+    headerbar.selection-mode button.suggested-action:disabled, toolbar.selection-mode button.suggested-action:disabled {
+      border-color: #47a2d5;
+      color: #e5e5e5;
+      background-color: #47a2d5; }
+      headerbar.selection-mode button.suggested-action:disabled:backdrop, toolbar.selection-mode button.suggested-action:disabled:backdrop {
+        border-color: #49a3d6;
+        color: #f2f2f2;
+        background-color: #49a3d6; }
+    headerbar.selection-mode button.suggested-action:backdrop, toolbar.selection-mode button.suggested-action:backdrop {
+      border-color: #1D8ECE;
+      color: #FFFFFF;
+      background-color: #1D8ECE; }
   headerbar.selection-mode .selection-menu button, toolbar.selection-mode .selection-menu button {
     border-style: none;
     background-color: transparent;
@@ -2190,23 +2206,23 @@ messagedialog.csd .dialog-action-area button {
       color: #FFFFFF;
       background-color: #3f9fd5; }
     .titlebar button:active, .titlebar button:checked {
-      border-color: #1D8ECE;
+      border-color: #51b0e7;
       color: #FFFFFF;
-      background-color: #1D8ECE; }
+      background-color: #51b0e7; }
       .titlebar button:active:backdrop, .titlebar button:checked:backdrop {
-        border-color: #1D8ECE;
+        border-color: #51b0e7;
         color: #FFFFFF;
-        background-color: #1D8ECE; }
+        background-color: #51b0e7; }
     .titlebar button:disabled {
       border-color: #3298d1;
       color: #FFFFFF;
       background-color: #3298d1; }
       .titlebar button:disabled:backdrop {
-        border-color: #f8f8f8;
+        border-color: #e4e4e4;
         color: #bebebe;
         background-color: #f8f8f8; }
     .titlebar button:backdrop {
-      border-color: #fdfdfd;
+      border-color: #e4e4e4;
       color: #000000;
       background-color: #fdfdfd; }
   .titlebar .titlebutton.close, .titlebar .titlebutton.maximize, .titlebar .titlebutton.minimize, .titlebar .titlebutton:not(separator) {
