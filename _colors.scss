@@ -116,3 +116,6 @@ $desktop_item_text_shadow : hex2rgba($dark_shadow, 0.8);
 // LightDM greeter colors 
 $lightdm_bg_color : $dark_bg_color;
 $lightdm_fg_color : $dark_fg_color;
+
+// ADD to CSS definitions
+// $define-color event_shadow_color gtkalpha(black, 0.2);
