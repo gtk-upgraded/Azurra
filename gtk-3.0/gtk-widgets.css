@@ -1869,7 +1869,7 @@ headerbar button:hover {
 headerbar button:active, headerbar button:checked {
     border-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    background-color: mix(@headerbar_bg_color, @headerbar_fg_color, 0.25); }
 
 headerbar button:disabled {
     border-color: mix(@headerbar_bg_color, @theme_disabled_bg_color, 0.1);
@@ -2414,7 +2414,7 @@ button.suggested-action {
     border-radius: 0;
     border-color: @theme_selected_bg_color;
     color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
-    background-color: @theme_selected_bg_color; }
+    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.25); }
 
 button.suggested-action:hover {
     border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2);
@@ -2445,7 +2445,7 @@ headerbar button.suggested-action {
     border-radius: 0;
     border-color: @theme_selected_bg_color;
     color: mix(@theme_selected_fg_color, @theme_selected_bg_color, 0.1);
-    background-color: @theme_selected_bg_color; }
+    background-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.25); }
 
 headerbar button.suggested-action:hover {
     border-color: mix(@theme_selected_bg_color, @theme_selected_fg_color, 0.2);
