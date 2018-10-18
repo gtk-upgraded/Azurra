@@ -6,7 +6,7 @@
 gtk-color-scheme	= "bg_color:#FDFDFD\nselected_bg_color:#1D8ECE\nbase_color:#FFFFFF" # Background, base.
 gtk-color-scheme	= "fg_color:#000000\nselected_fg_color:#ffffff\ntext_color:#000000" # Foreground, text.
 gtk-color-scheme	= "tooltip_bg_color:#ffffff\ntooltip_fg_color:#000000" # Tooltips.
-gtk-color-scheme	= "link_color:#224ba0" # Hyperlinks
+gtk-color-scheme	= "link_color:#1D8ECE" # Hyperlinks
 gtk-color-scheme	= "panel_bg:#484848" # Panel bg color
 gtk-color-scheme	= "fm_color:#fdfdfd" # Color used in Nautilus and Thunar.
 gtk-color-scheme	= "bg_color_dark:#000000\ntext_color_dark:#FFF"
@@ -132,12 +132,12 @@ style "default"
 		lightborder_shade   = 1.1               # sets lightborder amount for buttons or widgets
 		lightborderstyle    = 0                 # 0 = lightborder on top side, 1 = lightborder on all sides
 		listviewheaderstyle = 1                 # 0 = flat, 1 = glassy, 2 = raised
-		listviewstyle       = 2                 # 0 = nothing, 1 = dotted, 2 = solid
+		listviewstyle       = 0                 # 0 = nothing, 1 = dotted, 2 = solid
 		menubaritemstyle    = 0                 # 0 = menuitem look, 1 = button look
-		menubarstyle        = 2                 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menubarstyle        = 0                 # 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
 		menuitemstyle       = 0                 # 0 = flat, 1 = glassy, 2 = striped
 		menustyle           = 0                 # 0 = no vertical menu stripe, 1 = display vertical menu stripe
-		prelight_shade      = .9               # shade level for scrollbar`s slider, comboboxstyle(1), and prelight state with gradient_colors
+		prelight_shade      = .9                # shade level for scrollbar`s slider, comboboxstyle(1), and prelight state with gradient_colors
 		progressbarstyle    = 0                 # 0 = nothing, 1 = stripes, 2 = lines
 		reliefstyle         = 3                 # 0 = flat, 1 = inset, 2 = shadow
 		rgba                = FALSE             # FALSE = disabled, TRUE = enabled
@@ -149,7 +149,7 @@ style "default"
 		shadow_shades       = { 1.0, 1.0 }      # gradient for shadows.
 		textstyle           = 0                 # 0 = normal text, 1 = inset
 		toolbarstyle        = 0                 # 0 = flat, 1 = glassy, 2 = gradient
-		trough_shades	    = { 1.0, 1.0 }	# draw gradient on trough of GtkScrollbar and GtkProgressbar
+		trough_shades	    = { 1.0, 1.0 }	      # draw gradient on trough of GtkScrollbar and GtkProgressbar
 		#trough_border_shades = { 0.9, 0.7 }
 	}
 }
@@ -303,8 +303,8 @@ style "menu"
 	{
 		roundness = 0 # Roundness of menu items.
 		gradient_shades = {1.0,1.0,1.0,1.0}
-		contrast = 0.2
-		lightborder_shade = 1.5
+		contrast = 0.001
+		lightborder_shade = 1.0
 	}
 }
 
@@ -418,7 +418,7 @@ style "progressbar"
 		# trough_border_shades	= { 0.8, 0.7 }
 		roundness 	= 0
 		contrast	= 0.0
-		border_shades	= { 1.0, 1.0 }
+		border_shades	= {1.0, 1.0}
 		lightborder_shade   = 1.0
 		glowstyle	= 0
 		# glow_shade	= 1.0
@@ -508,12 +508,12 @@ style "scale" = "button"
 
 	engine "murrine"
 	{
-		border_shades 			= {1.0, 1.0}
+		border_shades 		= {1.0, 1.0}
 		contrast			    = 0.2
-		lightborderstyle		= 1
+		lightborderstyle	= 1
 		roundness			    = 7
-		trough_shades			= {0.95,0.95}
-		trough_border_shades	= {1.05,1.05}
+		trough_shades			= {0.95, 0.95}
+		trough_border_shades	= {1.05, 1.05}
 	}
 }
 
