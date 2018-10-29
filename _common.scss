@@ -3100,7 +3100,7 @@ decoration {
   }
 
   tooltip.csd & {
-    border-radius: 0;
+    border-radius: $csd_radius;
     box-shadow: none;
   }
 
