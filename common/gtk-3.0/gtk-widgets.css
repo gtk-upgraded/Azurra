@@ -224,32 +224,32 @@ button {
     border-color: @unfocused_borders;
     color: @theme_unfocused_fg_color;
     background-color: @theme_unfocused_bg_color; }
-button.flat, button.sidebar-button {
+button.flat {
   border-color: transparent;
   border-radius: 0px;
   color: @theme_fg_color;
   background-color: transparent; }
-  button.flat:hover, button.sidebar-button:hover {
+  button.flat:hover {
     border-color: @borders;
     color: @theme_fg_color;
     background-color: @theme_bg_color; }
-  button.flat:active, button.flat:checked, button.sidebar-button:active, button.sidebar-button:checked {
-    border-color: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
-    button.flat:active:backdrop, button.flat:checked:backdrop, button.sidebar-button:active:backdrop, button.sidebar-button:checked:backdrop {
+  button.flat:active, button.flat:checked {
+    border-color: @selected_bg_color;
+    color: @selected_fg_color;
+    background-color: @selected_bg_color; }
+    button.flat:active:backdrop, button.flat:checked:backdrop {
       border-color: @theme_unfocused_selected_bg_color;
       color: @theme_unfocused_selected_fg_color;
       background-color: @theme_unfocused_selected_bg_color; }
-  button.flat:disabled, button.sidebar-button:disabled {
+  button.flat:disabled {
     border-color: transparent;
     color: alpha(@theme_fg_color, 0.8);
     background-color: transparent; }
-    button.flat:disabled:backdrop, button.sidebar-button:disabled:backdrop {
+    button.flat:disabled:backdrop {
       border-color: transparent;
       color: alpha(@theme_fg_color, 0.7);
       background-color: transparent; }
-  button.flat:backdrop, button.sidebar-button:backdrop {
+  button.flat:backdrop {
     color: @theme_unfocused_fg_color; }
 
 row:selected, row:selected:hover, row:selected:focus {
@@ -1335,6 +1335,8 @@ filechooser placessidebar.sidebar row, filechooser placessidebar.sidebar view ro
 .nautilus-window placessidebar.sidebar row.sidebar-row {
   border: none;
   color: @sidebar_fg_color; }
+  .nautilus-window placessidebar.sidebar row.sidebar-row:checked, .nautilus-window placessidebar.sidebar row.sidebar-row:selected {
+    color: @theme_selected_fg_color; }
 
 .sidebar frame, .sidebar.frame {
   border: none; }
@@ -1374,7 +1376,7 @@ placessidebar row {
   placessidebar row label.sidebar-label:dir(rtl) {
     padding-left: 2px; }
 
-button.sidebar-button:backdrop {
+button.sidebar-button, button.sidebar-button:backdrop {
   min-width: 22px;
   min-height: 22px;
   margin-top: 2px;
@@ -1584,26 +1586,27 @@ headerbar, headerbar:not(.titlebar) {
     color: @headerbar_fg_color;
     background-color: transparent; }
     headerbar button:hover, headerbar:not(.titlebar) button:hover {
-      border-color: @headerbar_bg_color;
+      border-color: transparent;
       color: @headerbar_fg_color;
       background-color: @headerbar_bg_color; }
     headerbar button:active, headerbar button:checked, headerbar:not(.titlebar) button:active, headerbar:not(.titlebar) button:checked {
-      border-color: shade(@theme_selected_bg_color, 1.1);
-      color: @theme_selected_fg_color;
-      background-color: shade(@theme_selected_bg_color, 1.1); }
+      border-color: @selected_bg_color;
+      color: @selected_fg_color;
+      background-color: @selected_bg_color; }
       headerbar button:active:backdrop, headerbar button:checked:backdrop, headerbar:not(.titlebar) button:active:backdrop, headerbar:not(.titlebar) button:checked:backdrop {
         border-color: @theme_unfocused_selected_bg_color;
         color: @theme_unfocused_selected_fg_color;
         background-color: @theme_unfocused_selected_bg_color; }
     headerbar button:disabled, headerbar:not(.titlebar) button:disabled {
       border-color: transparent;
-      color: alpha(@headerbar_fg_color, 0.8);
+      color: alpha(@headerbar_fg_color, 0.7);
       background-color: transparent; }
       headerbar button:disabled:backdrop, headerbar:not(.titlebar) button:disabled:backdrop {
         border-color: transparent;
-        color: alpha(@headerbar_fg_color, 0.7);
+        color: @disabled_fg_color;
         background-color: transparent; }
     headerbar button:backdrop, headerbar:not(.titlebar) button:backdrop {
+      border-color: transparent;
       color: @theme_unfocused_fg_color; }
   headerbar entry, headerbar:not(.titlebar) entry {
     padding: 4px 8px; }
@@ -1629,9 +1632,9 @@ toolbar {
       color: @toolbar_fg_color;
       background-color: @toolbar_bg_color; }
     toolbar button.flat:active, toolbar button.flat:checked {
-      border-color: @theme_selected_bg_color;
-      color: @theme_selected_fg_color;
-      background-color: @theme_selected_bg_color; }
+      border-color: @selected_bg_color;
+      color: @selected_fg_color;
+      background-color: @selected_bg_color; }
       toolbar button.flat:active:backdrop, toolbar button.flat:checked:backdrop {
         border-color: @theme_unfocused_selected_bg_color;
         color: @theme_unfocused_selected_fg_color;

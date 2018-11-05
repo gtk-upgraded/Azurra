@@ -245,7 +245,7 @@ button:visited {
 button {
   @include buttons($theme_bg_color, $theme_fg_color, $borders);
   
-  &.flat, &.sidebar-button {
+  &.flat {
     @include flat_buttons($theme_bg_color, $theme_fg_color, $borders);
   }
 }
@@ -1960,6 +1960,10 @@ filechooser {
 .nautilus-window placessidebar.sidebar row.sidebar-row {
   border: none;
   color: $sidebar_fg_color;
+  
+  &:checked, &:selected {
+    color: $theme_selected_fg_color;
+  }
 }
 
 .sidebar {
@@ -2046,7 +2050,7 @@ placessidebar {
 }
 
 button.sidebar-button {
-  &:backdrop {
+  &, &:backdrop {
     min-width: 22px;
     min-height: 22px;
     margin-top: 2px;
@@ -2388,7 +2392,7 @@ headerbar, headerbar:not(.titlebar) {
   }
 
   button {
-    @include flat_buttons($headerbar_bg_color, $headerbar_fg_color, $headerbar_bg_color, gtkshade($theme_selected_bg_color, 1.1), $theme_selected_fg_color);
+    @include headerbar_buttons($headerbar_bg_color, $headerbar_fg_color, transparent);
   }
 
   & entry {
