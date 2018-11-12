@@ -161,7 +161,7 @@ style "resize-grip"
 			function	= RESIZE_GRIP
 			recolorable	= FALSE
 			detail		= "statusbar"
-			overlay_file	= "resize_grip.png"
+			overlay_file	= "assets/resize_grip.png"
 			overlay_border	= {0,0,0,0 }
 			overlay_stretch	= FALSE
 		}
@@ -907,7 +907,7 @@ style "xfsm-logout"
 	GtkDialog::content-area-spacing = 6
 	GtkDialog::action-area-spacing = 0
 
-	bg_pixmap[NORMAL] = "xfsmlogout.png"
+	bg_pixmap[NORMAL] = "assets/xfsmlogout.png"
 
 	bg[NORMAL]      = @bg_color
 	bg[SELECTED]	= shade (1.18, @bg_color) # Border around the dialog
