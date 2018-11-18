@@ -41,6 +41,14 @@ mkdir "$TARGETDIR/gtk-2.0"
 mkdir "$TARGETDIR/gtk-3.0"
 mkdir "$TARGETDIR/gnome-shell"
 
+# copy correct metacity theme
+if [ $COLOR == "dark" ];
+then
+ cp -a "$ROOTDIR/metacity-1-dark" "$TARGETDIR/metacity-1"
+else
+ cp -a "$ROOTDIR/metacity-1" "$TARGETDIR"
+fi
+
 # copy correct xfwm theme
 if [ $COLOR == "dark" ];
 then

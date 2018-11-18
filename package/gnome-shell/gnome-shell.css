@@ -1190,7 +1190,7 @@ StScrollBar {
   padding: 4px 0;
   border: 1px solid rgba(128, 128, 128, 0.4);
   border-left: 0px;
-  border-radius: 0px 9px 9px 0px; }
+  border-radius: 0px; }
   #dash:rtl {
     border-radius: 9px 0 0 9px; }
   #dash .placeholder {
@@ -1279,10 +1279,11 @@ StScrollBar {
   background-image: none; }
 
 .app-well-app-running-dot {
-  width: 10px;
-  height: 3px;
-  background-color: #1D8ECE;
-  margin-bottom: 2px; }
+  width: 8px;
+  height: 2px;
+  background-color: #51b0e7;
+  margin-bottom: 4px;
+  border-radius: 0px; }
 
 .search-provider-icon,
 .list-search-result, .app-well-app .overview-icon,

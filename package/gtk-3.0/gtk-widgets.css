@@ -726,6 +726,12 @@ image {
   background-color: @terminal_bg_color;
   color: @terminal_fg_color; }
 
+terminal-screen-container, terminal-screen-container:backdrop,
+terminal-screen-container scrollbar:not(slider),
+terminal-screen-container scrollbar:not(slider):backdrop {
+  border-color: transparent;
+  background-color: transparent; }
+
 .nautilus-window notebook, .nautilus-window notebook > stack:not(:only-child) searchbar {
   background-color: @theme_base_color; }
 
