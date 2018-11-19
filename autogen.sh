@@ -41,6 +41,16 @@ mkdir "$TARGETDIR/gtk-2.0"
 mkdir "$TARGETDIR/gtk-3.0"
 mkdir "$TARGETDIR/gnome-shell"
 mkdir "$TARGETDIR/metacity-1"
+mkdir "$TARGETDIR/openbox-3"
+
+# copy correct openbox theme
+cp -a "$ROOTDIR/openbox-3/"*.xbm "$TARGETDIR/openbox-3"
+if [ $COLOR == "dark" ];
+then
+ cp -a "$ROOTDIR/openbox-3/themerc-dark" "$TARGETDIR/openbox-3/themerc"
+else
+ cp -a "$ROOTDIR/openbox-3/themerc" "$TARGETDIR/openbox-3/themerc"
+fi
 
 # copy correct metacity theme
 cp -a "$ROOTDIR/metacity-1/"*.svg "$TARGETDIR/metacity-1"

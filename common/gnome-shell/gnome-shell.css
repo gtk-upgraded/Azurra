@@ -393,7 +393,7 @@ StScrollBar {
   padding-bottom: 8px; }
 
 .hidden {
-  color: transparent; }
+  color: rgba(0, 0, 0, 0); }
 
 .prompt-dialog-null-label {
   font-size: 10pt;
@@ -598,7 +598,7 @@ StScrollBar {
   background: #292929; }
 
 .switcher-arrow {
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, 0);
   color: rgba(255, 255, 255, 0.8); }
   .switcher-arrow:highlighted {
     color: #ffffff; }
