@@ -53,6 +53,9 @@ else
  cp -a "$ROOTDIR/metacity-1/metacity-theme-3.xml" "$TARGETDIR/metacity-1/metacity-theme-3.xml"
 fi
 
+# copy xfce-notify theme
+cp -a "$ROOTDIR/xfce-notify-4.0" "$TARGETDIR/xfce-notify-4.0"
+
 # copy correct xfwm theme
 if [ $COLOR == "dark" ];
 then
