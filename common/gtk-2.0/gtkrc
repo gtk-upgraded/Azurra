@@ -3,14 +3,7 @@
 # based on "Bluebird" by Simon Steinbeiß and Pasi Lallinaho
 # Description: As is the original theme, this theme is 100% free and open source.
 
-gtk-color-scheme	= "bg_color:#FDFDFD\nselected_bg_color:#1D8ECE\nbase_color:#FFFFFF" # Background, base.
-gtk-color-scheme	= "fg_color:#000000\nselected_fg_color:#ffffff\ntext_color:#000000" # Foreground, text.
-gtk-color-scheme	= "tooltip_bg_color:#ffffff\ntooltip_fg_color:#000000" # Tooltips.
-gtk-color-scheme	= "link_color:#1D8ECE" # Hyperlinks
-gtk-color-scheme	= "panel_bg:#484848" # Panel bg color
-gtk-color-scheme	= "fm_color:#fdfdfd" # Color used in Nautilus and Thunar.
-gtk-color-scheme	= "bg_color_dark:#484848\ntext_color_dark:#FFFFFF"
-gtk-color-scheme  = "shadow_color:#000000" # Xfce desktp icons shadow color
+include 'colors.rc'
 
 gtk-icon-sizes          = "panel-applications-menu=24,24:panel-menu=24,24:panel=16,16:gtk-button=16,16"
 gtk-button-images	= 1					# Disables icons for buttons with text

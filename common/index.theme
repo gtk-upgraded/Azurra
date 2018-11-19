@@ -8,4 +8,6 @@ Encoding=UTF-8
 [X-GNOME-Metatheme]
 GtkTheme=Azurra
 MetacityTheme=Azurra
-ButtonLayout=:minimize,maximize,close
+IconTheme=Mint-Y
+CursorTheme=DMZ-Black
+ButtonLayout=menu:minimize,maximize,close

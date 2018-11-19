@@ -2052,7 +2052,7 @@ separator {
     }
   }
 
-  .primary-toolbar:not(.libreoffice-toolbar) &, headerbar &.titlebutton, .titlebar:not(headerbar) &.titlebutton {
+  headerbar &.titlebutton, .titlebar:not(headerbar) &.titlebutton {
     min-width: 1px;
     min-height: 1px;
     background-color: gtkmix($borders, $titlebar_bg_color, 0.5);
@@ -2062,7 +2062,7 @@ separator {
     }
   }
 
-  .primary-toolbar button &, toolbar button & {
+  .primary-toolbar button &, toolbar button &, .primary-toolbar:not(.libreoffice-toolbar) & {
     border-color: $borders;
 
     &:backdrop {
@@ -3496,6 +3496,109 @@ panel-toplevel.background {
 panel-toplevel.background na-tray-applet {
   -NaTrayApplet-icon-padding: 0;
   -NaTrayApplet-icon-size: 16px;
+}
+
+// Fallback Mode/Budgie Panel/Mate Panel
+//.gnome-panel-menu-bar,
+.mate-panel-menu-bar {
+  color: $taskbar_fg_color;
+  background-color: $taskbar_bg_color;
+
+  & button, & button.flat {
+    background-color: transparent;
+  }
+
+  &, .menubar { background-color: $taskbar_bg_color; }
+
+  & .menubar > .menuitem {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  & GtkMenu .label {
+    color: $theme_fg_color;
+    font-style: normal;
+
+    &:disabled { color: $theme_disabled_fg_color; }
+  }
+
+  .button:not(#tasklist-button) { 
+    color: $taskbar_fg_color;
+    border-radius: 0;
+    border: none;
+    background-color: $taskbar_bg_color;
+
+    &:hover {
+      border: none;
+      background-color: gtkshade($taskbar_bg_color, 1.1);
+    }
+    &:active, &:checked {
+      color: $theme_selected_fg_color;
+      border: none;
+      background-color: $theme_selected_bg_color;
+    }
+  }
+
+  #tasklist-button {
+    color: $taskbar_fg_color;
+    border-radius: 0;
+    border: none;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    &:hover { background-color: gtkshade($taskbar_bg_color, 1.1); }
+
+    &:checked,
+    &:active {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
+  }
+
+  PanelSeparator {
+    color: gtkshade($taskbar_bg_color, 0.7);
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  NaTrayApplet {
+    -NaTrayApplet-icon-padding: 2;
+  }
+}
+
+.mintmenu:hover { background-color: gtkshade($taskbar_bg_color, 1.1); }
+.mintmenu:selected {
+  color: $theme_selected_fg_color;
+  background-color: $theme_selected_bg_color;
+}
+
+.wnck-pager {
+    background-color: gtkalpha(black, 0.04);
+
+    &:selected { background-color: gtkalpha($selected_bg_color, 0.3); }
+    &:hover { background-color: gtkalpha($selected_bg_color, 0.2); }
+}
+
+// Xfce Panel
+.xfce4-panel.panel {
+  background-color: $taskbar_bg_color;
+
+  .button.flat {
+    color: $taskbar_fg_color;
+    background-color: $taskbar_bg_color;
+    border-radius: 0;
+    border: none;
+
+    &:hover {
+      border: none;
+      background-color: gtkshade($taskbar_bg_color, 1.1);
+    }
+    &:active, &:checked {
+      color: $theme_selected_bg_color;
+      border: none;
+      background-color: gtkshade($taskbar_bg_color, 0.93);
+    }
+  }
 }
 
 // nemo file manager 

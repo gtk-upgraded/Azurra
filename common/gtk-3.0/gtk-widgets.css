@@ -1349,15 +1349,15 @@ separator {
     background-color: mix(@borders, @titlebar_bg_color, 0.5); }
     .titlebar separator:backdrop, .titlebar:not(headerbar) > separator:backdrop, .titlebar separator.titlebutton:backdrop, .titlebar:not(headerbar) > separator.titlebutton:backdrop {
       background-color: @unfocused_borders; }
-  .primary-toolbar:not(.libreoffice-toolbar) separator, headerbar separator.titlebutton, .titlebar:not(headerbar) separator.titlebutton {
+  headerbar separator.titlebutton, .titlebar:not(headerbar) separator.titlebutton {
     min-width: 1px;
     min-height: 1px;
     background-color: mix(@borders, @titlebar_bg_color, 0.5); }
-    .primary-toolbar:not(.libreoffice-toolbar) separator:backdrop, headerbar separator.titlebutton:backdrop, .titlebar:not(headerbar) separator.titlebutton:backdrop {
+    headerbar separator.titlebutton:backdrop, .titlebar:not(headerbar) separator.titlebutton:backdrop {
       background-color: @unfocused_borders; }
-  .primary-toolbar button separator, toolbar button separator {
+  .primary-toolbar button separator, toolbar button separator, .primary-toolbar:not(.libreoffice-toolbar) separator {
     border-color: @borders; }
-    .primary-toolbar button separator:backdrop, toolbar button separator:backdrop {
+    .primary-toolbar button separator:backdrop, toolbar button separator:backdrop, .primary-toolbar:not(.libreoffice-toolbar) separator:backdrop {
       border-color: @unfocused_borders; }
   headerbar button separator {
     border-color: mix(@borders, @headerbar_bg_color, 0.5); }
@@ -2437,6 +2437,80 @@ panel-toplevel.background button {
 panel-toplevel.background na-tray-applet {
   -NaTrayApplet-icon-padding: 0;
   -NaTrayApplet-icon-size: 16px; }
+
+.mate-panel-menu-bar {
+  color: @taskbar_fg_color;
+  background-color: @taskbar_bg_color; }
+  .mate-panel-menu-bar button, .mate-panel-menu-bar button.flat {
+    background-color: transparent; }
+  .mate-panel-menu-bar, .mate-panel-menu-bar .menubar {
+    background-color: @taskbar_bg_color; }
+  .mate-panel-menu-bar .menubar > .menuitem {
+    padding-top: 0;
+    padding-bottom: 0; }
+  .mate-panel-menu-bar GtkMenu .label {
+    color: @theme_fg_color;
+    font-style: normal; }
+    .mate-panel-menu-bar GtkMenu .label:disabled {
+      color: @theme_disabled_fg_color; }
+  .mate-panel-menu-bar .button:not(#tasklist-button) {
+    color: @taskbar_fg_color;
+    border-radius: 0;
+    border: none;
+    background-color: @taskbar_bg_color; }
+    .mate-panel-menu-bar .button:not(#tasklist-button):hover {
+      border: none;
+      background-color: shade(@taskbar_bg_color, 1.1); }
+    .mate-panel-menu-bar .button:not(#tasklist-button):active, .mate-panel-menu-bar .button:not(#tasklist-button):checked {
+      color: @theme_selected_fg_color;
+      border: none;
+      background-color: @theme_selected_bg_color; }
+  .mate-panel-menu-bar #tasklist-button {
+    color: @taskbar_fg_color;
+    border-radius: 0;
+    border: none;
+    padding-bottom: 0;
+    padding-top: 0; }
+    .mate-panel-menu-bar #tasklist-button:hover {
+      background-color: shade(@taskbar_bg_color, 1.1); }
+    .mate-panel-menu-bar #tasklist-button:checked, .mate-panel-menu-bar #tasklist-button:active {
+      color: @theme_selected_fg_color;
+      background-color: @theme_selected_bg_color; }
+  .mate-panel-menu-bar PanelSeparator {
+    color: shade(@taskbar_bg_color, 0.7);
+    padding-top: 4px;
+    padding-bottom: 4px; }
+  .mate-panel-menu-bar NaTrayApplet {
+    -NaTrayApplet-icon-padding: 2; }
+
+.mintmenu:hover {
+  background-color: shade(@taskbar_bg_color, 1.1); }
+
+.mintmenu:selected {
+  color: @theme_selected_fg_color;
+  background-color: @theme_selected_bg_color; }
+
+.wnck-pager {
+  background-color: alpha(black, 0.04); }
+  .wnck-pager:selected {
+    background-color: alpha(@selected_bg_color, 0.3); }
+  .wnck-pager:hover {
+    background-color: alpha(@selected_bg_color, 0.2); }
+
+.xfce4-panel.panel {
+  background-color: @taskbar_bg_color; }
+  .xfce4-panel.panel .button.flat {
+    color: @taskbar_fg_color;
+    background-color: @taskbar_bg_color;
+    border-radius: 0;
+    border: none; }
+    .xfce4-panel.panel .button.flat:hover {
+      border: none;
+      background-color: shade(@taskbar_bg_color, 1.1); }
+    .xfce4-panel.panel .button.flat:active, .xfce4-panel.panel .button.flat:checked {
+      color: @theme_selected_bg_color;
+      border: none;
+      background-color: shade(@taskbar_bg_color, 0.93); }
 
 .nemo-window .nemo-window-pane widget.entry {
   border: 1px solid;

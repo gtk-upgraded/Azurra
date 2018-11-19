@@ -40,13 +40,17 @@ cp "$ROOTDIR/index.theme" "$TARGETDIR"
 mkdir "$TARGETDIR/gtk-2.0"
 mkdir "$TARGETDIR/gtk-3.0"
 mkdir "$TARGETDIR/gnome-shell"
+mkdir "$TARGETDIR/metacity-1"
 
 # copy correct metacity theme
+cp -a "$ROOTDIR/metacity-1/"*.svg "$TARGETDIR/metacity-1"
 if [ $COLOR == "dark" ];
 then
- cp -a "$ROOTDIR/metacity-1-dark" "$TARGETDIR/metacity-1"
+ cp -a "$ROOTDIR/metacity-1/metacity-theme-2-dark.xml" "$TARGETDIR/metacity-1/metacity-theme-2.xml"
+ cp -a "$ROOTDIR/metacity-1/metacity-theme-3-dark.xml" "$TARGETDIR/metacity-1/metacity-theme-3.xml"
 else
- cp -a "$ROOTDIR/metacity-1" "$TARGETDIR"
+ cp -a "$ROOTDIR/metacity-1/metacity-theme-2.xml" "$TARGETDIR/metacity-1/metacity-theme-2.xml"
+ cp -a "$ROOTDIR/metacity-1/metacity-theme-3.xml" "$TARGETDIR/metacity-1/metacity-theme-3.xml"
 fi
 
 # copy correct xfwm theme
@@ -59,12 +63,13 @@ fi
 
 # open work directory
 cd "$ROOTDIR/gtk-2.0"
+cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
 
 if [ $COLOR == "dark" ];
 then
- cp -a gtkrc-dark "$TARGETDIR/gtk-2.0/gtkrc"
+ cp -a colors-dark.rc "$TARGETDIR/gtk-2.0/colors.rc"
 else
- cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
+ cp -a colors.rc "$TARGETDIR/gtk-2.0/colors.rc"
 fi
 
 cp -a assets "$TARGETDIR/gtk-2.0"
