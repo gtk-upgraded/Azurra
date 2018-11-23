@@ -1,9 +1,9 @@
 /* XPM */
-static char * C:\Shared\xfwm4\right_inactive_xpm[] = {
+static char * C:\Users\crime\Shared\xfwm4\right_inactive_xpm[] = {
 "2 24 3 1",
 " 	c None",
-".	c #FDFDFD",
-"+	c #F1F1F1",
+".	c #484848",
+"+	c #1F1F1F",
 ".+",
 ".+",
 ".+",
