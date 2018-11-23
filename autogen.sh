@@ -34,7 +34,12 @@ fi
 
 # Copy static resources
 echo -n "Copying static resources..."
-cp "$ROOTDIR/index.theme" "$TARGETDIR"
+if [ $COLOR == "dark" ];
+then
+ cp "$ROOTDIR/index.theme-dark" "$TARGETDIR/index.theme"
+else
+ cp "$ROOTDIR/index.theme" "$TARGETDIR"
+fi
 
 # Create static folders
 mkdir "$TARGETDIR/gtk-2.0"
@@ -43,7 +48,7 @@ mkdir "$TARGETDIR/gnome-shell"
 mkdir "$TARGETDIR/metacity-1"
 mkdir "$TARGETDIR/openbox-3"
 
-# copy correct openbox theme
+# copy corresponding openbox theme
 cp -a "$ROOTDIR/openbox-3/"*.xbm "$TARGETDIR/openbox-3"
 if [ $COLOR == "dark" ];
 then
@@ -52,7 +57,7 @@ else
  cp -a "$ROOTDIR/openbox-3/themerc" "$TARGETDIR/openbox-3/themerc"
 fi
 
-# copy correct metacity theme
+# copy corresponding metacity theme
 cp -a "$ROOTDIR/metacity-1/"*.svg "$TARGETDIR/metacity-1"
 if [ $COLOR == "dark" ];
 then
@@ -66,7 +71,7 @@ fi
 # copy xfce-notify theme
 cp -a "$ROOTDIR/xfce-notify-4.0" "$TARGETDIR/xfce-notify-4.0"
 
-# copy correct xfwm theme
+# copy corresponding xfwm theme
 if [ $COLOR == "dark" ];
 then
  cp -a "$ROOTDIR/xfwm4-dark" "$TARGETDIR/xfwm4"
