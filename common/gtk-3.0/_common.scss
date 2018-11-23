@@ -2681,7 +2681,7 @@ toolbar {
 
 // linked widgets
 .linked, .inline-toolbar, .primary-toolbar {
-  & button {
+  & button, & .raised button {
     border-radius: 0;
     border-left-width: 0;
 
