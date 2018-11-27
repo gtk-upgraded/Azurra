@@ -1060,6 +1060,10 @@ terminal-screen-container scrollbar:not(slider) {
   background-color: $theme_base_color;
 }
 
+.caja-location-entry {
+  padding: 3px 5px;
+}
+
 scrolledwindow viewport.frame {
   border: none;
 }
