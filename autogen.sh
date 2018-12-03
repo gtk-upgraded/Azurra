@@ -110,7 +110,7 @@ fi
 
 sass -C --sourcemap=none _common.scss gtk-widgets.css
 
-cp -a assets "$TARGETDIR/gtk-3.0"
+cp -a "assets" "$TARGETDIR/gtk-3.0"
 cp gtk.css "$TARGETDIR/gtk-3.0"
 cp gtk-widgets.css "$TARGETDIR/gtk-3.0"
 
@@ -124,6 +124,7 @@ echo -n "Compiling Shell theme..."
 
 sass -C --sourcemap=none _common.scss gnome-shell.css
 
+cp -a "assets" "$TARGETDIR/gnome-shell"
 cp -a gnome-shell.css "$TARGETDIR/gnome-shell"
 
 echo " Done."
