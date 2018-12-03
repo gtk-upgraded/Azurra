@@ -128,3 +128,17 @@ cp -a "assets" "$TARGETDIR/gnome-shell"
 cp -a gnome-shell.css "$TARGETDIR/gnome-shell"
 
 echo " Done."
+
+
+# open work directory
+cd "$ROOTDIR/cinnamon"
+
+# compile gnome-shell theme
+echo -n "Compiling Cinnamon theme..."
+
+sass -C --sourcemap=none _common.scss cinnamon.css
+
+cp -a "assets" "$TARGETDIR/cinnamon"
+cp -a cinnamon.css "$TARGETDIR/cinnamon"
+
+echo " Done."
