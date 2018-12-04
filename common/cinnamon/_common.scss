@@ -1,14 +1,13 @@
 @import 'colors';
 @import 'drawing';
 
+$asset_path: assets;
+
 //
 // Globals
 //
 $font-size: 9;
-$font-family: sans, Sans-Serif;
-$_bubble_bg_color: opacify($osd_bg_color,0.25);
-$_bubble_fg_color: $osd_fg_color;
-$_bubble_borders_color: transparentize($osd_fg_color,0.8);
+$font-family: Noto Sans, Sans-Serif;
 
 stage {
   font-family: $font-family;
@@ -18,13 +17,6 @@ stage {
 
 .label-shadow {
   color: rgba(0, 0, 0, 0);
-}
-
-%reset_style {
-  background-color: transparent !important;
-  // background-gradient-direction: none !important;
-  border: none !important;
-  border-radius: 0 !important;
 }
 
 //
@@ -113,17 +105,17 @@ StScrollBar {
   padding: 8px;
 
   StScrollView & {
-    min-width: 5px;
-    min-height: 5px;
+    min-width: 6px;
+    min-height: 6px;
   }
 
   StBin#trough {
     background-color: transparentize($base_color, 0.9);
-    border-radius: 8px;
+    border-radius: 0px;
   }
 
   StButton#vhandle, StButton#hhandle {
-    border-radius: 2px;
+    border-radius: 0px;
     background-color: mix($fg_color, $bg_color, 40%);
     border: 0px solid;
     margin: 0px;
@@ -148,14 +140,15 @@ StScrollBar {
 .popup-slider-menu-item,
 .slider {
   -slider-height: 0.3em;
-  -slider-background-color: $button_border;                   //background of the trough
-  -slider-border-color: transparentize(black, 1);             //trough border color
-  -slider-active-background-color: $selected_bg_color;        //active trough fill
-  -slider-active-border-color: transparentize(black, 1);      //active trough border
-  -slider-border-width: 0;
+  -slider-background-color: darken($button_border, 6%);                         //background of the trough
+  -slider-border-color: transparentize($bg_color, 0.7);             //trough border color
+  -slider-active-background-color: lighten($selected_bg_color, 10%);              //active trough fill
+  -slider-active-border-color: transparentize($bg_color, 0.7);      //active trough border
+  -slider-border-width: 1px;
   -slider-handle-radius: 0.5em;
   height: 1em;
   min-width: 15em;
+  color: lighten($selected_bg_color, 10%);
   border: 0 solid transparent;
   border-right-width: 1px;
   border-left-width: 5px;
@@ -177,14 +170,14 @@ StScrollBar {
   StBin {
     width: 16px;
     height: 16px;
-    background-image: url("assets/checkbox-unchecked.svg");
+    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.svg");
   }
 
-  &:focus StBin { background-image: url("assets/checkbox-unchecked.svg"); }
+  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked-focused.svg"); }
 
-  &:checked StBin { background-image: url("assets/checkbox-checked.svg"); }
+  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.svg"); }
 
-  &:focus:checked StBin { background-image: url("assets/checkbox-checked.svg"); }
+  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked-focused.svg"); }
 }
 
 //
@@ -207,14 +200,14 @@ StScrollBar {
   StBin {
     width: 16px;
     height: 16px;
-    background-image: url("assets/checkbox-unchecked.svg");
+    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.svg");
   }
 
-  &:focus StBin { background-image: url("assets/checkbox-unchecked.svg"); }
+  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked-focused.svg"); }
 
-  &:checked StBin { background-image: url("assets/checkbox-checked.svg"); }
+  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.svg"); }
 
-  &:focus:checked StBin { background-image: url("assets/checkbox-checked.svg"); }
+  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked-focused.svg"); }
 }
 
 //
@@ -226,9 +219,9 @@ StScrollBar {
   background-size: contain;
 
   &-us, &-intl {
-    background-image: url("assets/toggle-off.svg");
+    background-image: url("#{$asset_path}/switch/switch-off.svg");
 
-    &:checked { background-image: url("assets/toggle-on.svg"); }
+    &:checked { background-image: url("#{$asset_path}/switch/switch-on.svg"); }
   }
 }
 
@@ -292,49 +285,46 @@ StScrollBar {
   &.right {
     border-radius: 3px 0 0 3px;
   }
-
-  &-arrow { icon-size: 16px; }
-
-  .popup-sub-menu {
-    background-color: $base_color;
-    box-shadow: none;
-
-    .popup-menu-item:ltr { padding-right: 1.75em; }
-    .popup-menu-item:rtl { padding-left: 1.75em; }
-
-    StScrollBar {
-      padding: 4px;
-      StBin#trough, StBin#vhandle { border-width: 0; }
-    }
-  }
-
-  .popup-menu-content { padding: 1em 0em 1em 0em; }
-  .popup-menu-item {
-    padding: .4em 1.75em;
-    spacing: 1em;
-    border: 1px solid transparent;
-    border-left-width: 0;
-    border-right-width: 0;
-
-    &:active {
-      color: $fg_color;
-      border-color: transparentize($fg_color, 0.89);
-      background-color: transparentize($fg_color, 0.92);
-    }
-    &:insensitive {
-      color: transparentize($fg_color, 0.5);
-      background: none;
-    }
-  }
-
-  .popup-inactive-menu-item { //all icons and other graphical elements
-    color: $fg_color;
-
-    &:insensitive { color: $insensitive_fg_color; }
-  }
-
-  &-icon { icon-size: 16px; }
 }
+
+.popup-sub-menu {
+  background-color: $base_color;
+  box-shadow: none;
+
+  .popup-menu-item:ltr { padding-right: 1.75em; }
+  .popup-menu-item:rtl { padding-left: 1.75em; }
+
+  StScrollBar {
+    padding: 4px;
+    StBin#trough, StBin#vhandle { border-width: 0; }
+  }
+}
+
+.popup-menu-content { padding: 1em 0em 1em 0em; }
+.popup-menu-item {
+  padding: .4em 1.75em;
+  spacing: 1em;
+  // border: 1px solid transparent;
+  border-left-width: 0;
+  border-right-width: 0;
+
+  &:active {
+    color: $selected_fg_color;
+    // border-color: transparentize($fg_color, 0.89);
+    background-color: $selected_bg_color;
+  }
+  &:insensitive {
+    color: transparentize($fg_color, 0.5);
+    background: none;
+  }
+}
+
+.popup-inactive-menu-item { //all icons and other graphical elements
+  color: $fg_color;
+
+  &:insensitive { color: $insensitive_fg_color; }
+}
+
 
 /* This is for popup menus in Cinnamon versions < 3.2 */
 .popup-menu {
@@ -407,11 +397,11 @@ StScrollBar {
 .popup-combobox-item { spacing: 1em; }
 
 .popup-separator-menu-item {
-  -gradient-height: 2px;
-  -gradient-start: transparent;
-  -gradient-end: transparent;
-  -margin-horizontal: 1.5em;
-  height: 1em;
+  -gradient-height: 1px;
+  -gradient-start: $separator_color;
+  -gradient-end: $separator_color;
+  -margin-horizontal: 0;
+  height: 1px;
 }
 
 .popup-alternating-menu-item:alternate {
@@ -430,7 +420,7 @@ StScrollBar {
 #panel {
   font-weight: bold;
   /* sets the height of horizontal panels */
-  height: 27px;
+  height: 28px;
   /* sets the width of vertical panels */
   width: 32px;
 
@@ -605,18 +595,30 @@ StScrollBar {
   background-color: $osd_bg_color;
   border: 1px solid $osd_bg_color;
   color: $osd_fg_color;
-  spacing: 25px;
+  spacing: 8px;
   border-radius: 2px;
   font-size: 9pt;
   padding: 5px 8px;
-  -cinnamon-caption-spacing: 4px;
+  -cinnamon-caption-spacing: 8px;
 
-  &#selected {
+  &:focus {
     background-color: $selected_bg_color;
     color: $selected_fg_color;
     border: 1px solid $selected_bg_color;
-    spacing: 25px;
   }
+}
+
+.window-border {
+  border: 3px $selected_bg_color;
+  border-radius: 2px;
+  background-color: rgba(255,255,255,.05);
+  /* Cover rounded corners and some bad adjustment gaps */
+  box-shadow: 0 0 0 1px $selected_bg_color inset;
+}
+
+.overview-empty-placeholder {
+  color: #ffffff;
+  font-size: 2em;
 }
 
 .expo-workspaces-name-entry,
@@ -665,17 +667,17 @@ StScrollBar {
   }
 
   &-add-button {
-    background-image: url("assets/misc/add-workspace.svg");
+    background-image: url("common-assets/misc/add-workspace.svg");
     height: 200px;
     width: 35px;
     transition-duration: 100;
 
     &:hover {
-      background-image: url("assets/misc/add-workspace-hover.svg");
+      background-image: url("common-assets/misc/add-workspace-hover.svg");
       transition-duration: 100;
     }
     &:active {
-      background-image: url("assets/misc/add-workspace-active.svg");
+      background-image: url("common-assets/misc/add-workspace-active.svg");
       transition-duration: 100;
     }
   }
@@ -684,20 +686,20 @@ StScrollBar {
 
 .workspace-close-button,
 .window-close {
-  background-image: url("assets/misc/close.svg");
+  background-image: url("common-assets/misc/close.svg");
   background-size: 26px;
   height: 26px;
   width: 26px;
-  -cinnamon-close-overlap: 10px;
+  -cinnamon-close-overlap: 12px;
 
   &:hover {
-    background-image: url("assets/misc/close-hover.svg");
+    background-image: url("common-assets/misc/close-hover.svg");
     background-size: 26px;
     height: 26px;
     width: 26px;
   }
   &:active {
-    background-image: url("assets/misc/close-active.svg");
+    background-image: url("common-assets/misc/close-active.svg");
     background-size: 26px;
     height: 26px;
     width: 26px;
@@ -714,7 +716,7 @@ StScrollBar {
 //}
 
 .window-close-area {
-  background-image: url("assets/misc/trash-icon.svg");
+  background-image: url("common-assets/misc/trash-icon.svg");
   height: 120px;
   width: 400px;
 }
@@ -785,35 +787,35 @@ StScrollBar {
 
 //arrow back
 .calendar-change-month-back {
-  background-image: url("assets/misc/calendar-arrow-left.svg");
+  background-image: url("common-assets/misc/calendar-arrow-left.svg");
 
-  &:focus, &:hover { background-image: url("assets/misc/calendar-arrow-left-hover.svg"); }
+  &:focus, &:hover { background-image: url("common-assets/misc/calendar-arrow-left-hover.svg"); }
 
-  &:active { background-image: url("assets/misc/calendar-arrow-left.svg"); }
+  &:active { background-image: url("common-assets/misc/calendar-arrow-left.svg"); }
 
   &:rtl {
-    background-image: url("assets/misc/calendar-arrow-right.svg");
+    background-image: url("common-assets/misc/calendar-arrow-right.svg");
 
-    &:focus, &:hover { background-image: url("assets/misc/calendar-arrow-right-hover.svg"); }
+    &:focus, &:hover { background-image: url("common-assets/misc/calendar-arrow-right-hover.svg"); }
 
-    &:active { background-image: url("assets/misc/calendar-arrow-right.svg"); }
+    &:active { background-image: url("common-assets/misc/calendar-arrow-right.svg"); }
   }
 }
 
 //arrow forward
 .calendar-change-month-forward {
-  background-image: url("assets/misc/calendar-arrow-right.svg");
+  background-image: url("common-assets/misc/calendar-arrow-right.svg");
 
-  &:focus, &:hover { background-image: url("assets/misc/calendar-arrow-right-hover.svg"); }
+  &:focus, &:hover { background-image: url("common-assets/misc/calendar-arrow-right-hover.svg"); }
 
-  &:active { background-image: url("assets/misc/calendar-arrow-right.svg"); }
+  &:active { background-image: url("common-assets/misc/calendar-arrow-right.svg"); }
 
   &:rtl {
-    background-image: url("assets/misc/calendar-arrow-left.svg");
+    background-image: url("common-assets/misc/calendar-arrow-left.svg");
 
-    &:focus, &:hover { background-image: url("assets/misc/calendar-arrow-left-hover.svg"); }
+    &:focus, &:hover { background-image: url("common-assets/misc/calendar-arrow-left-hover.svg"); }
 
-    &:active { background-image: url("assets/misc/calendar-arrow-left.svg"); }
+    &:active { background-image: url("common-assets/misc/calendar-arrow-left.svg"); }
   }
 }
 
@@ -896,7 +898,7 @@ StScrollBar {
 
   .popup-menu & {
     color: $fg_color;
-    border-image: url("assets/misc/message.svg") 9 9 9 9;
+    border-image: url("#{$asset_path}/misc/message.svg") 9 9 9 9;
 
     .notification-button, .notification-icon-button {
       @extend %button;
@@ -1024,10 +1026,10 @@ StScrollBar {
 .ripple-box {
   width: 104px;
   height: 104px;
-  background-image: url("assets/misc/corner-ripple.svg");
+  background-image: url("common-assets/misc/corner-ripple.svg");
   background-size: contain;
 
-  &:rtl { background-image: url("assets/misc/corner-ripple.svg"); }
+  &:rtl { background-image: url("common-assets/misc/corner-ripple.svg"); }
 }
 
 //
@@ -1240,8 +1242,9 @@ StScrollBar {
   }
 
   &-favorites-button {
-    padding: 10px;
+    padding: .9em 1em;
     border: 1px solid rgba(0,0,0,0);
+    border-radius: 2px;
 
     &:hover {
       background-color: $selected_bg_color;
@@ -1272,7 +1275,9 @@ StScrollBar {
 
     &-selected {
       padding: 7px;
-      @extend %button:hover;
+      color: $selected_fg_color;
+      background-color: $selected_bg_color;
+      border: 1px solid $borders_color;
 
       &:highlighted { font-weight: bold; }
     }
@@ -1287,7 +1292,9 @@ StScrollBar {
 
     &-selected {
       padding: 7px;
-      @extend %button:hover;
+      color: $selected_fg_color;
+      background-color: $selected_bg_color;
+      border: 1px solid $borders_color;
     }
     &-hover {
       background-color: red;
@@ -1327,7 +1334,7 @@ StScrollBar {
 
 #menu-search-entry {
   width: 250px;
-  height: 15px;
+  min-height: 16px;
   font-weight: normal;
   caret-color: $fg_color;
 
@@ -1444,14 +1451,16 @@ StScrollBar {
       & StBin { padding-left: 1px; }
     }
 
-    &:hover {
+    &:hover,
+    &:groupFocus {
       color: $selected_fg_color;
       background-color: transparentize($selected_fg_color, 0.9);
     }
 
     &:active,
     &:checked,
-    &:focus {
+    &:focus,
+    &:running {
       color: $selected_fg_color;
       border-color: $selected_bg_color;
     }
@@ -1465,6 +1474,142 @@ StScrollBar {
     background-gradient-direction: vertical;
     background-gradient-start: $destructive_color;
     background-gradient-end: $destructive_color;
+  }
+
+  &-preview {
+    spacing: 6px;
+    color: $fg_color;
+    border: 1px solid $borders_color;
+    background-color: $bg_color;
+    border-radius: 3px;
+    padding: 6px 12px 12px 12px;
+    font-size: 1em;
+  }
+}
+
+//
+// Grouped window list
+//
+
+.grouped-window-list {
+
+  &-item-label {
+    font-weight: bold;
+    width: 15em;
+    min-width: 5px;
+  }
+
+  &-item-box {
+    font-weight: bold;
+    background-image: none;
+    padding-top: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    transition-duration: 100;
+    color: transparentize($selected_fg_color, 0.4);
+
+    &.top,
+    &.bottom {
+      border-bottom-width: 2px;
+
+      & StLabel { padding-left: 2px; }
+    }
+
+    &.right {
+      padding-left: 0px;
+      padding-right: 0px;
+      border-right-width: 2px;
+
+      & StBin { padding-right: 0; }
+    }
+
+    &.left {
+      padding-left: 0px;
+      padding-right: 0px;
+      border-left-width: 2px;
+
+      & StBin { padding-left: 1px; }
+    }
+
+    &:hover,
+    &:focus {
+      color: $selected_fg_color;
+      background-color: transparentize(white, 0.7);
+    }
+
+    &:active,
+    &:checked {
+      color: $selected_fg_color;
+      border-color: $selected_bg_color;
+    }
+
+    & .progress {
+      background-color: transparentize($selected_bg_color, 0.2);
+    }
+  }
+
+  &-item-demands-attention {
+    background-gradient-direction: vertical;
+    background-gradient-start: $destructive_color;
+    background-gradient-end: $destructive_color;
+  }
+
+  &-thumbnail-label {
+    padding-left: 4px;
+  }
+
+  &-number-label {
+    z-index: 99;
+    color: $tooltip_border_color;
+  }
+
+  &-badge {
+    border-radius: 256px;
+    background-color: $tooltip_fg_color;
+  }
+
+  &-button-label {
+    padding-left: 4px;
+  }
+
+  &-thumbnail-alert {
+    background: rgba(255,52,52,0.3);
+  }
+
+  &-thumbnail-menu {
+    color: $fg_color;
+    border: 1px solid $borders_color;
+    background-color: $bg_color;
+    border-radius: 3px;
+    padding: 20px;
+
+    > StBoxLayout {
+      padding: 4px;
+    }
+
+    .item-box {
+      padding: 10px;
+      border-radius: 2px;
+      spacing: 4px;
+
+      &:outlined {
+        padding: 8px;
+        border: 1px solid $selected_bg_color;
+      }
+
+      &:selected {
+        color: $selected_fg_color;
+        background-color: $selected_bg_color;
+        border: 0px solid $selected_bg_color;
+      }
+    }
+
+    .thumbnail { width: 256px; }
+
+    .separator {
+      width: 1px;
+      background: rgba(255,255,255,0.2);
+    }
   }
 }
 
@@ -1528,18 +1673,21 @@ StScrollBar {
 
 // 2.8
 .sound-player {
-  padding: 0 4px;
+  // padding: 0 4px;
 
   > StBoxLayout:first-child {
     padding: 5px 10px 12px 10px;
     spacing: 0.5em;
 
     StButton:small {
-      width: 16px;
-      height: 8px;
-      padding: 1px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid transparent;
 
       StIcon { icon-size: 12px; }
+
+      &:hover { @include button(hover); }
+      &:active { @include button(active); }
     }
   }
 
@@ -1552,22 +1700,24 @@ StScrollBar {
     height: 70px;
     padding: 15px;
     spacing: 0.5em;
-    background: transparentize(darken($osd_bg_color, 5%), 0.1);
-    border: 0px solid darken($osd_bg_color, 10%);
-    border-bottom: 1px ;
-    color: $osd_fg_color;
+    background: transparentize($bg_color, 0.1);
+    border-top: 1px solid $borders_color;
+    // background: transparentize(darken($osd_bg_color, 5%), 0.1);
+    // border: 0px solid darken($osd_bg_color, 10%);
+    // border-bottom: 1px ;
+    color: $fg_color;
 
     StButton {
       width: 22px;
       height: 13px;
       padding: 5px;
-      color: $osd_fg_color;
+      color: $fg_color;
       border-radius: 2px;
-      border: 1px solid transparentize($osd_bg_color,1);
+      border: 1px solid transparent;
 
       StIcon { icon-size: 16px; }
 
-      &:hover{ @include button(osd-hover); }
+      &:hover{ @include button(hover); }
       &:active { @include button(active); }
     }
 
@@ -1575,7 +1725,7 @@ StScrollBar {
       padding-top: 2px;
     }
 
-    >StBoxLayout {
+    > StBoxLayout {
       spacing: 5px;
     }
   }
@@ -1686,6 +1836,7 @@ StScrollBar {
   & .launcher {
     padding-left: 2px;
     padding-right: 2px;
+    padding-bottom: 2px;
     // border-bottom-width: 1px;
     transition-duration: 200;
 
@@ -1710,27 +1861,36 @@ StScrollBar {
 // Overview corner
 //
 #overview-corner {
-  background-image: url("assets/misc/overview.png");
+  background-image: url("common-assets/misc/overview.png");
 
-  &:hover { background-image: url("assets/misc/overview-hover.png"); }
+  &:hover { background-image: url("common-assets/misc/overview-hover.png"); }
 }
 
 //
 // Applets (applet.js)
 //
 .applet {
-  &-separator { padding: 1px 4px; }
+  &-separator {
+    padding: 1px 4px;
+
+    &.vertical { padding: 4px 1px; }
+  }
 
   &-separator-line {
     width: 1px;
     background: rgba(255,255,255, 0.12);
+
+    &-vertical {
+      height: 1px;
+      background: rgba(255,255,255, 0.12);
+    }
   }
 
   &-box {
     padding-left: 3px;
     padding-right: 3px;
     spacing: 4px;
-    color: transparentize($selected_fg_color, 0.4);
+    color: $panel_fg;
     text-shadow: none;
     transition-duration: 100;
 
@@ -1749,6 +1909,8 @@ StScrollBar {
     &:checked {
       color: $selected_fg_color;
       background-color: $selected_bg_color;
+
+      &-label { color: $selected_fg_color; }
     }
 
     &:highlight {
@@ -1760,7 +1922,7 @@ StScrollBar {
 
   &-label {
     font-weight: bold;
-    color: transparentize($selected_fg_color, 0.4);
+    color: $panel_fg;
 
     &:hover,
     &:checked,

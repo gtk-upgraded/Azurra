@@ -45,6 +45,7 @@ fi
 mkdir "$TARGETDIR/gtk-2.0"
 mkdir "$TARGETDIR/gtk-3.0"
 mkdir "$TARGETDIR/gnome-shell"
+mkdir "$TARGETDIR/cinnamon"
 mkdir "$TARGETDIR/metacity-1"
 mkdir "$TARGETDIR/openbox-3"
 
@@ -120,12 +121,12 @@ echo " Done."
 cd "$ROOTDIR/gnome-shell"
 
 # compile gnome-shell theme
-echo -n "Compiling Shell theme..."
+echo -n "Compiling Gnome-Shell theme..."
 
 sass -C --sourcemap=none _common.scss gnome-shell.css
 
 cp -a "assets" "$TARGETDIR/gnome-shell"
-cp -a gnome-shell.css "$TARGETDIR/gnome-shell"
+cp gnome-shell.css "$TARGETDIR/gnome-shell"
 
 echo " Done."
 
@@ -133,12 +134,12 @@ echo " Done."
 # open work directory
 cd "$ROOTDIR/cinnamon"
 
-# compile gnome-shell theme
+# compile cinnamon theme
 echo -n "Compiling Cinnamon theme..."
 
 sass -C --sourcemap=none _common.scss cinnamon.css
 
 cp -a "assets" "$TARGETDIR/cinnamon"
-cp -a cinnamon.css "$TARGETDIR/cinnamon"
+cp cinnamon.css "$TARGETDIR/cinnamon"
 
 echo " Done."
