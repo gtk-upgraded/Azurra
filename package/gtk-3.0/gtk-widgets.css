@@ -263,11 +263,6 @@ checkbutton.text-button, radiobutton.text-button {
   padding: 4px;
   outline-offset: 0; }
 
-check, radio, check:disabled, radio:disabled {
-  padding: 4px;
-  border-style: none;
-  background-color: transparent; }
-
 checkbutton:hover, checkbutton:active:hover {
   padding: 4px;
   border-style: none;
@@ -287,6 +282,11 @@ view.content-view check, .content-view.view check {
     background-color: transparent; }
 
 view.content-view check:hover, view.content-view check:disabled, view.content-view check:selected {
+  background-color: transparent; }
+
+check, radio, check:disabled, radio:disabled {
+  padding: 4px;
+  border-style: none;
   background-color: transparent; }
 
 check {
@@ -477,26 +477,22 @@ entry {
     color: @theme_selected_fg_color;
     background-color: @theme_selected_bg_color; }
   entry:disabled {
-    /*  
-        color: $theme_disabled_text_color;
-        background-color: $theme_disabled_base_color;
-    */
     color: @theme_disabled_text_color;
     border-color: mix(@theme_bg_color, @theme_disabled_bg_color, 0.6);
     background-color: mix(@theme_bg_color, @theme_disabled_bg_color, 0.1); }
     entry:disabled:backdrop {
-      /*
-            color: $theme_unfocused_disabled_text_color;
-            background-color: gtkshade($theme_unfocused_disabled_base_color, 0.95);
-      */
       color: @theme_unfocused_disabled_fg_color;
       border-color: @unfocused_borders;
       background-color: @theme_unfocused_disabled_bg_color; }
+  entry.read-only {
+    background-color: mix(@theme_bg_color, @theme_disabled_bg_color, 0.1); }
   entry:backdrop {
     color: @theme_unfocused_fg_color;
     background-color: @theme_unfocused_base_color; }
-  entry image left {
-    padding-right: 4px; }
+  entry > image.left {
+    padding-right: 5px; }
+  entry > image.right {
+    padding-left: 5px; }
   entry progress {
     margin: -4px -4px;
     border-width: 0 0 2px;
@@ -705,26 +701,18 @@ image {
     border-top-width: 0px;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px; }
-    .floating-bar.top.left {
-      border-left-width: 0px;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px; }
-    .floating-bar.top.right {
-      border-right-width: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px; }
   .floating-bar.bottom {
     border-bottom-width: 0px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px; }
-    .floating-bar.bottom.right {
-      border-right-width: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px; }
-    .floating-bar.bottom.left {
-      border-left-width: 0px;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px; }
+  .floating-bar.top.left, .floating-bar.bottom.left {
+    border-left-width: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px; }
+  .floating-bar.top.right, .floating-bar.bottom.right {
+    border-right-width: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; }
   .floating-bar button {
     border-style: none;
     background-color: transparent; }
@@ -888,12 +876,6 @@ popover.osd {
     border-width: 0;
     border-radius: 0;
     background-color: transparent; }
-popover separator {
-  border: 0;
-  color: alpha(currentColor, 0.5);
-  background-color: transparent;
-  font-size: 80%;
-  font-weight: bold; }
 popover:backdrop {
   border-color: @unfocused_borders;
   color: @theme_unfocused_fg_color;
@@ -1352,12 +1334,12 @@ separator {
     background-color: mix(@borders, @toolbar_bg_color, 0.5); }
     .primary-toolbar separator:backdrop, toolbar separator:backdrop {
       background-color: @unfocused_borders; }
-  separator separator {
+  headerbar separator {
     -GtkWidget-window-dragging: true;
     margin-top: 4px;
     margin-bottom: 4px;
     background-color: mix(@borders, @headerbar_bg_color, 0.5); }
-    separator separator:backdrop {
+    headerbar separator:backdrop {
       background-color: @unfocused_borders; }
   .titlebar separator, .titlebar:not(headerbar) > separator, .titlebar separator.titlebutton, .titlebar:not(headerbar) > separator.titlebutton {
     -GtkWidget-window-dragging: true;
@@ -1386,6 +1368,10 @@ separator {
     border-width: 1px;
     border-style: none;
     color: mix(@borders, @menu_bg_color, 0.5); }
+  popover separator {
+    border: 0;
+    color: alpha(currentColor, 0.5);
+    background-color: transparent; }
   combobox separator {
     border: none; }
 
@@ -1543,8 +1529,8 @@ switch {
     background-color: @theme_base_color; }
   switch:disabled slider {
     background-color: mix(@theme_base_color, @theme_disabled_bg_color, 0.5); }
-    switch:disabled slider:backdrop slider {
-      background-color: mix(@theme_unfocused_disabled_bg_color, @theme_unfocused_base_color, 0.5); }
+  switch:disabled:backdrop slider {
+    background-color: mix(@theme_unfocused_disabled_bg_color, @theme_unfocused_base_color, 0.5); }
   switch:backdrop slider {
     background-color: @theme_unfocused_base_color; }
 
