@@ -76,6 +76,7 @@
     }
 
     & > header {
+      padding-top: 2px;
       background-color: $theme_bg_color;
       
       &:backdrop {
@@ -83,7 +84,6 @@
       }
 
       &.top {
-        padding-top: 2px;
         box-shadow: 0 1px $borders;
 
         & > tabs > tab {

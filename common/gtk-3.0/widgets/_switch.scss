@@ -45,11 +45,11 @@
 
     &:disabled {
       slider {
-        background-color: gtkmix($theme_base_color, $theme_disabled_bg_color, 0.5);
+        background-color: $theme_disabled_base_color;
       }
 
       &:backdrop slider {
-        background-color: gtkmix($theme_unfocused_disabled_bg_color, $theme_unfocused_base_color, 0.5);
+        background-color: $theme_unfocused_disabled_base_color;
       }
     }
 
