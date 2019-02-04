@@ -77,6 +77,10 @@
 
     & > header {
       background-color: $theme_bg_color;
+      
+      &:backdrop {
+        background-color: $theme_unfocused_bg_color;
+      }
 
       &.top {
         padding-top: 2px;

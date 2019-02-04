@@ -255,43 +255,6 @@ row:selected, row:selected:hover, row:selected:focus {
   }
 }
 
-// check and radio buttons
-checkbutton.text-button, radiobutton.text-button {
-  padding: 4px;
-  outline-offset: 0;
-}
-
-checkbutton {
-  &:hover, &:active:hover {
-    padding: 4px;
-    border-style: none;
-    background-color: transparent;
-  }
-  &:selected {
-    padding: 4px;
-    border-style: none;
-    background-color: transparent;
-    &:focus {
-      padding: 4px;
-      border-style: none;
-      background-color: transparent;
-    }
-  }
-}
-
-view.content-view check, .content-view.view check {
-  background-color: transparent;
-  &:active {
-    background-color: transparent;
-  }
-}
-
-view.content-view check {
-  &:hover, &:disabled, &:selected {
-    background-color: transparent;
-  }
-}
-
 @include checkradio();
 
 // content view 
@@ -964,7 +927,7 @@ treeview {
   background-color: $theme_base_color;
 
   &:not(treeview) {
-    border-radius: 0;
+    border-radius: $view_radius;
   }
 
   &:disabled {
