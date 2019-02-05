@@ -90,6 +90,11 @@
       background-color: transparent;
     }
 
+    & menubar menuitem:hover &:active {
+      color: $theme_selected_fg_color;
+      background-color: $theme_selected_bg_color;
+    }
+
     & .menubar > .menuitem {
       padding-top: 0;
       padding-bottom: 0;

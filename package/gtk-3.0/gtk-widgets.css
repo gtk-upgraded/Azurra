@@ -259,14 +259,6 @@ row:selected, row:selected:hover, row:selected:focus {
     background: shade(@theme_selected_bg_color, 1.15);
     border-color: shade(@theme_selected_bg_color, 1.15); }
 
-view.content-view check, .content-view.view check {
-  background-color: transparent; }
-  view.content-view check:active, .content-view.view check:active {
-    background-color: transparent; }
-
-view.content-view check:hover, view.content-view check:disabled, view.content-view check:selected {
-  background-color: transparent; }
-
 checkbutton.text-button, radiobutton.text-button {
   padding: 4px;
   outline-offset: 0; }
@@ -285,6 +277,14 @@ checkbutton {
       padding: 4px;
       border-style: none;
       background-color: transparent; }
+
+view.content-view check, .content-view.view check {
+  background-color: transparent; }
+  view.content-view check:active, .content-view.view check:active {
+    background-color: transparent; }
+
+view.content-view check:hover, view.content-view check:disabled, view.content-view check:selected {
+  background-color: transparent; }
 
 check, radio, check:disabled, radio:disabled {
   padding: 4px;
@@ -528,12 +528,17 @@ list {
     padding: 2px; }
     list row:hover {
       background-color: mix(@theme_bg_color, @theme_fg_color, 0.1); }
+    list row:backdrop {
+      color: @theme_unfocused_fg_color; }
     list row:selected {
       color: @theme_selected_fg_color;
       background-color: @theme_selected_bg_color; }
       list row:selected:disabled {
         color: alpha(@theme_selected_fg_color, 0.7);
         background-color: @theme_selected_bg_color; }
+      list row:selected:backdrop {
+        color: @theme_unfocused_selected_fg_color;
+        background-color: @theme_unfocused_selected_bg_color; }
   list separator, list separator:backdrop {
     background: none; }
 
@@ -586,6 +591,7 @@ infobar {
   .info button {
     border-color: shade(@info_bg_color, 0.8);
     color: @info_fg_color;
+    background-image: none;
     background-color: shade(@info_bg_color, 1.08); }
     .info button:hover {
       border-color: shade(@info_bg_color, 0.85);
@@ -612,6 +618,7 @@ infobar {
   .warning button {
     border-color: shade(@warning_bg_color, 0.8);
     color: @warning_fg_color;
+    background-image: none;
     background-color: shade(@warning_bg_color, 1.08); }
     .warning button:hover {
       border-color: shade(@warning_bg_color, 0.85);
@@ -634,6 +641,7 @@ infobar {
   border-style: solid;
   border-color: shade(@question_bg_color, 0.8);
   color: @question_fg_color;
+  background-image: none;
   background-color: @question_bg_color; }
   .question button {
     border-color: shade(@question_bg_color, 0.8);
@@ -664,6 +672,7 @@ infobar {
   .error button {
     border-color: shade(@error_bg_color, 0.8);
     color: @error_fg_color;
+    background-image: none;
     background-color: shade(@error_bg_color, 1.08); }
     .error button:hover {
       border-color: shade(@error_bg_color, 0.85);
@@ -769,6 +778,14 @@ popover.background.touch-selection, .csd popover.background.touch-selection {
   border-width: 0 1px 1px 1px;
   border-style: solid;
   background-color: @theme_bg_color; }
+
+button.circular, button.circular-button {
+  padding: 0;
+  min-width: 16px;
+  min-height: 24px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  -gtk-outline-radius: 50%; }
 
 menu, .menu {
   margin: 4px;
@@ -945,9 +962,11 @@ notebook {
       background-color: transparent;
       color: @theme_fg_color; }
   notebook > header {
+    padding-top: 2px;
     background-color: @theme_bg_color; }
+    notebook > header:backdrop {
+      background-color: @theme_unfocused_bg_color; }
     notebook > header.top {
-      padding-top: 2px;
       box-shadow: 0 1px @borders; }
       notebook > header.top > tabs > tab {
         border-bottom: none; }
@@ -1530,9 +1549,9 @@ switch {
     color: @theme_fg_color;
     background-color: @theme_base_color; }
   switch:disabled slider {
-    background-color: mix(@theme_base_color, @theme_disabled_bg_color, 0.5); }
+    background-color: @theme_disabled_base_color; }
   switch:disabled:backdrop slider {
-    background-color: mix(@theme_unfocused_disabled_bg_color, @theme_unfocused_base_color, 0.5); }
+    background-color: @theme_unfocused_disabled_base_color; }
   switch:backdrop slider {
     background-color: @theme_unfocused_base_color; }
 
@@ -1961,7 +1980,7 @@ treeview {
   color: @theme_text_color;
   background-color: @theme_base_color; }
   .view:not(treeview) {
-    border-radius: 0; }
+    border-radius: 0px; }
   .view:disabled {
     color: @theme_disabled_fg_color;
     background-color: @theme_disabled_bg_color; }
@@ -2306,9 +2325,9 @@ messagedialog .background.csd {
   border-radius: 0 0 0px 0px;
   color: @theme_fg_color;
   background-color: @theme_bg_color; }
-  messagedialog .background.csd decoration {
-    border-radius: 0px;
-    box-shadow: 0 1px 2px alpha(@dark_shadow, 0.2); }
+messagedialog decoration {
+  border-radius: 0px;
+  box-shadow: 0 1px 2px alpha(@dark_shadow, 0.2); }
 messagedialog .titlebar.horizontal {
   background-color: @theme_bg_color; }
 messagedialog.csd .dialog-action-area button {
