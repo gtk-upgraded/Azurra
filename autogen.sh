@@ -91,7 +91,12 @@ else
  cp -a colors.rc "$TARGETDIR/gtk-2.0/colors.rc"
 fi
 
-cp -a assets "$TARGETDIR/gtk-2.0"
+if [ $COLOR == "dark" ];
+then
+ cp -a assets-dark "$TARGETDIR/gtk-2.0/assets"
+else
+ cp -a assets "$TARGETDIR/gtk-2.0"
+fi
 cp -a panel.rc "$TARGETDIR/gtk-2.0"
 
 # open work directory
