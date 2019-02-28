@@ -97,14 +97,12 @@
   }
   
   #XfceNotifyWindow {
-    .osd {
+    &.osd {
       background-color: $theme_bg_color;
       color: $theme_fg_color;
       border-radius: $roundness;
       border: none;
-    }
-
-    &.osd {
+      
       label {
         &#summary {
           font-weight: bold;
