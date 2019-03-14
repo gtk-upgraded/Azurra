@@ -12,12 +12,12 @@
     &:hover {
       color: $fg;
       border-color: $border;
-      background-color: shade($bg, 1.1);
+      background-color: gtkshade($bg, 1.1);
     }
 
     &:active, &:checked {
       color: $fg;
-      border-color: shade($border, 0.9);
+      border-color: gtkshade($border, 0.9);
       background-color: gtkshade($bg, 0.85);
 
       &:backdrop {
