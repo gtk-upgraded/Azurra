@@ -17,10 +17,6 @@
       color: gtkalpha(currentColor, 0.7);
     }
     
-    button {
-      @include headerbar_buttons($headerbar_bg_color, $headerbar_fg_color, transparent);
-    }
-
     // titlebutton 
     & .titlebutton {
       
