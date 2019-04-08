@@ -2,15 +2,15 @@
 @mixin headerbar_buttons($bg, $fg, $border)
 {
   & {
-    border-color: gtkshade($border, 1.1);
+    border-color: gtkshade($border, 1.05);
     border-radius: $button_radius;
     color: $fg;
-    background-color: gtkshade($bg, 1.1);
+    background-color: gtkshade($bg, 1.05);
 
     &:hover {
-      border-color: gtkshade($border, 1.1);
+      border-color: gtkshade($border, 1.05);
       color: $fg;
-      background-color: gtkshade($bg, 1.1);
+      background-color: gtkshade($bg, 1.05);
 
       &:backdrop {
         border-color: $unfocused_borders;
