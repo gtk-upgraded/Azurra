@@ -170,14 +170,14 @@ StScrollBar {
   StBin {
     width: 16px;
     height: 16px;
-    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.svg");
+    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.png");
   }
 
-  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked-focused.svg"); }
+  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.png"); }
 
-  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.svg"); }
+  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.png"); }
 
-  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked-focused.svg"); }
+  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.png"); }
 }
 
 //
@@ -200,14 +200,14 @@ StScrollBar {
   StBin {
     width: 16px;
     height: 16px;
-    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.svg");
+    background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.png");
   }
 
-  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked-focused.svg"); }
+  &:focus StBin { background-image: url("#{$asset_path}/checkbox/checkbox-unchecked.png"); }
 
-  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.svg"); }
+  &:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.png"); }
 
-  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked-focused.svg"); }
+  &:focus:checked StBin { background-image: url("#{$asset_path}/checkbox/checkbox-checked.png"); }
 }
 
 //
@@ -219,9 +219,9 @@ StScrollBar {
   background-size: contain;
 
   &-us, &-intl {
-    background-image: url("#{$asset_path}/switch/switch-off.svg");
+    background-image: url("#{$asset_path}/switch/switch-off.png");
 
-    &:checked { background-image: url("#{$asset_path}/switch/switch-on.svg"); }
+    &:checked { background-image: url("#{$asset_path}/switch/switch-on.png"); }
   }
 }
 

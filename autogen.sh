@@ -116,7 +116,13 @@ fi
 
 sass -C --sourcemap=none _common.scss gtk-widgets.css
 
-cp -a "assets" "$TARGETDIR/gtk-3.0"
+if [ $COLOR == "dark" ];
+then
+ cp -a assets-dark "$TARGETDIR/gtk-3.0/assets"
+else
+ cp -a assets "$TARGETDIR/gtk-3.0"
+fi
+
 cp gtk.css "$TARGETDIR/gtk-3.0"
 cp gtk-widgets.css "$TARGETDIR/gtk-3.0"
 

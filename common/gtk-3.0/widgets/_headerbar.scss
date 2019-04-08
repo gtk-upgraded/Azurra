@@ -2,18 +2,19 @@
 @mixin headerbar_buttons($bg, $fg, $border)
 {
   & {
-    border-color: transparent;
+    border-color: gtkshade($border, 1.1);
     border-radius: $button_radius;
     color: $fg;
-    background-color: transparent;
+    background-color: gtkshade($bg, 1.1);
 
     &:hover {
-      border-color: $border;
+      border-color: gtkshade($border, 1.1);
       color: $fg;
-      background-color: $bg;
+      background-color: gtkshade($bg, 1.1);
+
       &:backdrop {
-        border-color: transparent;
-        background-color: transparent;
+        border-color: $unfocused_borders;
+        background-color: $theme_unfocused_bg_color;
       }
     }
 
@@ -21,6 +22,7 @@
       border-color: gtkshade($theme_selected_bg_color, 1.15);
       color: $theme_fg_color;
       background-color: gtkshade($theme_selected_bg_color, 1.15);
+      
       &:backdrop {
         border-color: $theme_unfocused_selected_bg_color;
         color: $theme_unfocused_selected_fg_color;
@@ -32,6 +34,7 @@
       border-color: transparent;
       color: gtkalpha($fg, 0.7);
       background-color: transparent;
+      
       &:backdrop {
         border-color: transparent;
         color: $disabled_fg_color;
@@ -40,8 +43,9 @@
     }
 
     &:backdrop {
-      border-color: transparent;
+      border-color: $unfocused_borders;
       color: $theme_unfocused_fg_color;
+      background-color: $theme_unfocused_bg_color;
     }
   }
 }
@@ -84,7 +88,7 @@
     }
 
     button {
-      @include headerbar_buttons($headerbar_bg_color, $headerbar_fg_color, transparent);
+      @include headerbar_buttons($headerbar_bg_color, $headerbar_fg_color, $headerbar_bg_color);
     }
     
     switch {

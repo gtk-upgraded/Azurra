@@ -146,13 +146,13 @@ StScrollBar {
 .check-box StBin {
   width: 16px;
   height: 16px;
-  background-image: url("assets/checkbox/checkbox-unchecked.svg"); }
+  background-image: url("assets/checkbox/checkbox-unchecked.png"); }
 .check-box:focus StBin {
-  background-image: url("assets/checkbox/checkbox-unchecked-focused.svg"); }
+  background-image: url("assets/checkbox/checkbox-unchecked.png"); }
 .check-box:checked StBin {
-  background-image: url("assets/checkbox/checkbox-checked.svg"); }
+  background-image: url("assets/checkbox/checkbox-checked.png"); }
 .check-box:focus:checked StBin {
-  background-image: url("assets/checkbox/checkbox-checked-focused.svg"); }
+  background-image: url("assets/checkbox/checkbox-checked.png"); }
 
 .radiobutton CinnamonGenericContainer {
   spacing: .2em;
@@ -165,22 +165,22 @@ StScrollBar {
 .radiobutton StBin {
   width: 16px;
   height: 16px;
-  background-image: url("assets/checkbox/checkbox-unchecked.svg"); }
+  background-image: url("assets/checkbox/checkbox-unchecked.png"); }
 .radiobutton:focus StBin {
-  background-image: url("assets/checkbox/checkbox-unchecked-focused.svg"); }
+  background-image: url("assets/checkbox/checkbox-unchecked.png"); }
 .radiobutton:checked StBin {
-  background-image: url("assets/checkbox/checkbox-checked.svg"); }
+  background-image: url("assets/checkbox/checkbox-checked.png"); }
 .radiobutton:focus:checked StBin {
-  background-image: url("assets/checkbox/checkbox-checked-focused.svg"); }
+  background-image: url("assets/checkbox/checkbox-checked.png"); }
 
 .toggle-switch {
   width: 50px;
   height: 20px;
   background-size: contain; }
   .toggle-switch-us, .toggle-switch-intl {
-    background-image: url("assets/switch/switch-off.svg"); }
+    background-image: url("assets/switch/switch-off.png"); }
     .toggle-switch-us:checked, .toggle-switch-intl:checked {
-      background-image: url("assets/switch/switch-on.svg"); }
+      background-image: url("assets/switch/switch-on.png"); }
 
 .cinnamon-link {
   color: #1D8ECE;
