@@ -15,10 +15,37 @@ TARGETDIR="$PWD/package"
 COLOR="light"
 
 # set dark if passed as argument
-if [ "$1" == "--dark" ];
-then
- COLOR="dark"
-fi
+declare -a args
+args=("$@")
+
+for f in ${!args[@]}
+do
+ case ${args[$f]} in
+  *dark)
+   COLOR="dark"
+  ;;
+  *clear)
+   cd $ROOTDIR/gtk-2.0
+   
+   echo $PWD
+   ./render-assets.sh --clear
+   
+   cd $ROOTDIR/gtk-3.0
+   ./render-assets.sh --clear
+   
+   cd $ROOTDIR
+   
+   exit
+  ;;
+  *h|*help)
+   echo "--dark          Generates dark variant"
+   echo "--clear         Clears the previously rendered assets"
+   echo "-h | --help     This view"
+   
+   exit 0
+  ;;
+ esac
+done
 
 # if package dir exists
 if [ -d "$PWD/package" ];
@@ -33,7 +60,7 @@ else
 fi
 
 # Copy static resources
-echo -n "Copying static resources..."
+echo -n "Copying indexing resources..."
 if [ $COLOR == "dark" ];
 then
  cp "$ROOTDIR/index.theme-dark" "$TARGETDIR/index.theme"
@@ -82,19 +109,23 @@ fi
 
 # open work directory
 cd "$ROOTDIR/gtk-2.0"
-cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
+cp -a main.rc "$TARGETDIR/gtk-2.0/main.rc"
 
 if [ $COLOR == "dark" ];
 then
- cp -a colors-dark.rc "$TARGETDIR/gtk-2.0/colors.rc"
+ cp -a gtkrc-dark "$TARGETDIR/gtk-2.0/gtkrc"
 else
- cp -a colors.rc "$TARGETDIR/gtk-2.0/colors.rc"
+ cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
 fi
 
+# gtk2 assets
+echo "Rendering GTK2 assets..."
 if [ $COLOR == "dark" ];
 then
+ ./render-assets.sh -g -d
  cp -a assets-dark "$TARGETDIR/gtk-2.0/assets"
 else
+ ./render-assets.sh -g
  cp -a assets "$TARGETDIR/gtk-2.0"
 fi
 cp -a panel.rc "$TARGETDIR/gtk-2.0"
@@ -116,10 +147,14 @@ fi
 
 sass -C --sourcemap=none _common.scss gtk-widgets.css
 
+# gtk3 assets
+echo "Rendering GTK2 assets..."
 if [ $COLOR == "dark" ];
 then
+ ./render-assets.sh -d
  cp -a assets-dark "$TARGETDIR/gtk-3.0/assets"
 else
+ ./render-assets.sh
  cp -a assets "$TARGETDIR/gtk-3.0"
 fi
 
