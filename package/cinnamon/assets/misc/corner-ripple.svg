@@ -14,24 +14,24 @@
    height="104"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="corner-ripple-ltr.svg">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="corner-ripple.svg">
   <defs
      id="defs4">
     <linearGradient
-       id="linearGradient3857">
+       id="bg_color">
       <stop
-         style="stop-color:#8fa876;stop-opacity:0"
+         style="stop-color:#1d8ece;stop-opacity:0"
          offset="0"
          id="stop3859" />
       <stop
-         style="stop-color:#8fa876;stop-opacity:1"
+         style="stop-color:#1d8ece;stop-opacity:1"
          offset="1"
          id="stop3861" />
     </linearGradient>
     <radialGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient3857"
+       xlink:href="#bg_color"
        id="radialGradient3863"
        cx="0"
        cy="0"
@@ -49,18 +49,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="20.217701"
-     inkscape:cy="44.091095"
+     inkscape:cx="33.616749"
+     inkscape:cy="45.41836"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
+     inkscape:window-width="1293"
+     inkscape:window-height="704"
+     inkscape:window-x="67"
+     inkscape:window-y="26"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -69,31 +69,40 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originy="2px" />
+       originy="2"
+       originx="0"
+       spacingx="1"
+       spacingy="1" />
     <sodipodi:guide
        orientation="1,0"
        position="52,0"
-       id="guide2987" />
+       id="guide2987"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0,1"
        position="52,0"
-       id="guide2989" />
+       id="guide2989"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0,1"
        position="0,52"
-       id="guide3761" />
+       id="guide3761"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="1,0"
        position="0,52"
-       id="guide3763" />
+       id="guide3763"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="1,0"
        position="51,1"
-       id="guide3773" />
+       id="guide3773"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0,1"
        position="51,1"
-       id="guide3775" />
+       id="guide3775"
+       inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -103,7 +112,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

@@ -219,9 +219,9 @@ StScrollBar {
   background-size: contain;
 
   &-us, &-intl {
-    background-image: url("#{$asset_path}/switch/switch-off.png");
+    background-image: url("#{$asset_path}/switch/toggle-off.png");
 
-    &:checked { background-image: url("#{$asset_path}/switch/switch-on.png"); }
+    &:checked { background-image: url("#{$asset_path}/switch/toggle-on.png"); }
   }
 }
 
@@ -898,7 +898,8 @@ StScrollBar {
 
   .popup-menu & {
     color: $fg_color;
-    border-image: url("#{$asset_path}/misc/message.svg") 9 9 9 9;
+    border: 1ps solid $borders_color;
+    background-color: $base_color;
 
     .notification-button, .notification-icon-button {
       @extend %button;

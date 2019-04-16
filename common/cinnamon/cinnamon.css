@@ -178,9 +178,9 @@ StScrollBar {
   height: 20px;
   background-size: contain; }
   .toggle-switch-us, .toggle-switch-intl {
-    background-image: url("assets/switch/switch-off.png"); }
+    background-image: url("assets/switch/toggle-off.png"); }
     .toggle-switch-us:checked, .toggle-switch-intl:checked {
-      background-image: url("assets/switch/switch-on.png"); }
+      background-image: url("assets/switch/toggle-on.png"); }
 
 .cinnamon-link {
   color: #1D8ECE;
@@ -699,7 +699,8 @@ StScrollBar {
   color: #ffffff; }
   .popup-menu #notification {
     color: #ffffff;
-    border-image: url("assets/misc/message.svg") 9 9 9 9; }
+    border: 1ps solid #464646;
+    background-color: #1f1f1f; }
     .popup-menu #notification .notification-button, .popup-menu #notification .notification-icon-button {
       padding: 5px; }
   #notification.multi-line-notification {
