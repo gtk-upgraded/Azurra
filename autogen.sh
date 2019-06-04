@@ -148,7 +148,7 @@ fi
 sass -C --sourcemap=none _common.scss gtk-widgets.css
 
 # gtk3 assets
-echo "Rendering GTK2 assets..."
+echo "Rendering GTK3 assets..."
 if [ $COLOR == "dark" ];
 then
  ./render-assets.sh -d
