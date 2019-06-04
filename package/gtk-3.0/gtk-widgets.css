@@ -51,9 +51,6 @@
 image, image:disabled, label, label:disabled, box, box:disabled {
   background-color: transparent; }
 
-image:disabled {
-  color: alpha(currentColor, 0.5); }
-
 label selection {
   background-color: @theme_selected_bg_color;
   color: @theme_selected_fg_color; }
@@ -768,6 +765,8 @@ image {
     color: alpha(currentColor, 0.9); }
   image:selected, image:selected:hover {
     color: @theme_selected_fg_color; }
+  image:disabled {
+    color: alpha(currentColor, 0.5); }
   view image, view image:hover {
     color: alpha(currentColor, 0.9); }
   view image:selected, view image:selected:hover {
@@ -800,11 +799,6 @@ image {
     border-style: none;
     background-color: transparent; }
 
-.dnd {
-  border-width: 1px;
-  border-style: solid;
-  border-color: @borders; }
-
 .terminal-screen, terminal-window, vte-terminal {
   background-color: @terminal_bg_color;
   color: @terminal_fg_color; }
@@ -814,6 +808,11 @@ terminal-screen-container scrollbar:not(slider),
 terminal-screen-container scrollbar:not(slider):backdrop {
   border-color: transparent;
   background-color: transparent; }
+
+.dnd {
+  border-width: 1px;
+  border-style: solid;
+  border-color: @borders; }
 
 .nautilus-window notebook, .nautilus-window notebook > stack:not(:only-child) searchbar {
   background-color: @theme_base_color; }
