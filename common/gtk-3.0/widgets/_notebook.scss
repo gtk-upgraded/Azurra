@@ -1,4 +1,3 @@
-// notebook
 @mixin notebook() {
   notebook {
     padding: 0;
@@ -65,17 +64,6 @@
 
       &:backdrop {
         background-color: $theme_unfocused_bg_color;
-      }
-
-      // close button styling 
-      button, &:checked button {
-        &, &:hover, &:active, &:checked, &:disabled {
-          &:focus, &:backdrop {
-            color: $theme_fg_color;
-            border-color: transparent;
-            background-color: transparent;
-          }
-        }
       }
     }
 
