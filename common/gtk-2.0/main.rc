@@ -944,7 +944,7 @@ style "xfwm-tabwin"
 		contrast            = 0.2
 		highlight_shade     = 1.00
 		lightborder_shade   = 1.0
-		gradient_shades     = {1 .0, 1.0, 1.0, 1.0 }
+		gradient_shades     = { 1.0, 1.0, 1.0, 1.0 }
 		border_shades       = { 1.0,1.0 }
 		reliefstyle         = 0
 		shadow_shades	    = { 1.0, 1.0 }
