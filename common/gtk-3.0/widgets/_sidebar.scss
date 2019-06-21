@@ -28,8 +28,13 @@
     border: none;
     color: $sidebar_fg_color;
     
+    &:hover {
+      color: $sidebar_fg_color;
+      background-color: gtkmix($sidebar_bg_color, $sidebar_fg_color, 0.15);
+    }
+    
     &:checked, &:selected {
-      color: $theme_selected_fg_color;
+      color: $selected_fg_color;
     }
   }
 
@@ -62,8 +67,8 @@
     padding: 10px 4px;
 
     &:selected {
-      color: $theme_selected_fg_color;
-      background-color: $theme_selected_bg_color;
+      color: $selected_fg_color;
+      background-color: $selected_bg_color;
     }
 
     > label {
@@ -110,7 +115,22 @@
           padding-left: 2px;
         }
       }
+      
+      &.sidebar-new-bookmark-row {
+        color: $selected_bg_color;
+        
+        &:drop(active):not(:disabled) {
+          color: $selected_bg_color;
+          box-shadow: inset 0 1px $selected_bg_color, inset 0 -1px $selected_bg_color;
+          
+          &:selected {
+            color: $selected_fg_color;
+            background-color: $selected_bg_color;
+          }
+        }
+      }
     }
+    
   }
 
   button.sidebar-button {
@@ -126,7 +146,7 @@
     }
 
     &:hover, &:active {
-      color: $theme_fg_color;
+      color: $fg_color;
     }
 
     &:not(:hover):not(:active) > image {

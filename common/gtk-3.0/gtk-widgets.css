@@ -811,7 +811,7 @@ terminal-screen-container scrollbar:not(slider):backdrop {
   border-color: @borders; }
 
 .nautilus-window notebook, .nautilus-window notebook > stack:not(:only-child) searchbar {
-  background-color: @theme_base_color; }
+  background-color: @base_color; }
 
 .caja-location-entry {
   padding: 3px 5px; }
@@ -844,7 +844,7 @@ popover.background.touch-selection, .csd popover.background.touch-selection {
   border-radius: 0 0 0px 0px;
   border-width: 0 1px 1px 1px;
   border-style: solid;
-  background-color: @theme_bg_color; }
+  background-color: @bg_color; }
 
 button.circular, button.circular-button {
   padding: 0;
@@ -863,6 +863,11 @@ printdialog paper {
   border: 1px solid @borders;
   background: @light_shadow;
   padding: 0; }
+
+:not(decoration):not(window):drop(active), :not(decoration):not(window):drop(active):focus {
+  border-color: @selected_bg_color;
+  box-shadow: inset 0 0 0 1px @selected_bg_color;
+  caret-color: @selected_bg_color; }
 
 menu, .menu {
   margin: 4px;
@@ -1485,8 +1490,11 @@ filechooser placessidebar.sidebar row, filechooser placessidebar.sidebar view ro
 .nautilus-window placessidebar.sidebar row.sidebar-row {
   border: none;
   color: @sidebar_fg_color; }
+  .nautilus-window placessidebar.sidebar row.sidebar-row:hover {
+    color: @sidebar_fg_color;
+    background-color: mix(@sidebar_bg_color, @sidebar_fg_color, 0.15); }
   .nautilus-window placessidebar.sidebar row.sidebar-row:checked, .nautilus-window placessidebar.sidebar row.sidebar-row:selected {
-    color: @theme_selected_fg_color; }
+    color: @selected_fg_color; }
 
 .sidebar frame, .sidebar.frame {
   border: none; }
@@ -1500,8 +1508,8 @@ paned .sidebar.left, paned .sidebar.right, paned .sidebar.left:dir(rtl), paned .
 stacksidebar row {
   padding: 10px 4px; }
   stacksidebar row:selected {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: @selected_fg_color;
+    background-color: @selected_bg_color; }
   stacksidebar row > label {
     padding-left: 6px;
     padding-right: 6px; }
@@ -1525,6 +1533,14 @@ placessidebar row {
     padding-right: 2px; }
   placessidebar row label.sidebar-label:dir(rtl) {
     padding-left: 2px; }
+  placessidebar row.sidebar-new-bookmark-row {
+    color: @selected_bg_color; }
+    placessidebar row.sidebar-new-bookmark-row:drop(active):not(:disabled) {
+      color: @selected_bg_color;
+      box-shadow: inset 0 1px @selected_bg_color, inset 0 -1px @selected_bg_color; }
+      placessidebar row.sidebar-new-bookmark-row:drop(active):not(:disabled):selected {
+        color: @selected_fg_color;
+        background-color: @selected_bg_color; }
 
 button.sidebar-button, button.sidebar-button:backdrop {
   min-width: 22px;
@@ -1536,7 +1552,7 @@ button.sidebar-button, button.sidebar-button:backdrop {
   color: @sidebar_fg_color;
   -gtk-outline-radius: 100%; }
 button.sidebar-button:hover, button.sidebar-button:active {
-  color: @theme_fg_color; }
+  color: @fg_color; }
 button.sidebar-button:not(:hover):not(:active) > image {
   opacity: 0.5; }
 
@@ -2053,25 +2069,33 @@ tooltip {
 treeview {
   -treeview-vertical-separator: 0; }
   treeview.view:selected, treeview.view:selected:focus {
-    color: @theme_selected_fg_color;
-    background-color: @theme_selected_bg_color; }
+    color: @selected_fg_color;
+    background-color: @selected_bg_color; }
+  treeview.view:drop(active) {
+    border-style: solid none;
+    border-width: 1px;
+    border-color: @selected_bg_color; }
+    treeview.view:drop(active).after {
+      border-top-style: none; }
+    treeview.view:drop(active).before {
+      border-bottom-style: none; }
   treeview header button {
     border-width: 0 1px 1px 0;
     border-radius: 0; }
     treeview header button, treeview header button:active, treeview header button:focus, treeview header button:active:focus {
       background-image: none;
-      background-color: @theme_bg_color; }
+      background-color: @bg_color; }
     treeview header button:hover, treeview header button:active:hover, treeview header button:hover:focus, treeview header button:active:hover:focus {
-      color: @theme_selected_fg_color;
-      background-color: @theme_selected_bg_color; }
+      color: @selected_fg_color;
+      background-color: @selected_bg_color; }
   treeview header:last-child button {
     border-width: 0 0 1px 0; }
   treeview entry, treeview entry.flat {
     border-radius: 0;
     background-image: none;
-    background-color: @theme_base_color; }
+    background-color: @base_color; }
     treeview entry:focus, treeview entry.flat:focus {
-      border-color: @theme_selected_bg_color; }
+      border-color: @selected_bg_color; }
 
 .view {
   color: @theme_text_color;
