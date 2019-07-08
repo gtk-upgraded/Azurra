@@ -72,7 +72,8 @@
   
   // drop function styles
   filechooserbutton:drop(active) {
-    
+    box-shadow: none;
+    border-color: transparent;
   }
   
   :not(decoration):not(window):drop(active), :not(decoration):not(window):drop(active):focus {

@@ -21,7 +21,7 @@ args=("$@")
 for f in ${!args[@]}
 do
  case ${args[$f]} in
-  *dark)
+  *dark | -d)
    COLOR="dark"
   ;;
   *clear)
@@ -138,14 +138,14 @@ echo " Done."
 echo -n "Compiling GTK theme..."
 
 # compile theme based on color passed
+sass -C --sourcemap=none gtk.scss gtk.css
+sass -C --sourcemap=none gtk-dark.scss gtk-dark.css
+
 if [ $COLOR == "dark" ];
 then
- sass -C --sourcemap=none _gtk-dark.scss gtk.css
-else
- sass -C --sourcemap=none _gtk.scss gtk.css
+  mv gtk.css gtk-light.css
+  mv gtk-dark.css gtk.css
 fi
-
-sass -C --sourcemap=none _common.scss gtk-widgets.css
 
 # gtk3 assets
 echo "Rendering GTK3 assets..."
@@ -158,8 +158,7 @@ else
  cp -a assets "$TARGETDIR/gtk-3.0"
 fi
 
-cp gtk.css "$TARGETDIR/gtk-3.0"
-cp gtk-widgets.css "$TARGETDIR/gtk-3.0"
+cp *.css "$TARGETDIR/gtk-3.0"
 
 echo " Done."
 
