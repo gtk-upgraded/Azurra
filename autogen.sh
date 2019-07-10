@@ -109,7 +109,6 @@ fi
 
 # open work directory
 cd "$ROOTDIR/gtk-2.0"
-cp -a main.rc "$TARGETDIR/gtk-2.0/main.rc"
 
 if [ $COLOR == "dark" ];
 then
@@ -117,7 +116,8 @@ then
 else
  cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
 fi
-cp -a panel.rc "$TARGETDIR/gtk-2.0"
+cp panel.rc "$TARGETDIR/gtk-2.0"
+cp main.rc "$TARGETDIR/gtk-2.0/"
 
 # gtk2 assets
 echo "Rendering GTK2 assets..."
