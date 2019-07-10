@@ -117,18 +117,26 @@ then
 else
  cp -a gtkrc "$TARGETDIR/gtk-2.0/gtkrc"
 fi
+cp -a panel.rc "$TARGETDIR/gtk-2.0"
 
 # gtk2 assets
 echo "Rendering GTK2 assets..."
+cd assets-render-dark
+  ./render-assets.sh -g
+  cp -R assets/* ../assets-dark/
+cd ..
+
+cd assets-render
+  ./render-assets.sh -g
+  cp -R assets/* ../assets/
+cd ..
+
 if [ $COLOR == "dark" ];
 then
- ./render-assets.sh -g -d
  cp -a assets-dark "$TARGETDIR/gtk-2.0/assets"
 else
- ./render-assets.sh -g
  cp -a assets "$TARGETDIR/gtk-2.0"
 fi
-cp -a panel.rc "$TARGETDIR/gtk-2.0"
 
 # open work directory
 cd "$ROOTDIR/gtk-3.0"
@@ -147,18 +155,27 @@ then
   mv gtk-dark.css gtk.css
 fi
 
+cp *.css "$TARGETDIR/gtk-3.0"
+
 # gtk3 assets
 echo "Rendering GTK3 assets..."
+
+cd assets-render-dark
+  ./render-assets.sh -g
+  cp -R assets/* ../assets-dark/
+cd ..
+
+cd assets-render
+  ./render-assets.sh -g
+  cp -R assets/* ../assets/
+cd ..
+
 if [ $COLOR == "dark" ];
 then
- ./render-assets.sh -d
  cp -a assets-dark "$TARGETDIR/gtk-3.0/assets"
 else
- ./render-assets.sh
  cp -a assets "$TARGETDIR/gtk-3.0"
 fi
-
-cp *.css "$TARGETDIR/gtk-3.0"
 
 echo " Done."
 
