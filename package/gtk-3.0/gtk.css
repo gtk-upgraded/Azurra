@@ -1672,7 +1672,7 @@ headerbar, headerbar:not(.titlebar) {
         background-color: #FDFDFD; }
     headerbar button:active, headerbar button:checked, headerbar:not(.titlebar) button:active, headerbar:not(.titlebar) button:checked {
       border-color: shade(#1D8ECE, 1.15);
-      color: #000000;
+      color: #FFFFFF;
       background-color: shade(#1D8ECE, 1.15); }
       headerbar button:active:backdrop, headerbar button:checked:backdrop, headerbar:not(.titlebar) button:active:backdrop, headerbar:not(.titlebar) button:checked:backdrop {
         border-color: #1D8ECE;
@@ -1683,7 +1683,7 @@ headerbar, headerbar:not(.titlebar) {
       color: alpha(#FFFFFF, 0.7);
       background-color: transparent; }
       headerbar button:disabled:backdrop, headerbar:not(.titlebar) button:disabled:backdrop {
-        border-color: transparent;
+        border-color: shade(shade(#FDFDFD, 0.9), 1.05);
         color: mix(#000000, #FDFDFD, 0.5);
         background-color: transparent; }
     headerbar button:backdrop, headerbar:not(.titlebar) button:backdrop {
@@ -2189,6 +2189,9 @@ searchbar {
   border-style: solid;
   border-color: shade(#FDFDFD, 0.9);
   background-color: #FDFDFD; }
+
+.nautilus-window .searchbar-container {
+  margin-top: -1px; }
 
 .app-notification {
   border-style: solid;
