@@ -27,11 +27,12 @@ do
   *clear)
    cd $ROOTDIR/gtk-2.0
    
-   echo $PWD
-   ./render-assets.sh --clear
+   rm -rf assets-render/assets/*
+   rm -rf assets-render-dark/assets/*
    
    cd $ROOTDIR/gtk-3.0
-   ./render-assets.sh --clear
+   rm -rf assets-render/assets/*
+   rm -rf assets-render-dark/assets/*
    
    cd $ROOTDIR
    
@@ -122,12 +123,12 @@ cp main.rc "$TARGETDIR/gtk-2.0/"
 # gtk2 assets
 echo "Rendering GTK2 assets..."
 cd assets-render-dark
-  ./render-assets.sh -g
+  ./render-assets.sh
   cp -R assets/* ../assets-dark/
 cd ..
 
 cd assets-render
-  ./render-assets.sh -g
+  ./render-assets.sh
   cp -R assets/* ../assets/
 cd ..
 
@@ -161,12 +162,12 @@ cp *.css "$TARGETDIR/gtk-3.0"
 echo "Rendering GTK3 assets..."
 
 cd assets-render-dark
-  ./render-assets.sh -g
+  ./render-assets.sh
   cp -R assets/* ../assets-dark/
 cd ..
 
 cd assets-render
-  ./render-assets.sh -g
+  ./render-assets.sh
   cp -R assets/* ../assets/
 cd ..
 
