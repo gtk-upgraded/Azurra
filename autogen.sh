@@ -146,6 +146,8 @@ cd "$ROOTDIR/gtk-3.0"
 echo " Done."
 echo -n "Compiling GTK theme..."
 
+rm *.css
+
 # compile theme based on color passed
 sass -C --sourcemap=none gtk.scss gtk.css
 sass -C --sourcemap=none gtk-dark.scss gtk-dark.css
@@ -156,6 +158,7 @@ then
   mv gtk-dark.css gtk.css
 fi
 
+rm -rf "$TARGETDIR/gtk-3.0/"*.css
 cp *.css "$TARGETDIR/gtk-3.0"
 
 # gtk3 assets
