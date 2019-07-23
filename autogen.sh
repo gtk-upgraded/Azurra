@@ -8,7 +8,7 @@ then
 fi
 
 # set root directory
-ROOTDIR="$PWD/common"
+ROOTDIR="$PWD/src"
 TARGETDIR="$PWD/package"
 
 # set variants
