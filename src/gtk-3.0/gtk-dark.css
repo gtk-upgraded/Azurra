@@ -1446,7 +1446,7 @@ separator {
   .titlebutton button separator, .titlebutton separator.titlebutton {
     border-color: mix(#1D8ECE, #000000, 0.1); }
     .titlebutton button separator:backdrop, .titlebutton separator.titlebutton:backdrop {
-      background-color: shade(#484848, 0.9); }
+      border-color: shade(#484848, 0.9); }
   menu separator {
     background-color: mix(#484848, #FFFFFF, 0.1); }
   menuitem separator {
