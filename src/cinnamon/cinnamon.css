@@ -4,7 +4,7 @@ stage {
   color: #ffffff; }
 
 .label-shadow {
-  color: transparent; }
+  color: rgba(0, 0, 0, 0); }
 
 .popup-menu #notification .notification-button, .popup-menu #notification .notification-icon-button, .notification-button, .notification-icon-button, .modal-dialog-button-box .modal-dialog-button, .sound-button {
   min-height: 20px;
@@ -116,8 +116,8 @@ StScrollBar {
 
 .separator {
   -gradient-height: 1px;
-  -gradient-start: transparent;
-  -gradient-end: transparent;
+  -gradient-start: rgba(0, 0, 0, 0);
+  -gradient-end: rgba(0, 0, 0, 0);
   -margin-horizontal: 1.5em;
   height: 1em; }
 
@@ -761,21 +761,21 @@ StScrollBar {
     background: rgba(255, 255, 255, 0.2); }
 
 .switcher-arrow {
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, 0);
   color: #ffffff; }
   .switcher-arrow:highlighted {
-    border-color: transparent;
+    border-color: rgba(0, 0, 0, 0);
     color: #ffffff; }
 
 .thumbnail-scroll-gradient-left {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 24px;
   border-radius-topright: 0px;
   border-radius-bottomright: 0px;
   width: 60px; }
 
 .thumbnail-scroll-gradient-right {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 24px;
   border-radius-topleft: 0px;
   border-radius-bottomleft: 0px;
@@ -964,7 +964,7 @@ StScrollBar {
   border: 1px solid #464646; }
 .menu-favorites-button {
   padding: .9em 1em;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 2px; }
   .menu-favorites-button:hover {
     background-color: #1D8ECE; }
@@ -979,7 +979,7 @@ StScrollBar {
   padding: 10px 10px 0 10px; }
 .menu-application-button {
   padding: 7px;
-  border: 1px solid transparent; }
+  border: 1px solid rgba(0, 0, 0, 0); }
   .menu-application-button:highlighted {
     font-weight: bold; }
   .menu-application-button-selected {
@@ -995,7 +995,7 @@ StScrollBar {
     padding-right: 5px; }
 .menu-category-button {
   padding: 7px;
-  border: 1px solid transparent; }
+  border: 1px solid rgba(0, 0, 0, 0); }
   .menu-category-button-selected {
     padding: 7px;
     color: #ffffff;
@@ -1007,7 +1007,7 @@ StScrollBar {
   .menu-category-button-greyed {
     padding: 7px;
     color: rgba(255, 255, 255, 0.45);
-    border: 1px solid transparent; }
+    border: 1px solid rgba(0, 0, 0, 0); }
   .menu-category-button-label:ltr {
     padding-left: 5px; }
   .menu-category-button-label:rtl {
@@ -1311,9 +1311,9 @@ StScrollBar {
   border: none;
   -slider-height: 0.5em;
   -slider-background-color: #3b3b3b;
-  -slider-border-color: transparent;
+  -slider-border-color: rgba(0, 0, 0, 0);
   -slider-active-background-color: #1D8ECE;
-  -slider-active-border-color: transparent;
+  -slider-active-border-color: rgba(0, 0, 0, 0);
   -slider-border-width: 0px;
   -slider-handle-radius: 0px; }
 
@@ -1558,5 +1558,5 @@ StScrollBar {
 .xkcd-box {
   padding: 6px;
   border: 0px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 0px; }
