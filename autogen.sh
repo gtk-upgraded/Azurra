@@ -1,7 +1,10 @@
 #!/bin/bash
 
+COMPILER=sassc
+COMPILER_ARGS="-M"
+
 # exit if sass isn't installed (rough check)
-if [ ! -f /usr/bin/sassc ];
+if [ ! -f /usr/bin/$COMPILER ];
 then
  echo "WARNING: SASS is needed to compile this theme. Install it before proceeding to generation"
  exit
@@ -47,28 +50,6 @@ do
   ;;
  esac
 done
-
-# if package dir exists
-if [ -d "$PWD/package" ];
-then
-
- # Remove existing files
- echo -n "Cleaning up..."
- 
- rm -rf "$TARGETDIR"/cinnamon/*
- rm -rf "$TARGETDIR"/gnome/*
- rm -rf "$TARGETDIR"/gtk-2.0/*
- rm -rf "$TARGETDIR"/gtk-3.0/*
- rm -rf "$TARGETDIR"/metacity-1/*
- rm -rf "$TARGETDIR"/openbox-3/*
- rm -rf "$TARGETDIR"/xfce-notify-4.0/*
- rm -rf "$TARGETDIR"/xfwm4/*
- rm "$TARGETDIR"/index.theme
- 
- echo " Done."
-else
- mkdir package
-fi
 
 # Copy static resources
 echo -n "Copying indexing resources..."
@@ -151,8 +132,8 @@ echo -n "Compiling GTK theme..."
 rm *.css
 
 # compile theme based on color passed
-sass -C --sourcemap=none gtk.scss gtk.css
-sass -C --sourcemap=none gtk-dark.scss gtk-dark.css
+$COMPILER $COMPILER_ARGS gtk.scss gtk.css
+$COMPILER $COMPILER_ARGS gtk-dark.scss gtk-dark.css
 
 if [ $COLOR == "dark" ];
 then
@@ -191,13 +172,12 @@ cd "$ROOTDIR/gnome-shell"
 # compile gnome-shell theme
 echo -n "Compiling Gnome-Shell theme..."
 
-sass -C --sourcemap=none _common.scss gnome-shell.css
+$COMPILER $COMPILER_ARGS _common.scss gnome-shell.css
 
 cp -a "assets" "$TARGETDIR/gnome-shell"
 cp gnome-shell.css "$TARGETDIR/gnome-shell"
 
 echo " Done."
-
 
 # open work directory
 cd "$ROOTDIR/cinnamon"
@@ -205,7 +185,7 @@ cd "$ROOTDIR/cinnamon"
 # compile cinnamon theme
 echo -n "Compiling Cinnamon theme..."
 
-sass -C --sourcemap=none _common.scss cinnamon.css
+$COMPILER $COMPILER_ARGS _common.scss cinnamon.css
 
 cp -a "assets" "$TARGETDIR/cinnamon"
 cp cinnamon.css "$TARGETDIR/cinnamon"
