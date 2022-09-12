@@ -127,6 +127,7 @@ StEntry {
 /* Scrollbars */
 StScrollView.vfade {
   -st-vfade-offset: 68px; }
+
 StScrollView.hfade {
   -st-hfade-offset: 68px; }
 
@@ -164,14 +165,18 @@ StScrollBar {
 /* Check Boxes */
 .check-box StBoxLayout {
   spacing: .8em; }
+
 .check-box StBin {
   width: 24px;
   height: 22px;
   background-image: url("assets/checkbox-unchecked.png"); }
+
 .check-box:focus StBin {
   background-image: url("assets/checkbox-unchecked.png"); }
+
 .check-box:checked StBin {
   background-image: url("assets/checkbox-checked.png"); }
+
 .check-box:focus:checked StBin {
   background-image: url("assets/checkbox-checked.png"); }
 
@@ -358,6 +363,7 @@ StScrollBar {
 
 .mount-dialog-app-list-item-icon:ltr {
   padding-right: 17px; }
+
 .mount-dialog-app-list-item-icon:rtl {
   padding-left: 17px; }
 
@@ -456,6 +462,7 @@ StScrollBar {
 .extension-dialog .message-dialog-main-layout {
   spacing: 24px;
   padding: 10px; }
+
 .extension-dialog .message-dialog-title {
   color: #bfbfbf; }
 
@@ -792,6 +799,7 @@ StScrollBar {
 .events-section-title:hover,
 .events-section-title:focus {
   background-color: #555555; }
+
 .datemenu-today-button:active,
 .world-clocks-button:active,
 .weather-button:active,
@@ -935,7 +943,7 @@ StScrollBar {
   color: #999999;
   font-size: 0.7em;
   /* HACK: the label should be baseline-aligned with a 1em label,
-           fake this with some bottom padding */
+                     fake this with some bottom padding */
   padding-bottom: 0.13em; }
 
 .message-secondary-bin > StIcon {
@@ -1247,6 +1255,7 @@ StScrollBar {
 .list-search-result:active,
 .list-search-result:checked {
   background-color: rgba(47, 47, 47, 0.9); }
+
 .search-provider-icon:focus, .search-provider-icon:selected, .search-provider-icon:hover,
 .list-search-result:focus,
 .list-search-result:selected,
@@ -1263,6 +1272,7 @@ StScrollBar {
 .grid-search-result:checked .overview-icon {
   background-color: rgba(47, 47, 47, 0.9);
   box-shadow: none; }
+
 .app-well-app:hover .overview-icon, .app-well-app:focus .overview-icon, .app-well-app:selected .overview-icon,
 .app-well-app.app-folder:hover .overview-icon,
 .app-well-app.app-folder:focus .overview-icon,
@@ -1718,6 +1728,7 @@ StScrollBar {
 
 .user-widget-label:ltr {
   padding-left: 14px; }
+
 .user-widget-label:rtl {
   padding-right: 14px; }
 
@@ -1847,6 +1858,7 @@ StScrollBar {
 .lg-dialog StEntry {
   selection-background-color: #bbbbbb;
   selected-color: #333333; }
+
 .lg-dialog .shell-link {
   color: #999999; }
   .lg-dialog .shell-link:hover {
