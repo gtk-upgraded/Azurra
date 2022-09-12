@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit if sass isn't installed (rough check)
-if [ ! -f /usr/bin/sass ];
+if [ ! -f /usr/bin/sassc ];
 then
  echo "WARNING: SASS is needed to compile this theme. Install it before proceeding to generation"
  exit
@@ -9,7 +9,7 @@ fi
 
 # set root directory
 ROOTDIR="$PWD/src"
-TARGETDIR="$PWD/package"
+TARGETDIR="$PWD"
 
 # set variants
 COLOR="light"
@@ -52,9 +52,19 @@ done
 if [ -d "$PWD/package" ];
 then
 
- # Remove previous compilation if exists
+ # Remove existing files
  echo -n "Cleaning up..."
- rm -rf "$TARGETDIR"/*
+ 
+ rm -rf "$TARGETDIR"/cinnamon/*
+ rm -rf "$TARGETDIR"/gnome/*
+ rm -rf "$TARGETDIR"/gtk-2.0/*
+ rm -rf "$TARGETDIR"/gtk-3.0/*
+ rm -rf "$TARGETDIR"/metacity-1/*
+ rm -rf "$TARGETDIR"/openbox-3/*
+ rm -rf "$TARGETDIR"/xfce-notify-4.0/*
+ rm -rf "$TARGETDIR"/xfwm4/*
+ rm "$TARGETDIR"/index.theme
+ 
  echo " Done."
 else
  mkdir package
@@ -68,14 +78,6 @@ then
 else
  cp "$ROOTDIR/index.theme" "$TARGETDIR"
 fi
-
-# Create static folders
-mkdir "$TARGETDIR/gtk-2.0"
-mkdir "$TARGETDIR/gtk-3.0"
-mkdir "$TARGETDIR/gnome-shell"
-mkdir "$TARGETDIR/cinnamon"
-mkdir "$TARGETDIR/metacity-1"
-mkdir "$TARGETDIR/openbox-3"
 
 # copy corresponding openbox theme
 cp -a "$ROOTDIR/openbox-3/"*.xbm "$TARGETDIR/openbox-3"
